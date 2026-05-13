@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Aria Music School — Mis Enlaces</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1f2d4a;
+    --navy-deep: #16213a;
+    --navy-soft: #2a3a5c;
+    --cream: #f4eee2;
+    --cream-light: #faf6ec;
+    --cream-warm: #ede4d0;
+    --gold: #c9a961;
+    --gold-soft: #d9bf83;
+    --gold-deep: #a8884a;
+    --burgundy: #6b2737;
+    --ink: #1a1a1a;
+    --ink-soft: #4a4a4a;
+    --line: rgba(31, 45, 74, 0.12);
+    --shadow-sm: 0 1px 2px rgba(31, 45, 74, 0.06);
+    --shadow-md: 0 4px 16px rgba(31, 45, 74, 0.08);
+    --shadow-lg: 0 12px 40px rgba(31, 45, 74, 0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    min-height: 100vh;
+    padding: 40px 20px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(circle at 20% 20%, rgba(201, 169, 97, 0.06), transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(31, 45, 74, 0.04), transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ───── HEADER ───── */
+  header {
+    text-align: center;
+    margin-bottom: 48px;
+    padding-top: 24px;
+  }
+
+  .logo-mark {
+    width: 56px;
+    height: 56px;
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--navy);
+    border-radius: 8px;
+  }
+
+  .logo-mark svg {
+    width: 36px;
+    height: 36px;
+    color: var(--cream);
+  }
+
+  .brand-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 38px;
+    font-weight: 500;
+    color: var(--navy);
+    letter-spacing: -0.01em;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .brand-sub {
+    font-size: 11px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold-deep);
+    margin-bottom: 28px;
+  }
+
+  .page-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 22px;
+    color: var(--ink-soft);
+    font-weight: 400;
+  }
+
+  .page-title::before,
+  .page-title::after {
+    content: '·';
+    margin: 0 14px;
+    color: var(--gold);
+    font-style: normal;
+  }
+
+  /* ───── SECTION ───── */
+  .section {
+    margin-bottom: 40px;
+  }
+
+  .section-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold-deep);
+    margin-bottom: 16px;
+    padding-left: 4px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--gold) 0%, transparent 100%);
+    margin-left: 8px;
+  }
+
+  /* ───── LINK CARD ───── */
+  .link-card {
+    background: var(--cream-light);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 20px 22px;
+    margin-bottom: 12px;
+    display: grid;
+    grid-template-columns: 44px 1fr auto auto;
+    gap: 16px;
+    align-items: center;
+    transition: all 0.25s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .link-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    height: 100%;
+    width: 3px;
+    background: var(--gold);
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 0.3s ease;
+  }
+
+  .link-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--gold-soft);
+  }
+
+  .link-card:hover::before { transform: scaleY(1); }
+
+  .link-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    background: var(--navy);
+    color: var(--cream);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .link-icon.gold {
+    background: linear-gradient(135deg, var(--gold), var(--gold-deep));
+    color: var(--navy);
+  }
+
+  .link-icon.burgundy {
+    background: var(--burgundy);
+    color: var(--cream);
+  }
+
+  .link-icon.green {
+    background: #2e7d32;
+    color: var(--cream);
+  }
+
+  .link-icon.dark {
+    background: var(--navy-deep);
+    color: var(--gold-soft);
+  }
+
+  .link-icon svg {
+    width: 20px;
+    height: 20px;
+    stroke-width: 1.8;
+  }
+
+  .link-info { min-width: 0; }
+
+  .link-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 2px;
+    line-height: 1.2;
+  }
+
+  .link-url {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    color: var(--ink-soft);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-weight: 400;
+  }
+
+  .link-actions {
+    display: flex;
+    gap: 6px;
+  }
+
+  .action-btn {
+    width: 36px;
+    height: 36px;
+    border: 1px solid var(--line);
+    background: var(--cream);
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--navy);
+    transition: all 0.2s ease;
+  }
+
+  .action-btn:hover {
+    background: var(--navy);
+    color: var(--cream);
+    border-color: var(--navy);
+  }
+
+  .action-btn svg {
+    width: 16px;
+    height: 16px;
+    stroke-width: 1.8;
+  }
+
+  .action-btn.copied {
+    background: #2e7d32 !important;
+    color: white !important;
+    border-color: #2e7d32 !important;
+  }
+
+  /* ───── CREDENTIAL CARD ───── */
+  .cred-card {
+    background: var(--navy);
+    color: var(--cream);
+    border-radius: 12px;
+    padding: 24px 26px;
+    margin-bottom: 12px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cred-card::before {
+    content: '🔐';
+    position: absolute;
+    top: 16px;
+    right: 18px;
+    font-size: 24px;
+    opacity: 0.3;
+  }
+
+  .cred-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold-soft);
+    margin-bottom: 14px;
+  }
+
+  .cred-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(244, 238, 226, 0.1);
+  }
+
+  .cred-row:last-child { border-bottom: none; }
+
+  .cred-key {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold-soft);
+    min-width: 90px;
+  }
+
+  .cred-value {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: var(--cream);
+    font-weight: 500;
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .cred-copy {
+    background: rgba(244, 238, 226, 0.08);
+    border: 1px solid rgba(244, 238, 226, 0.15);
+    color: var(--cream);
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+  }
+
+  .cred-copy:hover {
+    background: var(--gold);
+    color: var(--navy);
+    border-color: var(--gold);
+  }
+
+  .cred-copy.copied {
+    background: #4caf50 !important;
+    color: white !important;
+    border-color: #4caf50 !important;
+  }
+
+  .cred-copy svg { width: 14px; height: 14px; stroke-width: 1.8; }
+
+  /* ───── NOTE ───── */
+  .note-card {
+    background: rgba(201, 169, 97, 0.08);
+    border: 1px solid rgba(201, 169, 97, 0.25);
+    border-radius: 12px;
+    padding: 18px 22px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    margin-bottom: 32px;
+  }
+
+  .note-icon {
+    width: 32px;
+    height: 32px;
+    background: var(--gold);
+    color: var(--navy);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .note-icon svg { width: 16px; height: 16px; stroke-width: 2; }
+
+  .note-text {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+
+  .note-text strong {
+    color: var(--navy);
+    font-weight: 600;
+  }
+
+  /* ───── FOOTER ───── */
+  footer {
+    text-align: center;
+    padding-top: 32px;
+    border-top: 1px solid var(--line);
+    margin-top: 16px;
+  }
+
+  .footer-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ink-soft);
+  }
+
+  .footer-text::before,
+  .footer-text::after {
+    content: '·';
+    color: var(--gold);
+    margin: 0 8px;
+    font-style: normal;
+  }
+
+  /* ───── TOAST ───── */
+  .toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    background: var(--navy);
+    color: var(--cream);
+    padding: 14px 24px;
+    border-radius: 999px;
+    box-shadow: var(--shadow-lg);
+    font-size: 13px;
+    letter-spacing: 0.05em;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    opacity: 0;
+    transition: all 0.3s ease;
+    z-index: 100;
+  }
+
+  .toast.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+
+  .toast svg { width: 16px; height: 16px; color: var(--gold); }
+
+  /* ───── RESPONSIVE ───── */
+  @media (max-width: 600px) {
+    body { padding: 20px 16px; }
+    .link-card {
+      grid-template-columns: 36px 1fr auto;
+      gap: 12px;
+      padding: 16px;
+    }
+    .link-icon { width: 36px; height: 36px; }
+    .link-icon svg { width: 16px; height: 16px; }
+    .link-label { font-size: 16px; }
+    .link-url { font-size: 11px; }
+    .action-btn { width: 32px; height: 32px; }
+    .brand-name { font-size: 32px; }
+    .page-title { font-size: 18px; }
+    .cred-row { flex-wrap: wrap; }
+    .cred-key { min-width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- ─── HEADER ─── -->
+  <header>
+    <div class="logo-mark">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <path d="M 22 82 L 50 18 L 78 82" stroke="currentColor" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M 50 36 Q 64 48 57 64 Q 50 74 40 72" stroke="currentColor" stroke-width="5" fill="none" stroke-linecap="round"/>
+        <ellipse cx="38" cy="73" rx="6.5" ry="4.5" fill="currentColor"/>
+      </svg>
+    </div>
+    <div class="brand-name">Aria Music School</div>
+    <div class="brand-sub">Mis Enlaces</div>
+    <div class="page-title">Todo en un solo lugar</div>
+  </header>
+
+  <!-- ─── NOTE ─── -->
+  <div class="note-card">
+    <div class="note-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+    </div>
+    <div class="note-text">
+      <strong>Tip:</strong> Guarda esta página en favoritos de tu navegador. También puedes abrirla desde tu celular para acceder a todos tus enlaces desde cualquier lugar.
+    </div>
+  </div>
+
+  <!-- ─── SITIO WEB ─── -->
+  <div class="section">
+    <div class="section-title">Sitio Público</div>
+
+    <a href="https://aria-music-school-production.up.railway.app" target="_blank" class="link-card" data-url="https://aria-music-school-production.up.railway.app">
+      <div class="link-icon gold">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      </div>
+      <div class="link-info">
+        <div class="link-label">Página Web Pública</div>
+        <div class="link-url">aria-music-school-production.up.railway.app</div>
+      </div>
+      <button class="action-btn" onclick="copyUrl(event, this)" title="Copiar URL">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      </button>
+      <button class="action-btn" onclick="openUrl(event, this)" title="Abrir en nueva pestaña">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      </button>
+    </a>
+  </div>
+
+  <!-- ─── ADMIN ─── -->
+  <div class="section">
+    <div class="section-title">Administración</div>
+
+    <a href="https://aria-music-school-production.up.railway.app/dashboard" target="_blank" class="link-card" data-url="https://aria-music-school-production.up.railway.app/dashboard">
+      <div class="link-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+      </div>
+      <div class="link-info">
+        <div class="link-label">Dashboard Admin</div>
+        <div class="link-url">aria-music-school-production.up.railway.app/dashboard</div>
+      </div>
+      <button class="action-btn" onclick="copyUrl(event, this)" title="Copiar URL">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      </button>
+      <button class="action-btn" onclick="openUrl(event, this)" title="Abrir en nueva pestaña">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      </button>
+    </a>
+
+    <!-- Credenciales -->
+    <div class="cred-card">
+      <div class="cred-title">Credenciales de Acceso · Directora</div>
+      <div class="cred-row">
+        <div class="cred-key">Email</div>
+        <div class="cred-value" id="adminEmail">ariadnabt07@gmail.com</div>
+        <button class="cred-copy" onclick="copyText(event, 'ariadnabt07@gmail.com', this)" title="Copiar email">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        </button>
+      </div>
+      <div class="cred-row">
+        <div class="cred-key">Password</div>
+        <div class="cred-value" id="adminPwd">Aria2026!</div>
+        <button class="cred-copy" onclick="copyText(event, 'Aria2026!', this)" title="Copiar contraseña">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── TÉCNICOS ─── -->
+  <div class="section">
+    <div class="section-title">Herramientas Técnicas</div>
+
+    <a href="https://aria-music-school-production.up.railway.app/api/health" target="_blank" class="link-card" data-url="https://aria-music-school-production.up.railway.app/api/health">
+      <div class="link-icon green">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+      </div>
+      <div class="link-info">
+        <div class="link-label">Health Check</div>
+        <div class="link-url">Verifica que el servidor está funcionando</div>
+      </div>
+      <button class="action-btn" onclick="copyUrl(event, this)" title="Copiar URL">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      </button>
+      <button class="action-btn" onclick="openUrl(event, this)" title="Abrir en nueva pestaña">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      </button>
+    </a>
+
+    <a href="https://railway.app/dashboard" target="_blank" class="link-card" data-url="https://railway.app/dashboard">
+      <div class="link-icon dark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      </div>
+      <div class="link-info">
+        <div class="link-label">Railway · Servidor</div>
+        <div class="link-url">Panel de control del hosting</div>
+      </div>
+      <button class="action-btn" onclick="copyUrl(event, this)" title="Copiar URL">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      </button>
+      <button class="action-btn" onclick="openUrl(event, this)" title="Abrir en nueva pestaña">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      </button>
+    </a>
+
+    <a href="https://github.com/Consultor-creator/aria-music-school" target="_blank" class="link-card" data-url="https://github.com/Consultor-creator/aria-music-school">
+      <div class="link-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+      </div>
+      <div class="link-info">
+        <div class="link-label">GitHub · Código</div>
+        <div class="link-url">Repositorio del proyecto</div>
+      </div>
+      <button class="action-btn" onclick="copyUrl(event, this)" title="Copiar URL">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      </button>
+      <button class="action-btn" onclick="openUrl(event, this)" title="Abrir en nueva pestaña">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      </button>
+    </a>
+  </div>
+
+  <!-- ─── CONTACTO ─── -->
+  <div class="section">
+    <div class="section-title">Contacto Aria Music School</div>
+
+    <a href="tel:+19313385397" class="link-card" data-url="+1 (931) 338-5397">
+      <div class="link-icon burgundy">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      </div>
+      <div class="link-info">
+        <div class="link-label">Teléfono</div>
+        <div class="link-url">+1 (931) 338-5397</div>
+      </div>
+      <button class="action-btn" onclick="copyText(event, '+1 (931) 338-5397', this)" title="Copiar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      </button>
+    </a>
+
+    <a href="mailto:ariamusicschool26@gmail.com" class="link-card" data-url="ariamusicschool26@gmail.com">
+      <div class="link-icon burgundy">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      </div>
+      <div class="link-info">
+        <div class="link-label">Email Escuela</div>
+        <div class="link-url">ariamusicschool26@gmail.com</div>
+      </div>
+      <button class="action-btn" onclick="copyText(event, 'ariamusicschool26@gmail.com', this)" title="Copiar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      </button>
+    </a>
+  </div>
+
+  <!-- ─── FOOTER ─── -->
+  <footer>
+    <div class="footer-text">Aria Music School · Est. 2024</div>
+  </footer>
+
+</div>
+
+<!-- ─── TOAST ─── -->
+<div class="toast" id="toast">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+  <span id="toastText">Copiado al portapapeles</span>
+</div>
+
+<script>
+  function showToast(message) {
+    const toast = document.getElementById('toast');
+    document.getElementById('toastText').textContent = message;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2200);
+  }
+
+  function copyUrl(event, btn) {
+    event.preventDefault();
+    event.stopPropagation();
+    const card = btn.closest('.link-card');
+    const url = card.getAttribute('data-url');
+    copyToClipboard(url, btn, 'URL copiada');
+  }
+
+  function copyText(event, text, btn) {
+    event.preventDefault();
+    event.stopPropagation();
+    copyToClipboard(text, btn, 'Copiado al portapapeles');
+  }
+
+  function openUrl(event, btn) {
+    event.preventDefault();
+    event.stopPropagation();
+    const card = btn.closest('.link-card');
+    const url = card.getAttribute('data-url');
+    if (url.startsWith('http')) {
+      window.open(url, '_blank');
+    }
+  }
+
+  function copyToClipboard(text, btn, message) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(() => {
+        flashButton(btn);
+        showToast(message);
+      }).catch(() => fallbackCopy(text, btn, message));
+    } else {
+      fallbackCopy(text, btn, message);
+    }
+  }
+
+  function fallbackCopy(text, btn, message) {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.top = '-9999px';
+    document.body.appendChild(ta);
+    ta.select();
+    try {
+      document.execCommand('copy');
+      flashButton(btn);
+      showToast(message);
+    } catch (e) {
+      showToast('No se pudo copiar');
+    }
+    document.body.removeChild(ta);
+  }
+
+  function flashButton(btn) {
+    btn.classList.add('copied');
+    setTimeout(() => btn.classList.remove('copied'), 1500);
+  }
+</script>
+
+</body>
+</html>
