@@ -83,6 +83,23 @@
       delete: (id) => request('DELETE', `/classes/${id}`),
     },
 
+    // Enrollments (inscripciones)
+    enrollments: {
+      list: (params) => {
+        const qs = params ? '?' + new URLSearchParams(params).toString() : '';
+        return request('GET', '/enrollments' + qs);
+      },
+      get: (id) => request('GET', `/enrollments/${id}`),
+      create: (data) => request('POST', '/enrollments', data),
+      update: (id, data) => request('PUT', `/enrollments/${id}`, data),
+      delete: (id) => request('DELETE', `/enrollments/${id}`),
+      pause: (id) => request('PATCH', `/enrollments/${id}/pause`),
+      resume: (id) => request('PATCH', `/enrollments/${id}/resume`),
+      cancel: (id) => request('PATCH', `/enrollments/${id}/cancel`),
+      byStudent: (studentId) => request('GET', `/enrollments/student/${studentId}`),
+      byClass: (classId) => request('GET', `/enrollments/class/${classId}`),
+    },
+
     // Concerts
     concerts: {
       list: (params) => {
@@ -109,7 +126,6 @@
         const qs = params ? '?' + new URLSearchParams(params).toString() : '';
         return request('GET', '/media' + qs);
       },
-      // Upload file (FormData)
       upload: (file, metadata) => {
         const fd = new FormData();
         fd.append('file', file);
@@ -120,7 +136,6 @@
         }
         return request('POST', '/media/upload', fd, true);
       },
-      // External URL (YouTube/Vimeo)
       create: (data) => request('POST', '/media', data),
       update: (id, data) => request('PUT', `/media/${id}`, data),
       delete: (id) => request('DELETE', `/media/${id}`),
