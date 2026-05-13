@@ -1,0 +1,4141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Aria Music School — Panel de Configuración</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1f2d4a;
+    --navy-deep: #16213a;
+    --navy-soft: #2a3a5c;
+    --cream: #f4eee2;
+    --cream-light: #faf6ec;
+    --cream-warm: #ede4d0;
+    --gold: #c9a961;
+    --gold-soft: #d9bf83;
+    --gold-deep: #a8884a;
+    --burgundy: #6b2737;
+    --ink: #1a1a1a;
+    --ink-soft: #4a4a4a;
+    --line: rgba(31, 45, 74, 0.12);
+    --line-strong: rgba(31, 45, 74, 0.22);
+    --shadow-sm: 0 1px 2px rgba(31, 45, 74, 0.06);
+    --shadow-md: 0 4px 16px rgba(31, 45, 74, 0.08);
+    --shadow-lg: 0 12px 40px rgba(31, 45, 74, 0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body { height: 100%; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    font-size: 14px;
+    line-height: 1.5;
+    overflow-x: hidden;
+  }
+
+  /* Subtle paper texture overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      radial-gradient(ellipse at top left, rgba(201, 169, 97, 0.05), transparent 50%),
+      radial-gradient(ellipse at bottom right, rgba(31, 45, 74, 0.04), transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .app {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    min-height: 100vh;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ───── SIDEBAR ───── */
+  .sidebar {
+    background: var(--navy);
+    color: var(--cream);
+    padding: 32px 0;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    border-right: 1px solid rgba(201, 169, 97, 0.15);
+  }
+
+  .brand {
+    padding: 0 32px 32px;
+    border-bottom: 1px solid rgba(244, 238, 226, 0.08);
+    margin-bottom: 24px;
+  }
+
+  .brand-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 4px;
+  }
+
+  .brand-mark {
+    width: 44px;
+    height: 44px;
+    background: var(--cream);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .brand-mark svg { width: 28px; height: 28px; }
+
+  .brand-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: var(--cream);
+  }
+
+  .brand-sub {
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: var(--gold-soft);
+    text-transform: uppercase;
+    margin-top: 2px;
+    margin-left: 56px;
+  }
+
+  .nav-section {
+    padding: 0 16px;
+    margin-bottom: 24px;
+  }
+
+  .nav-title {
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: rgba(244, 238, 226, 0.4);
+    padding: 0 16px;
+    margin-bottom: 8px;
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 16px;
+    border-radius: 6px;
+    color: rgba(244, 238, 226, 0.75);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 13.5px;
+    font-weight: 400;
+    margin-bottom: 2px;
+    border: none;
+    background: transparent;
+    width: 100%;
+    text-align: left;
+    font-family: inherit;
+  }
+
+  .nav-item:hover {
+    background: rgba(244, 238, 226, 0.05);
+    color: var(--cream);
+  }
+
+  .nav-item.active {
+    background: linear-gradient(90deg, rgba(201, 169, 97, 0.18), rgba(201, 169, 97, 0.04));
+    color: var(--cream);
+    border-left: 2px solid var(--gold);
+    padding-left: 14px;
+  }
+
+  .nav-item svg {
+    width: 16px;
+    height: 16px;
+    stroke-width: 1.6;
+    flex-shrink: 0;
+  }
+
+  .sidebar-footer {
+    margin-top: auto;
+    padding: 24px 32px 0;
+    border-top: 1px solid rgba(244, 238, 226, 0.08);
+    margin-top: 24px;
+  }
+
+  .director-card {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    background: rgba(244, 238, 226, 0.05);
+    border-radius: 8px;
+    border: 1px solid rgba(201, 169, 97, 0.12);
+  }
+
+  .director-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold), var(--gold-deep));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--navy);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .director-info { flex: 1; min-width: 0; }
+  .director-name {
+    font-size: 12px;
+    color: var(--cream);
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .director-role {
+    font-size: 10px;
+    color: var(--gold-soft);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* ───── MAIN ───── */
+  .main {
+    padding: 40px 56px;
+    max-width: 1400px;
+  }
+
+  .topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+  }
+
+  .crumbs {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+
+  .crumbs span { color: var(--gold-deep); }
+
+  .topbar-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .icon-btn {
+    width: 36px;
+    height: 36px;
+    border: 1px solid var(--line);
+    background: var(--cream-light);
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    color: var(--navy);
+  }
+
+  .icon-btn:hover {
+    background: var(--navy);
+    color: var(--cream);
+    border-color: var(--navy);
+  }
+
+  .icon-btn svg { width: 16px; height: 16px; stroke-width: 1.8; }
+
+  .save-status {
+    font-size: 11px;
+    color: var(--ink-soft);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .save-status::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #4caf50;
+    box-shadow: 0 0 8px rgba(76, 175, 80, 0.5);
+  }
+
+  /* Page header */
+  .page-header {
+    margin-bottom: 40px;
+    position: relative;
+  }
+
+  .page-eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold-deep);
+    margin-bottom: 12px;
+  }
+
+  .page-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 44px;
+    font-weight: 500;
+    line-height: 1.1;
+    color: var(--navy);
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+  }
+
+  .page-title em {
+    font-style: italic;
+    color: var(--gold-deep);
+    font-weight: 400;
+  }
+
+  .page-desc {
+    font-size: 15px;
+    color: var(--ink-soft);
+    max-width: 640px;
+    line-height: 1.6;
+  }
+
+  .page-divider {
+    height: 1px;
+    background: linear-gradient(90deg, var(--gold) 0%, transparent 50%);
+    margin: 24px 0 0;
+    width: 120px;
+  }
+
+  /* Tab views */
+  .view { display: none; animation: fadeIn 0.4s ease; }
+  .view.active { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ───── DASHBOARD STATS ───── */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+
+  .stat-card {
+    background: var(--cream-light);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    height: 2px;
+    width: 32px;
+    background: var(--gold);
+    transition: width 0.3s ease;
+  }
+
+  .stat-card:hover::before { width: 100%; }
+  .stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .stat-label {
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 12px;
+  }
+
+  .stat-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 38px;
+    font-weight: 500;
+    color: var(--navy);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .stat-meta {
+    font-size: 12px;
+    color: var(--ink-soft);
+  }
+
+  .stat-meta strong { color: var(--gold-deep); font-weight: 500; }
+
+  /* Two-column grid */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 24px;
+    margin-bottom: 32px;
+  }
+
+  .card {
+    background: var(--cream-light);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 28px;
+  }
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 24px;
+  }
+
+  .card-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--navy);
+    line-height: 1.2;
+  }
+
+  .card-sub {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold-deep);
+    margin-bottom: 4px;
+  }
+
+  .card-link {
+    font-size: 12px;
+    color: var(--gold-deep);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s;
+    letter-spacing: 0.05em;
+  }
+
+  .card-link:hover { border-bottom-color: var(--gold-deep); }
+
+  /* Schedule list */
+  .schedule-item {
+    display: grid;
+    grid-template-columns: 80px 1fr auto;
+    align-items: center;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+    gap: 16px;
+  }
+
+  .schedule-item:last-child { border-bottom: none; }
+
+  .schedule-time {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--navy);
+  }
+
+  .schedule-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 2px;
+  }
+
+  .schedule-detail {
+    font-size: 12px;
+    color: var(--ink-soft);
+  }
+
+  .schedule-badge {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: rgba(31, 45, 74, 0.08);
+    color: var(--navy);
+  }
+
+  .schedule-badge.online { background: rgba(201, 169, 97, 0.18); color: var(--gold-deep); }
+  .schedule-badge.home { background: rgba(107, 39, 55, 0.12); color: var(--burgundy); }
+
+  /* Activity feed */
+  .activity-item {
+    display: flex;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px dashed var(--line);
+  }
+
+  .activity-item:last-child { border-bottom: none; }
+
+  .activity-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--gold);
+    margin-top: 6px;
+    flex-shrink: 0;
+  }
+
+  .activity-content { flex: 1; }
+  .activity-text { font-size: 13px; color: var(--ink); margin-bottom: 2px; }
+  .activity-text strong { font-weight: 500; color: var(--navy); }
+  .activity-time { font-size: 11px; color: var(--ink-soft); letter-spacing: 0.05em; }
+
+  /* ───── FORMS ───── */
+  .form-section {
+    background: var(--cream-light);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 32px;
+    margin-bottom: 24px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--navy);
+  }
+
+  .section-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--gold-deep);
+    letter-spacing: 0.1em;
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .form-grid.three { grid-template-columns: repeat(3, 1fr); }
+  .form-grid.one { grid-template-columns: 1fr; }
+
+  .field { display: flex; flex-direction: column; }
+  .field.full { grid-column: 1 / -1; }
+
+  .label {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--navy);
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+
+  .label-hint {
+    font-size: 11px;
+    color: var(--ink-soft);
+    text-transform: none;
+    letter-spacing: normal;
+    margin-left: 6px;
+    font-weight: 400;
+  }
+
+  .input, .textarea, .select {
+    width: 100%;
+    padding: 11px 14px;
+    border: 1px solid var(--line-strong);
+    border-radius: 6px;
+    background: white;
+    font-family: inherit;
+    font-size: 14px;
+    color: var(--ink);
+    transition: all 0.2s ease;
+  }
+
+  .input:focus, .textarea:focus, .select:focus {
+    outline: none;
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(201, 169, 97, 0.15);
+  }
+
+  .textarea { resize: vertical; min-height: 90px; font-family: inherit; }
+
+  .select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%231f2d4a' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 36px;
+  }
+
+  /* Toggle switches */
+  .toggle-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .toggle-row:last-child { border-bottom: none; }
+
+  .toggle-info { flex: 1; }
+  .toggle-title { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 2px; }
+  .toggle-desc { font-size: 12px; color: var(--ink-soft); }
+
+  .switch {
+    position: relative;
+    width: 44px;
+    height: 24px;
+    background: #d4cfc1;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background 0.25s ease;
+    flex-shrink: 0;
+  }
+
+  .switch::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 20px;
+    height: 20px;
+    background: white;
+    border-radius: 50%;
+    transition: left 0.25s ease;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  }
+
+  .switch.on { background: var(--navy); }
+  .switch.on::after { left: 22px; }
+
+  /* Chip selectors */
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .chip {
+    padding: 7px 14px;
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    background: white;
+    font-size: 12px;
+    color: var(--ink-soft);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+    letter-spacing: 0.02em;
+  }
+
+  .chip:hover { border-color: var(--gold); color: var(--navy); }
+  .chip.selected {
+    background: var(--navy);
+    color: var(--cream);
+    border-color: var(--navy);
+  }
+
+  .chip.gold.selected {
+    background: var(--gold);
+    color: var(--navy);
+    border-color: var(--gold);
+  }
+
+  /* Color picker */
+  .palette {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .swatch {
+    width: 56px;
+    height: 56px;
+    border-radius: 8px;
+    cursor: pointer;
+    position: relative;
+    border: 2px solid transparent;
+    transition: transform 0.2s ease;
+  }
+
+  .swatch:hover { transform: scale(1.05); }
+  .swatch.selected { border-color: var(--gold); }
+  .swatch.selected::after {
+    content: '✓';
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 700;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+  }
+
+  /* Pricing table */
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  .price-card {
+    border: 1px solid var(--line-strong);
+    border-radius: 10px;
+    padding: 24px;
+    background: white;
+    position: relative;
+    transition: all 0.3s ease;
+  }
+
+  .price-card:hover {
+    border-color: var(--gold);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .price-duration {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 500;
+    color: var(--navy);
+    margin-bottom: 4px;
+  }
+
+  .price-duration em { font-style: italic; color: var(--gold-deep); font-size: 18px; }
+
+  .price-amount {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+    margin: 16px 0 4px;
+  }
+
+  .price-symbol { font-size: 14px; color: var(--ink-soft); }
+  .price-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 42px;
+    font-weight: 600;
+    color: var(--navy);
+    line-height: 1;
+  }
+  .price-period { font-size: 12px; color: var(--ink-soft); letter-spacing: 0.05em; }
+
+  .price-edit {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: transparent;
+    border: 1px solid var(--line);
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ink-soft);
+    transition: all 0.2s ease;
+  }
+
+  .price-edit:hover { background: var(--navy); color: var(--cream); border-color: var(--navy); }
+
+  /* Logo preview */
+  .logo-preview-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .logo-box {
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 32px;
+    text-align: center;
+    position: relative;
+    transition: all 0.3s ease;
+  }
+
+  .logo-box.primary { border-color: var(--gold); background: var(--cream); }
+
+  .logo-box-label {
+    position: absolute;
+    top: 12px;
+    left: 16px;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold-deep);
+  }
+
+  .logo-display {
+    margin: 16px 0 12px;
+    min-height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .logo-display svg { max-width: 200px; max-height: 100px; }
+
+  .logo-box-desc {
+    font-size: 11px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+    margin-top: 12px;
+  }
+
+  /* Buttons */
+  .btn-row {
+    display: flex;
+    gap: 12px;
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+    justify-content: flex-end;
+  }
+
+  .btn {
+    padding: 12px 28px;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+  }
+
+  .btn-primary {
+    background: var(--navy);
+    color: var(--cream);
+    border-color: var(--navy);
+  }
+
+  .btn-primary:hover {
+    background: var(--navy-deep);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--navy);
+    border-color: var(--line-strong);
+  }
+
+  .btn-secondary:hover {
+    background: var(--navy);
+    color: var(--cream);
+    border-color: var(--navy);
+  }
+
+  .btn-gold {
+    background: var(--gold);
+    color: var(--navy);
+    border-color: var(--gold);
+  }
+
+  .btn-gold:hover { background: var(--gold-deep); color: var(--cream); }
+
+  /* Toast */
+  .toast {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    background: var(--navy);
+    color: var(--cream);
+    padding: 14px 24px;
+    border-radius: 8px;
+    box-shadow: var(--shadow-lg);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    letter-spacing: 0.05em;
+    transform: translateY(100px);
+    opacity: 0;
+    transition: all 0.3s ease;
+    z-index: 100;
+    border-left: 3px solid var(--gold);
+  }
+
+  .toast.show { transform: translateY(0); opacity: 1; }
+
+  .toast svg { width: 18px; height: 18px; color: var(--gold); }
+
+  /* ───── FACULTY MODULE ───── */
+  .faculty-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    gap: 16px;
+  }
+
+  .search-wrap {
+    position: relative;
+    flex: 1;
+    max-width: 360px;
+  }
+
+  .search-wrap svg {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    color: var(--ink-soft);
+    stroke-width: 1.8;
+  }
+
+  .search-input {
+    width: 100%;
+    padding: 11px 14px 11px 40px;
+    border: 1px solid var(--line-strong);
+    border-radius: 8px;
+    background: var(--cream-light);
+    font-family: inherit;
+    font-size: 13px;
+    color: var(--ink);
+    transition: all 0.2s ease;
+  }
+
+  .search-input:focus {
+    outline: none;
+    border-color: var(--gold);
+    background: white;
+    box-shadow: 0 0 0 3px rgba(201, 169, 97, 0.15);
+  }
+
+  .faculty-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+  }
+
+  .teacher-card {
+    background: var(--cream-light);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 28px 24px;
+    position: relative;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    overflow: hidden;
+  }
+
+  .teacher-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--gold) 0%, var(--gold-soft) 50%, transparent 100%);
+    transform: scaleX(0.2);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+
+  .teacher-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--gold-soft);
+  }
+
+  .teacher-card:hover::before { transform: scaleX(1); }
+
+  .teacher-card.add-new {
+    border: 2px dashed var(--line-strong);
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 280px;
+    text-align: center;
+    color: var(--ink-soft);
+  }
+
+  .teacher-card.add-new::before { display: none; }
+
+  .teacher-card.add-new:hover {
+    border-color: var(--gold);
+    background: rgba(201, 169, 97, 0.04);
+    color: var(--gold-deep);
+  }
+
+  .add-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(31, 45, 74, 0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+    transition: all 0.3s ease;
+  }
+
+  .teacher-card.add-new:hover .add-icon {
+    background: var(--gold);
+    color: var(--navy);
+  }
+
+  .add-icon svg { width: 22px; height: 22px; stroke-width: 1.5; }
+
+  .teacher-avatar-lg {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold), var(--gold-deep));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--cream);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px;
+    font-weight: 600;
+    margin: 0 auto 18px;
+    border: 3px solid var(--cream);
+    box-shadow: 0 4px 12px rgba(168, 136, 74, 0.25);
+    position: relative;
+  }
+
+  .teacher-avatar-lg.ariadna {
+    background: linear-gradient(135deg, #2a3a5c, #1f2d4a);
+    color: var(--gold);
+  }
+
+  .teacher-status {
+    position: absolute;
+    bottom: 4px;
+    right: 4px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #4caf50;
+    border: 3px solid var(--cream-light);
+  }
+
+  .teacher-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--navy);
+    text-align: center;
+    margin-bottom: 4px;
+    line-height: 1.2;
+  }
+
+  .teacher-role {
+    text-align: center;
+    font-size: 10.5px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold-deep);
+    margin-bottom: 14px;
+  }
+
+  .teacher-bio-snippet {
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    line-height: 1.55;
+    text-align: center;
+    margin-bottom: 18px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .teacher-meta {
+    display: flex;
+    justify-content: space-around;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+  }
+
+  .teacher-meta-item {
+    text-align: center;
+  }
+
+  .teacher-meta-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--navy);
+    line-height: 1;
+  }
+
+  .teacher-meta-label {
+    font-size: 9.5px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-top: 4px;
+  }
+
+  /* Teacher Profile Detail */
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold-deep);
+    text-decoration: none;
+    margin-bottom: 16px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-family: inherit;
+    padding: 0;
+  }
+
+  .back-link:hover { color: var(--navy); }
+  .back-link svg { width: 14px; height: 14px; stroke-width: 2; }
+
+  .profile-hero {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-deep) 100%);
+    border-radius: 16px;
+    padding: 40px;
+    color: var(--cream);
+    margin-bottom: 32px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .profile-hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 240px;
+    height: 240px;
+    background: radial-gradient(circle, rgba(201,169,97,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .profile-hero-content {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 32px;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .profile-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold), var(--gold-deep));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 50px;
+    font-weight: 600;
+    color: var(--navy);
+    border: 4px solid var(--cream);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  }
+
+  .profile-info-block .profile-eyebrow {
+    font-size: 10.5px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold-soft);
+    margin-bottom: 8px;
+  }
+
+  .profile-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 38px;
+    font-weight: 500;
+    line-height: 1.1;
+    margin-bottom: 6px;
+    letter-spacing: -0.01em;
+  }
+
+  .profile-title {
+    font-size: 14px;
+    color: var(--gold-soft);
+    font-style: italic;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+  }
+
+  .profile-quick {
+    display: flex;
+    gap: 24px;
+    margin-top: 14px;
+  }
+
+  .profile-quick-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: rgba(244, 238, 226, 0.7);
+  }
+
+  .profile-quick-item svg { width: 13px; height: 13px; stroke-width: 1.6; }
+
+  .profile-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .profile-actions .btn {
+    white-space: nowrap;
+  }
+
+  /* Profile tabs */
+  .profile-tabs {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .profile-tab {
+    padding: 14px 20px;
+    background: none;
+    border: none;
+    font-family: inherit;
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    cursor: pointer;
+    position: relative;
+    transition: color 0.2s;
+    font-weight: 500;
+  }
+
+  .profile-tab:hover { color: var(--navy); }
+
+  .profile-tab.active {
+    color: var(--navy);
+  }
+
+  .profile-tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 20px;
+    right: 20px;
+    height: 2px;
+    background: var(--gold);
+  }
+
+  .profile-tab-content { display: none; }
+  .profile-tab-content.active { display: block; animation: fadeIn 0.3s ease; }
+
+  /* Classes module */
+  .classes-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .class-item {
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 24px 28px;
+    transition: all 0.2s ease;
+  }
+
+  .class-item:hover {
+    border-color: var(--gold-soft);
+    box-shadow: var(--shadow-md);
+  }
+
+  .class-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+    gap: 16px;
+  }
+
+  .class-title-wrap { flex: 1; }
+
+  .class-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 4px;
+    line-height: 1.2;
+  }
+
+  .class-subtitle {
+    font-size: 12px;
+    color: var(--ink-soft);
+    letter-spacing: 0.05em;
+  }
+
+  .class-actions {
+    display: flex;
+    gap: 6px;
+  }
+
+  .class-actions button {
+    width: 32px;
+    height: 32px;
+    border: 1px solid var(--line);
+    background: var(--cream-light);
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ink-soft);
+    transition: all 0.2s ease;
+  }
+
+  .class-actions button:hover {
+    background: var(--navy);
+    color: var(--cream);
+    border-color: var(--navy);
+  }
+
+  .class-actions button svg { width: 14px; height: 14px; stroke-width: 1.8; }
+
+  .class-desc {
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+    margin-bottom: 18px;
+  }
+
+  .class-levels {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 20px;
+  }
+
+  .level-tag {
+    font-size: 10.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: rgba(201, 169, 97, 0.15);
+    color: var(--gold-deep);
+    border: 1px solid rgba(201, 169, 97, 0.3);
+    font-weight: 500;
+  }
+
+  /* Price matrix */
+  .price-matrix {
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .price-matrix-header {
+    display: grid;
+    grid-template-columns: 100px repeat(3, 1fr);
+    background: var(--cream);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .matrix-cell {
+    padding: 10px 14px;
+    font-size: 10.5px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--navy);
+    font-weight: 500;
+    text-align: center;
+    border-right: 1px solid var(--line);
+  }
+
+  .matrix-cell:last-child { border-right: none; }
+  .matrix-cell.label { text-align: left; }
+
+  .matrix-cell svg {
+    width: 12px;
+    height: 12px;
+    vertical-align: middle;
+    margin-right: 4px;
+    stroke-width: 2;
+  }
+
+  .price-matrix-row {
+    display: grid;
+    grid-template-columns: 100px repeat(3, 1fr);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .price-matrix-row:last-child { border-bottom: none; }
+
+  .price-matrix-row .matrix-cell {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--navy);
+    text-transform: none;
+    letter-spacing: 0;
+    padding: 14px;
+    background: white;
+  }
+
+  .price-matrix-row .matrix-cell.label {
+    background: var(--cream-light);
+    font-size: 13px;
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+  }
+
+  .price-matrix-row .matrix-cell .currency {
+    color: var(--ink-soft);
+    font-size: 13px;
+    font-weight: 400;
+    margin-right: 2px;
+  }
+
+  /* Add class button */
+  .add-class-btn {
+    border: 2px dashed var(--line-strong);
+    background: transparent;
+    border-radius: 12px;
+    padding: 24px;
+    width: 100%;
+    cursor: pointer;
+    color: var(--ink-soft);
+    font-family: inherit;
+    font-size: 13px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .add-class-btn:hover {
+    border-color: var(--gold);
+    background: rgba(201, 169, 97, 0.04);
+    color: var(--gold-deep);
+  }
+
+  .add-class-btn svg { width: 16px; height: 16px; stroke-width: 2; }
+
+  /* Credentials list */
+  .credentials-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .credential-item {
+    display: grid;
+    grid-template-columns: 36px 1fr;
+    gap: 14px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .credential-item:last-child { border-bottom: none; }
+
+  .credential-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 6px;
+    background: rgba(201, 169, 97, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gold-deep);
+    flex-shrink: 0;
+  }
+
+  .credential-icon svg { width: 16px; height: 16px; stroke-width: 1.8; }
+
+  .credential-degree {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--navy);
+    margin-bottom: 2px;
+  }
+
+  .credential-institution {
+    font-size: 12px;
+    color: var(--ink-soft);
+    font-style: italic;
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  /* ───── CONCERTS MODULE ───── */
+  .concerts-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 28px;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .concerts-stats {
+    display: flex;
+    gap: 32px;
+    align-items: center;
+  }
+
+  .concert-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .concert-stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--navy);
+    line-height: 1;
+  }
+
+  .concert-stat-label {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+
+  .concert-card {
+    background: var(--cream-light);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .concert-card:hover {
+    border-color: var(--gold-soft);
+    box-shadow: var(--shadow-md);
+  }
+
+  .concert-header {
+    display: grid;
+    grid-template-columns: 110px 1fr auto;
+    gap: 24px;
+    padding: 24px 28px;
+    align-items: center;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .concert-date {
+    background: var(--navy);
+    color: var(--cream);
+    border-radius: 10px;
+    padding: 14px 12px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(31, 45, 74, 0.15);
+  }
+
+  .concert-date-month {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold-soft);
+    margin-bottom: 4px;
+  }
+
+  .concert-date-day {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px;
+    font-weight: 500;
+    line-height: 1;
+    color: var(--cream);
+  }
+
+  .concert-date-year {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: rgba(244, 238, 226, 0.6);
+    margin-top: 4px;
+  }
+
+  .concert-info { min-width: 0; }
+
+  .concert-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 6px;
+    line-height: 1.2;
+  }
+
+  .concert-meta {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .concert-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12.5px;
+    color: var(--ink-soft);
+  }
+
+  .concert-meta-item svg {
+    width: 13px;
+    height: 13px;
+    stroke-width: 1.8;
+    color: var(--gold-deep);
+  }
+
+  .concert-status {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .concert-status.published {
+    background: rgba(76, 175, 80, 0.12);
+    color: #2e7d32;
+    border: 1px solid rgba(76, 175, 80, 0.25);
+  }
+
+  .concert-status.draft {
+    background: rgba(201, 169, 97, 0.15);
+    color: var(--gold-deep);
+    border: 1px solid rgba(201, 169, 97, 0.3);
+  }
+
+  .concert-body {
+    padding: 24px 28px;
+  }
+
+  .concert-section-title {
+    font-size: 10.5px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold-deep);
+    margin-bottom: 14px;
+    font-weight: 500;
+  }
+
+  .concert-desc {
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    line-height: 1.7;
+    margin-bottom: 20px;
+    font-style: italic;
+  }
+
+  .participants-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .participant {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    transition: all 0.2s ease;
+  }
+
+  .participant:hover {
+    border-color: var(--gold-soft);
+  }
+
+  .participant-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold), var(--gold-deep));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--navy);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+
+  .participant-info { flex: 1; min-width: 0; }
+
+  .participant-name {
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--navy);
+    line-height: 1.2;
+    margin-bottom: 2px;
+  }
+
+  .participant-piece {
+    font-size: 11.5px;
+    color: var(--ink-soft);
+    font-style: italic;
+    font-family: 'Cormorant Garamond', serif;
+    line-height: 1.3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .participant-instrument {
+    font-size: 9.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold-deep);
+    padding: 3px 8px;
+    border-radius: 999px;
+    background: rgba(201, 169, 97, 0.12);
+    flex-shrink: 0;
+  }
+
+  .concert-actions {
+    display: flex;
+    gap: 8px;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+  }
+
+  .concert-btn {
+    padding: 8px 16px;
+    border: 1px solid var(--line);
+    background: white;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--navy);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 500;
+  }
+
+  .concert-btn:hover {
+    background: var(--navy);
+    color: var(--cream);
+    border-color: var(--navy);
+  }
+
+  .concert-btn.danger:hover {
+    background: var(--burgundy);
+    border-color: var(--burgundy);
+  }
+
+  .concert-btn svg {
+    width: 12px;
+    height: 12px;
+    stroke-width: 2;
+  }
+
+  .add-concert-card {
+    border: 2px dashed var(--line-strong);
+    background: transparent;
+    border-radius: 14px;
+    padding: 40px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: var(--ink-soft);
+    margin-bottom: 20px;
+  }
+
+  .add-concert-card:hover {
+    border-color: var(--gold);
+    background: rgba(201, 169, 97, 0.04);
+    color: var(--gold-deep);
+  }
+
+  .add-concert-card .add-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: rgba(31, 45, 74, 0.06);
+    margin: 0 auto 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+  }
+
+  .add-concert-card:hover .add-icon {
+    background: var(--gold);
+    color: var(--navy);
+  }
+
+  .add-concert-card .add-icon svg {
+    width: 24px;
+    height: 24px;
+    stroke-width: 1.8;
+  }
+
+  .add-concert-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 6px;
+  }
+
+  /* ───── GALLERY MODULE ───── */
+  .gallery-tabs {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 28px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .gallery-tab {
+    padding: 14px 22px;
+    background: none;
+    border: none;
+    font-family: inherit;
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    cursor: pointer;
+    position: relative;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .gallery-tab:hover { color: var(--navy); }
+  .gallery-tab.active { color: var(--navy); }
+
+  .gallery-tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 22px;
+    right: 22px;
+    height: 2px;
+    background: var(--gold);
+  }
+
+  .gallery-tab .count {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    background: var(--cream-warm);
+    color: var(--navy);
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-weight: 600;
+  }
+
+  .gallery-tab.active .count {
+    background: var(--gold);
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+  }
+
+  .media-card {
+    background: var(--cream-light);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+  }
+
+  .media-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--gold-soft);
+  }
+
+  .media-thumbnail {
+    aspect-ratio: 4/3;
+    background: var(--navy);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .media-thumbnail::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 30% 30%, rgba(201, 169, 97, 0.18), transparent 60%),
+      linear-gradient(135deg, var(--navy) 0%, var(--navy-deep) 100%);
+  }
+
+  .media-thumbnail-icon {
+    position: relative;
+    z-index: 2;
+    color: var(--gold);
+    opacity: 0.6;
+  }
+
+  .media-thumbnail-icon svg {
+    width: 56px;
+    height: 56px;
+    stroke-width: 1;
+  }
+
+  .media-type-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 3;
+    font-size: 9.5px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 5px 10px;
+    border-radius: 999px;
+    background: rgba(244, 238, 226, 0.95);
+    color: var(--navy);
+    font-weight: 500;
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .media-type-badge svg {
+    width: 10px;
+    height: 10px;
+    stroke-width: 2;
+  }
+
+  .media-type-badge.video {
+    background: rgba(107, 39, 55, 0.95);
+    color: var(--cream);
+  }
+
+  .play-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(31, 45, 74, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .media-card:hover .play-overlay { opacity: 1; }
+
+  .play-button {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--navy);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  .play-button svg {
+    width: 24px;
+    height: 24px;
+    margin-left: 3px;
+  }
+
+  .media-info {
+    padding: 16px 18px;
+  }
+
+  .media-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 4px;
+    line-height: 1.25;
+  }
+
+  .media-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px;
+  }
+
+  .media-date {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--ink-soft);
+    font-style: italic;
+  }
+
+  .media-event {
+    font-size: 11.5px;
+    color: var(--gold-deep);
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+  }
+
+  .media-card-add {
+    border: 2px dashed var(--line-strong);
+    background: transparent;
+    aspect-ratio: 4/3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--ink-soft);
+    transition: all 0.3s ease;
+  }
+
+  .media-card-add:hover {
+    border-color: var(--gold);
+    background: rgba(201, 169, 97, 0.04);
+    color: var(--gold-deep);
+  }
+
+  .media-card-add svg {
+    width: 32px;
+    height: 32px;
+    stroke-width: 1.5;
+    margin-bottom: 12px;
+  }
+
+  .media-card-add-label {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  /* Responsive */
+  @media (max-width: 1100px) {
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .two-col { grid-template-columns: 1fr; }
+    .form-grid, .form-grid.three { grid-template-columns: 1fr; }
+    .pricing-grid { grid-template-columns: 1fr; }
+    .logo-preview-grid { grid-template-columns: 1fr; }
+    .profile-hero-content { grid-template-columns: auto 1fr; }
+    .profile-actions { grid-column: 1 / -1; flex-direction: row; }
+    .price-matrix-header,
+    .price-matrix-row { grid-template-columns: 80px repeat(3, 1fr); }
+    .concert-header { grid-template-columns: 90px 1fr; }
+    .concert-status { grid-column: 1 / -1; justify-self: start; }
+  }
+
+  @media (max-width: 768px) {
+    .app { grid-template-columns: 1fr; }
+    .sidebar { position: relative; height: auto; }
+    .main { padding: 24px; }
+    .page-title { font-size: 32px; }
+    .stats-grid { grid-template-columns: 1fr; }
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar { width: 8px; }
+  ::-webkit-scrollbar-track { background: var(--cream); }
+  ::-webkit-scrollbar-thumb { background: var(--line-strong); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--navy); }
+</style>
+</head>
+<body>
+
+<div class="app">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-logo">
+        <div class="brand-mark">
+          <!-- Logo Aria Music School simplificado -->
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <path d="M 25 80 L 50 20 L 75 80" stroke="#1f2d4a" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M 50 35 Q 60 45 55 60 Q 50 70 42 70" stroke="#1f2d4a" stroke-width="5" fill="none" stroke-linecap="round"/>
+            <ellipse cx="40" cy="72" rx="7" ry="5" fill="#1f2d4a"/>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-text">ARIA</div>
+          <div style="font-size:9px;letter-spacing:0.3em;color:var(--gold-soft);text-transform:uppercase;margin-top:-2px;">Music School</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-title">Principal</div>
+      <button class="nav-item active" data-view="dashboard">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        Resumen
+      </button>
+      <button class="nav-item" data-view="general">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        Información General
+      </button>
+      <button class="nav-item" data-view="programs">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+        Programas y Clases
+      </button>
+      <button class="nav-item" data-view="tuition">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        Tarifas y Pagos
+      </button>
+      <button class="nav-item" data-view="policies">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="15" y2="17"/></svg>
+        Políticas Académicas
+      </button>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-title">Equipo</div>
+      <button class="nav-item" data-view="faculty">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Maestros y Clases
+      </button>
+      <button class="nav-item" data-view="concerts">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        Conciertos
+      </button>
+      <button class="nav-item" data-view="gallery">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        Galería
+      </button>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-title">Identidad</div>
+      <button class="nav-item" data-view="brand">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="13.5" cy="6.5" r=".5"/><circle cx="17.5" cy="10.5" r=".5"/><circle cx="8.5" cy="7.5" r=".5"/><circle cx="6.5" cy="12.5" r=".5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>
+        Marca y Visual
+      </button>
+      <button class="nav-item" data-view="communication">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Comunicación
+      </button>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-title">Sistema</div>
+      <button class="nav-item" data-view="notifications">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        Notificaciones
+      </button>
+      <button class="nav-item" data-view="account">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        Cuenta y Acceso
+      </button>
+    </div>
+
+    <div class="sidebar-footer">
+      <div class="director-card">
+        <div class="director-avatar">A</div>
+        <div class="director-info">
+          <div class="director-name">Ariadna B. Talavera</div>
+          <div class="director-role">Directora</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+    <div class="topbar">
+      <div class="crumbs">Configuración &nbsp;/&nbsp; <span id="crumb-current">Resumen</span></div>
+      <div class="topbar-actions">
+        <div class="save-status">Cambios guardados</div>
+        <button class="icon-btn" title="Buscar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </button>
+        <button class="icon-btn" title="Ayuda">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- ==================== VIEW: DASHBOARD ==================== -->
+    <section class="view active" id="view-dashboard">
+      <div class="page-header">
+        <div class="page-eyebrow">Panel de Control</div>
+        <h1 class="page-title">Buenos días, <em>Ariadna</em></h1>
+        <p class="page-desc">Resumen del estado actual de Aria Music School. Hoy es martes, 12 de mayo de 2026.</p>
+        <div class="page-divider"></div>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-label">Estudiantes Activos</div>
+          <div class="stat-value">24</div>
+          <div class="stat-meta"><strong>+3</strong> este mes</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Clases esta semana</div>
+          <div class="stat-value">38</div>
+          <div class="stat-meta"><strong>32</strong> confirmadas</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Ingresos del mes</div>
+          <div class="stat-value">$4,820</div>
+          <div class="stat-meta"><strong>87%</strong> cobrado</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Próximo recital</div>
+          <div class="stat-value">18d</div>
+          <div class="stat-meta">30 de mayo</div>
+        </div>
+      </div>
+
+      <div class="two-col">
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-sub">Hoy · Martes 12 de mayo</div>
+              <div class="card-title">Agenda del día</div>
+            </div>
+            <a href="#" class="card-link">Ver calendario completo →</a>
+          </div>
+          <div class="schedule-item">
+            <div class="schedule-time">3:30 PM</div>
+            <div>
+              <div class="schedule-name">Emma Rodríguez</div>
+              <div class="schedule-detail">Piano · Intermedio · 45 min</div>
+            </div>
+            <span class="schedule-badge">Presencial</span>
+          </div>
+          <div class="schedule-item">
+            <div class="schedule-time">4:30 PM</div>
+            <div>
+              <div class="schedule-name">David Chen</div>
+              <div class="schedule-detail">Piano · Principiante · 30 min</div>
+            </div>
+            <span class="schedule-badge online">Online</span>
+          </div>
+          <div class="schedule-item">
+            <div class="schedule-time">5:15 PM</div>
+            <div>
+              <div class="schedule-name">Sofía Martínez</div>
+              <div class="schedule-detail">Flauta · Avanzado · 60 min</div>
+            </div>
+            <span class="schedule-badge">Presencial</span>
+          </div>
+          <div class="schedule-item">
+            <div class="schedule-time">6:30 PM</div>
+            <div>
+              <div class="schedule-name">Liam O'Brien</div>
+              <div class="schedule-detail">Preparación ABRSM Grade 5 · 60 min</div>
+            </div>
+            <span class="schedule-badge home">Domicilio</span>
+          </div>
+          <div class="schedule-item">
+            <div class="schedule-time">8:00 PM</div>
+            <div>
+              <div class="schedule-name">Carlos Vega</div>
+              <div class="schedule-detail">Piano · Adulto · 45 min</div>
+            </div>
+            <span class="schedule-badge online">Online</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-sub">Últimas actualizaciones</div>
+              <div class="card-title">Actividad reciente</div>
+            </div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-dot"></div>
+            <div class="activity-content">
+              <div class="activity-text"><strong>Emma Rodríguez</strong> pagó la mensualidad de mayo</div>
+              <div class="activity-time">Hace 2 horas</div>
+            </div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-dot"></div>
+            <div class="activity-content">
+              <div class="activity-text"><strong>Nuevo estudiante</strong> registrado: Mateo Silva</div>
+              <div class="activity-time">Ayer · 6:42 PM</div>
+            </div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-dot"></div>
+            <div class="activity-content">
+              <div class="activity-text">Recital de primavera <strong>confirmado</strong> para el 30 de mayo</div>
+              <div class="activity-time">Hace 2 días</div>
+            </div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-dot"></div>
+            <div class="activity-content">
+              <div class="activity-text"><strong>Sofía Martínez</strong> aprobó ABRSM Grade 4 con distinción</div>
+              <div class="activity-time">Hace 4 días</div>
+            </div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-dot"></div>
+            <div class="activity-content">
+              <div class="activity-text">Política de cancelación actualizada</div>
+              <div class="activity-time">Hace 1 semana</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== VIEW: GENERAL ==================== -->
+    <section class="view" id="view-general">
+      <div class="page-header">
+        <div class="page-eyebrow">Configuración · Sección 01</div>
+        <h1 class="page-title">Información <em>General</em></h1>
+        <p class="page-desc">Datos básicos de contacto, ubicación y operación de la escuela. Esta información aparecerá en tu sitio web, documentos oficiales y comunicaciones con familias.</p>
+        <div class="page-divider"></div>
+      </div>
+
+      <div class="form-section">
+        <div class="section-header">
+          <div class="section-title">Identidad de la escuela</div>
+          <div class="section-num">i.</div>
+        </div>
+        <div class="form-grid">
+          <div class="field">
+            <label class="label">Nombre Oficial</label>
+            <input class="input" value="Aria Music School" />
+          </div>
+          <div class="field">
+            <label class="label">Año de Fundación</label>
+            <input class="input" value="2024" />
+          </div>
+          <div class="field full">
+            <label class="label">Eslogan / Tagline</label>
+            <input class="input" value="Educación musical de excelencia para todas las edades" />
+          </div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <div class="section-header">
+          <div class="section-title">Ubicación y contacto</div>
+          <div class="section-num">ii.</div>
+        </div>
+        <div class="form-grid">
+          <div class="field full">
+            <label class="label">Sede Principal</label>
+            <input class="input" value="First Parish of Westwood" />
+          </div>
+          <div class="field full">
+            <label class="label">Dirección</label>
+            <input class="input" value="252 Nahatan St, Westwood, Massachusetts 02090" />
+          </div>
+          <div class="field">
+            <label class="label">Teléfono</label>
+            <input class="input" value="+1 (931) 338-5397" />
+          </div>
+          <div class="field">
+            <label class="label">Email de contacto</label>
+            <input class="input" value="ariamusicschool26@gmail.com" />
+          </div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <div class="section-header">
+          <div class="section-title">Modalidades de enseñanza</div>
+          <div class="section-num">iii.</div>
+        </div>
+        <div class="chips" id="chips-modalities">
+          <button class="chip selected">Presencial</button>
+          <button class="chip selected">A domicilio</button>
+          <button class="chip selected">Online (mundial)</button>
+        </div>
+
+        <div style="margin-top:28px;">
+          <label class="label" style="display:block;margin-bottom:12px;">Idiomas de instrucción</label>
+          <div class="chips" id="chips-languages">
+            <button class="chip selected">Inglés</button>
+            <button class="chip selected">Español</button>
+            <button class="chip">Francés</button>
+            <button class="chip">Italiano</button>
+          </div>
+        </div>
+
+        <div style="margin-top:28px;">
+          <label class="label" style="display:block;margin-bottom:12px;">Edades aceptadas</label>
+          <div class="chips" id="chips-ages">
+            <button class="chip selected">Niños</button>
+            <button class="chip selected">Adolescentes</button>
+            <button class="chip selected">Adultos</button>
+            <button class="chip selected">Adultos mayores</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <div class="section-header">
+          <div class="section-title">Misión y filosofía</div>
+          <div class="section-num">iv.</div>
+        </div>
+        <div class="form-grid one">
+          <div class="field">
+            <label class="label">Misión <span class="label-hint">(aparece en el sitio web)</span></label>
+            <textarea class="textarea" rows="3">Aria Music School ofrece educación musical de excelencia en un ambiente inclusivo, profesional y motivador. Nuestra misión es ayudar a cada estudiante a desarrollar su máximo potencial artístico y personal a través de una enseñanza personalizada y de alto nivel.</textarea>
+          </div>
+          <div class="field">
+            <label class="label">Visión</label>
+            <textarea class="textarea" rows="3">Fomentar el valor de la música como herramienta de crecimiento humano, artístico y emocional, formando estudiantes seguros, disciplinados y creativos capaces de desarrollar una relación duradera con la música.</textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-secondary">Cancelar</button>
+        <button class="btn btn-primary" onclick="showToast()">Guardar cambios</button>
+      </div>
+    </section>
+
+    <!-- ==================== VIEW: PROGRAMS ==================== -->
+    <section class="view" id="view-programs">
+      <div class="page-header">
+        <div class="page-eyebrow">Configuración · Sección 02</div>
+        <h1 class="page-title">Programas y <em>Clases</em></h1>
+        <p class="page-desc">Configura los instrumentos, materias, niveles y certificaciones que ofrece Aria Music School.</p>
+        <div class="page-divider"></div>
+      </div>
+
+      <div class="form-section">
+        <div class="section-header">
+          <div class="section-title">Instrumentos y materias</div>
+          <div class="section-num">i.</div>
+        </div>
+        <div class="chips" id="chips-subjects">
+          <button class="chip selected">Piano</button>
+          <button class="chip selected">Flauta</button>
+          <button class="chip selected">Teoría Musical</button>
+          <button class="chip selected">Entrenamiento Auditivo</button>
+          <button class="chip selected">Preparación Audiciones</button>
+          <button class="chip selected">Exámenes Internacionales</button>
+          <button class="chip">Violín</button>
+          <button class="chip">Guitarra</button>
+          <button class="chip">Canto</button>
+          <button class="chip">Composición</button>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <div class="section-header">
+          <div class="section-title">Niveles ofrecidos</div>
+          <div class="section-num">ii.</div>
+        </div>
+        <div class="chips">
+          <button class="chip gold selected">Principiante</button>
+          <button class="chip gold selected">Intermedio</button>
+          <button class="chip gold selected">Avanzado</button>
+          <button class="chip gold selected">Pre-profesional</button>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <div class="section-header">
+          <div class="section-title">Certificaciones internacionales</div>
+          <div class="section-num">iii.</div>
+        </div>
+        <div class="toggle-row">
+          <div class="toggle-info">
+            <div class="toggle-title">ABRSM</div>
+            <div class="toggle-desc">Associated Board of the Royal Schools of Music</div>
+          </div>
+          <div class="switch on" onclick="toggleSwitch(this)"></div>
+        </div>
+        <div class="toggle-row">
+          <div class="toggle-info">
+            <div class="toggle-title">RCM</div>
+            <div class="toggle-desc">Royal Conservatory of Music</div>
+          </div>
+          <div class="switch on" onclick="toggleSwitch(this)"></div>
+        </div>
+        <div class="toggle-row">
+          <div class="toggle-info">
+            <div class="toggle-title">Preparación de audiciones</div>
+            <div class="toggle-desc">Para conservatorios y programas universitarios</div>
+          </div>
+          <div class="switch on" onclick="toggleSwitch(this)"></div>
+        </div>
+        <div class="toggle-row">
+          <div class="toggle-info">
+            <div class="toggle-title">Concursos nacionales e internacionales</div>
+            <div class="toggle-desc">Guía especializada para estudiantes avanzados</div>
+          </div>
+          <div class="switch on" onclick="toggleSwitch(this)"></div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <div class="section-header">
+          <div class="section-title">Recitales y presentaciones</div>
+          <div class="section-num">iv.</div>
+        </div>
+        <div class="form-grid">
+          <div class="field">
+            <label class="label">Recitales por año académico</label>
+            <select class="select">
+              <option>1 recital</option>
+              <option selected>2 recitales (mínimo)</option>
+              <option>3 recitales</option>
+              <option>4 recitales</option>
+            </select>
+          </div>
+          <div class="field">
+            <label class="label">Participación</label>
+            <select class="select">
+              <option selected>Obligatoria para todos</option>
+              <option>Opcional</option>
+              <option>Obligatoria desde nivel intermedio</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-secondary">Cancelar</button>
+        <button class="btn btn-primary" onclick="showToast()">Guardar cambios</button>
+      </div>
+    </section>
+
+    <!-- ==================== VIEW: TUITION ==================== -->
+    <section class="view" id="view-tuition">
+      <div class="page-header">
+        <div class="page-eyebrow">Configuración · Sección 03</div>
+        <h1 class="page-title">Tarifas y <em>Pagos</em></h1>
+        <p class="page-desc">Define los precios de las clases, métodos de pago aceptados y políticas de facturación.</p>
+        <div class="page-divider"></div>
+      </div>
+
+      <div class="form-section">
+        <div class="section-header">
+          <div class="section-title">Tarifas por lección</div>
+          <div class="section-num">i.</div>
+        </div>
+        <div class="pricing-grid">
+          <div class="price-card">
+            <button class="price-edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+            <div class="price-duration">30 <em>minutos</em></div>
+            <div class="price-amount">
+              <span class="price-symbol">$</span>
+              <span class="price-number">35</span>
+              <span class="price-period">/ clase</span>
+            </div>
+          </div>
+          <div class="price-card">
+            <button class="price-edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+            <div class="price-duration">45 <em>minutos</em></div>
+            <div class="price-amount">
+              <span class="price-symbol">$</span>
+              <span class="price-number">55</span>
+              <span class="price-period">/ clase</span>
+            </div>
+          </div>
+          <div class="price-card">
+            <button class="price-edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+            <div class="price-duration">60 <em>minutos</em></div>
+            <div class="price-amount">
+              <span class="price-symbol">$</span>
+              <span class="price-number">70</span>
+              <span class="price-period">/ clase</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <div class="section-header">
+          <div class="section-title">Métodos de pago aceptados</div>
+          <div class="section-num">ii.</div>
+        </div>
+        <div class="toggle-row">
+          <div class="toggle-info">
+            <div class="toggle-title">Efectivo</div>
+            <div class="toggle-desc">Pago en persona durante la clase</div>
+          </div>
+          <div class="switch on" onclick="toggleSwitch(this)"></div>
+        </div>
+        <div class="toggle-row">
+          <div class="toggle-info">
+            <div class="toggle-title">Zelle</div>
+            <div class="toggle-desc">+1 (931) 338-5397</div>
+          </div>
+          <div class="switch on" onclick="toggleSwitch(this)"></div>
+        </div>
+        <div class="toggle-row">
+          <div class="toggle-info">
+            <div class="toggle-title">Depósito bancario</div>
+            <div class="toggle-desc">Cuenta No. 151212079843</div>
+          </div>
+          <div class="switch on" onclick="toggleSwitch(this)"></div>
+        </div>
+        <div class="toggle-row">
+          <div class="toggle-info">
+            <div class="toggle-title">Venmo</div>
+            <div class="toggle-desc">No configurado</div>
+          </div>
+          <div class="switch" onclick="toggleSwitch(this)"></div>
+        </div>
+        <div class="toggle-row">
+          <div class="toggle-info">
+            <div class="toggle-title">Stripe / Tarjetas</div>
+            <div class="toggle-desc">Procesamiento online (próximamente)</div>
+          </div>
+          <div class="switch" onclick="toggleSwitch(this)"></div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <div class="section-header">
+          <div class="section-title">Política de facturación</div>
+          <div class="section-num">iii.</div>
+        </div>
+        <div class="form-grid">
+          <div class="field">
+            <label class="label">Frecuencia de cobro</label>
+            <select class="select">
+              <option selected>Mensual</option>
+              <option>Quincenal</option>
+              <option>Por clase</option>
+              <option>Semestral</option>
+            </select>
+          </div>
+          <div class="field">
+            <label class="label">Fecha de cobro</label>
+            <select class="select">
+              <option selected>Primera semana del mes</option>
+              <option>Segunda semana del mes</option>
+              <option>Día específico (1, 15...)</option>
+            </select>
+          </div>
+          <div class="field">
+            <label class="label">Recargo por mora</label>
+            <input class="input" value="$10.00" />
+          </div>
+          <div class="field">
+            <label class="label">Días de gracia</label>
+            <select class="select">
+              <option>Sin gracia</option>
+              <option>7 días</option>
+              <option selected>14 días (después de la segunda semana)</option>
+              <option>30 días</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-secondary">Cancelar</button>
+        <button class="btn btn-primary" onclick="showToast()">Guardar cambios</button>
+      </div>
+    </section>
+
+    <!-- ==================== VIEW: POLICIES ==================== -->
+    <section class="view" id="view-policies">
+      <div class="page-header">
+        <div class="page-eyebrow">Configuración · Sección 04</div>
+        <h1 class="page-title">Políticas <em>Académicas</em></h1>
+        <p class="page-desc">Reglas operativas que rigen la asistencia, cancelaciones, vacaciones y compromiso de estudiantes.</p>
+        <div class="page-divider"></div>
+      </div>
+
+      <div class="form-section">
+        <div class="section-header">
+          <div class="section-title">Calendario académico</div>
+          <div class="section-num">i.</div>
+        </div>
+        <div class="form-grid">
+          <div class="field">
+            <label class="label">Cierre de invierno · Inicio</label>
+            <input class="input" type="text" value="23 de diciembre" />
+          </div>
+          <div class="field">
+            <label class="label">Cierre de invierno · Fin</label>
+            <input class="input" type="text" value="1 de enero" />
+          </div>
+          <div class="field full">
+            <label class="label">Operación durante el año</label>
+            <select class="select">
+              <option selected>Todo el año (excepto cierres oficiales)</option>
+              <option>Año académico tradicional (Sep–Jun)</option>
+              <option>Solo trimestres</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="margin-top:24px;">
+          <label class="label" style="display:block;margin-bottom:12px;">Períodos vacacionales reconocidos</label>
+          <div class="chips">
+            <button class="chip selected">Fin de año</button>
+            <button class="chip selected">Easter / Pascua</button>
+            <button class="chip selected">MA School Vacation</button>
+            <button class="chip selected">Día de la Independencia</button>
+            <button class="chip selected">Thanksgiving</button>
+            <button class="chip">Verano completo</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <div class="section-header">
+          <div class="section-title">Cancelaciones y reposiciones</div>
+          <div class="section-num">ii.</div>
+        </div>
+        <div class="form-grid">
+          <div class="field">
+            <label class="label">Aviso mínimo para cancelar</label>
+            <select class="select">
+              <option>12 horas</option>
+              <option selected>24 horas</option>
+              <option>48 horas</option>
+            </select>
+          </div>
+          <div class="field">
+            <label class="label">Make-ups por semestre</label>
+            <select class="select">
+              <option>1 reposición</option>
+              <option selected>2 reposiciones</option>
+              <option>3 reposiciones</option>
+              <option>Ilimitadas</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="margin-top:24px;">
+          <div class="toggle-row">
+            <div class="toggle-info">
+              <div class="toggle-title">Excepciones por enfermedad</div>
+              <div class="toggle-desc">Permitir reposición fuera de la política estándar a discreción del profesor</div>
+            </div>
+            <div class="switch on" onclick="toggleSwitch(this)"></div>
+          </div>
+          <div class="toggle-row">
+            <div class="toggle-info">
+              <div class="toggle-title">Cancelaciones del profesor</div>
+              <div class="toggle-desc">Reprogramar automáticamente o acreditar al siguiente mes</div>
+            </div>
+            <div class="switch on" onclick="toggleSwitch(this)"></div>
+          </div>
+          <div class="toggle-row">
+            <div class="toggle-info">
+              <div class="toggle-title">Recuperación por tardanza</div>
+              <div class="toggle-desc">El tiempo perdido por llegar tarde no se extiende</div>
+            </div>
+            <div class="switch on" onclick="toggleSwitch(this)"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <div class="section-header">
+          <div class="section-title">Compromiso y asistencia</div>
+          <div class="section-num">iii.</div>
+        </div>
+        <div class="form-grid one">
+          <div class="field">
+            <label class="label">Texto de compromiso para familias</label>
+            <textarea class="textarea" rows="4">La asistencia regular y la práctica en casa son esenciales para el progreso musical. Las clases comienzan y terminan puntualmente. Se espera compromiso, respeto y dedicación tanto de estudiantes como de familias.</textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-secondary">Cancelar</button>
+        <button class="btn btn-primary" onclick="showToast()">Guardar cambios</button>
+      </div>
+    </section>
+
+    <!-- ==================== VIEW: FACULTY (LIST) ==================== -->
+    <section class="view" id="view-faculty">
+      <div class="page-header">
+        <div class="page-eyebrow">Equipo · Sección 05</div>
+        <h1 class="page-title">Maestros y <em>Clases</em></h1>
+        <p class="page-desc">Directorio de la facultad de Aria Music School. Cada perfil incluye la biografía profesional, las clases que enseña y los precios por modalidad.</p>
+        <div class="page-divider"></div>
+      </div>
+
+      <div class="faculty-toolbar">
+        <div class="search-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input class="search-input" placeholder="Buscar maestro por nombre o instrumento..." />
+        </div>
+        <button class="btn btn-primary" onclick="openTeacher('ariadna')" style="display:flex;align-items:center;gap:8px;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Agregar Maestro
+        </button>
+      </div>
+
+      <div class="faculty-grid">
+        <!-- Ariadna -->
+        <div class="teacher-card" onclick="openTeacher('ariadna')">
+          <div class="teacher-avatar-lg ariadna">
+            A
+            <div class="teacher-status"></div>
+          </div>
+          <div class="teacher-name">Ariadna Benitez Talavera</div>
+          <div class="teacher-role">Directora · Piano</div>
+          <div class="teacher-bio-snippet">Pianista y directora de orquesta cubana. DMA en Boston University. Ex-Directora Musical de la Orquesta Sinfónica de Matanzas.</div>
+          <div class="teacher-meta">
+            <div class="teacher-meta-item">
+              <div class="teacher-meta-value">3</div>
+              <div class="teacher-meta-label">Clases</div>
+            </div>
+            <div class="teacher-meta-item">
+              <div class="teacher-meta-value">24</div>
+              <div class="teacher-meta-label">Alumnos</div>
+            </div>
+            <div class="teacher-meta-item">
+              <div class="teacher-meta-value">30+</div>
+              <div class="teacher-meta-label">Años exp.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Maestro 2 -->
+        <div class="teacher-card" onclick="openTeacher('placeholder')">
+          <div class="teacher-avatar-lg">
+            M
+            <div class="teacher-status" style="background:#f59e0b;"></div>
+          </div>
+          <div class="teacher-name">María Fernández</div>
+          <div class="teacher-role">Flauta · Teoría</div>
+          <div class="teacher-bio-snippet">Flautista con maestría del New England Conservatory. Especialista en preparación de exámenes ABRSM.</div>
+          <div class="teacher-meta">
+            <div class="teacher-meta-item">
+              <div class="teacher-meta-value">2</div>
+              <div class="teacher-meta-label">Clases</div>
+            </div>
+            <div class="teacher-meta-item">
+              <div class="teacher-meta-value">12</div>
+              <div class="teacher-meta-label">Alumnos</div>
+            </div>
+            <div class="teacher-meta-item">
+              <div class="teacher-meta-value">15</div>
+              <div class="teacher-meta-label">Años exp.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Maestro 3 -->
+        <div class="teacher-card" onclick="openTeacher('placeholder')">
+          <div class="teacher-avatar-lg" style="background:linear-gradient(135deg,#6b2737,#8a3445);">
+            R
+            <div class="teacher-status"></div>
+          </div>
+          <div class="teacher-name">Rafael Cordero</div>
+          <div class="teacher-role">Violín · Música de Cámara</div>
+          <div class="teacher-bio-snippet">Violinista profesional con experiencia en orquestas sinfónicas. Bachelor of Music de Berklee College.</div>
+          <div class="teacher-meta">
+            <div class="teacher-meta-item">
+              <div class="teacher-meta-value">2</div>
+              <div class="teacher-meta-label">Clases</div>
+            </div>
+            <div class="teacher-meta-item">
+              <div class="teacher-meta-value">8</div>
+              <div class="teacher-meta-label">Alumnos</div>
+            </div>
+            <div class="teacher-meta-item">
+              <div class="teacher-meta-value">10</div>
+              <div class="teacher-meta-label">Años exp.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Add new -->
+        <div class="teacher-card add-new" onclick="openTeacher('new')">
+          <div class="add-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </div>
+          <div style="font-size:13px;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;">Agregar Maestro</div>
+          <div style="font-size:11.5px;margin-top:8px;line-height:1.5;max-width:180px;">Crear un nuevo perfil para un instructor del equipo</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== VIEW: FACULTY (TEACHER PROFILE) ==================== -->
+    <section class="view" id="view-teacher-profile">
+      <button class="back-link" onclick="backToFaculty()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        Volver al directorio
+      </button>
+
+      <div class="profile-hero">
+        <div class="profile-hero-content">
+          <div class="profile-avatar">A</div>
+          <div class="profile-info-block">
+            <div class="profile-eyebrow">Directora · Faculty Member</div>
+            <div class="profile-name">Ariadna Benitez Talavera</div>
+            <div class="profile-title">Pianista & Directora de Orquesta</div>
+            <div class="profile-quick">
+              <div class="profile-quick-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                +1 (931) 338-5397
+              </div>
+              <div class="profile-quick-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                ariadnabt07@gmail.com
+              </div>
+              <div class="profile-quick-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                Activa desde 2024
+              </div>
+            </div>
+          </div>
+          <div class="profile-actions">
+            <button class="btn btn-gold">Editar perfil</button>
+            <button class="btn btn-secondary" style="background:rgba(244,238,226,0.1);color:var(--cream);border-color:rgba(244,238,226,0.2);">Ver horario</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="profile-tabs">
+        <button class="profile-tab active" data-tab="bio">Biografía</button>
+        <button class="profile-tab" data-tab="classes">Clases y Precios</button>
+        <button class="profile-tab" data-tab="credentials">Credenciales</button>
+      </div>
+
+      <!-- TAB: BIO -->
+      <div class="profile-tab-content active" id="tab-bio">
+        <div class="form-section">
+          <div class="section-header">
+            <div class="section-title">Resumen profesional</div>
+            <div class="section-num">i.</div>
+          </div>
+          <div class="form-grid one">
+            <div class="field">
+              <label class="label">Biografía (Español) <span class="label-hint">aparece en website y materiales en español</span></label>
+              <textarea class="textarea" rows="6">Ariadna Benitez Talavera es una pianista y directora de orquesta cubana con una distinguida trayectoria internacional. Ha sido Directora Musical de la Orquesta Sinfónica de Matanzas en Cuba, liderando giras nacionales, estrenos y festivales de gran relevancia. Actualmente cursa el Doctorado en Dirección Orquestal en Boston University. Con décadas de experiencia artística y pedagógica, combina excelencia artística, disciplina e inspiración en cada lección.</textarea>
+            </div>
+            <div class="field">
+              <label class="label">Biografía (English) <span class="label-hint">appears on website and English materials</span></label>
+              <textarea class="textarea" rows="6">Ariadna Benitez Talavera is a Cuban pianist and conductor with a distinguished international career. She served as Music Director of the Matanzas Symphony Orchestra in Cuba, leading national tours, premieres, and major festivals, and is currently pursuing her Doctor of Musical Arts in Orchestral Conducting at Boston University. With decades of artistic and teaching experience, she combines artistry, discipline, and inspiration in every lesson.</textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <div class="section-header">
+            <div class="section-title">Especialidades</div>
+            <div class="section-num">ii.</div>
+          </div>
+          <div class="chips">
+            <button class="chip gold selected">Piano clásico</button>
+            <button class="chip gold selected">Música de cámara</button>
+            <button class="chip gold selected">Preparación ABRSM</button>
+            <button class="chip gold selected">Preparación RCM</button>
+            <button class="chip gold selected">Audiciones universitarias</button>
+            <button class="chip gold selected">Dirección de orquesta</button>
+            <button class="chip">Jazz</button>
+            <button class="chip">Improvisación</button>
+          </div>
+
+          <div style="margin-top:24px;">
+            <label class="label" style="display:block;margin-bottom:12px;">Idiomas de enseñanza</label>
+            <div class="chips">
+              <button class="chip selected">Español</button>
+              <button class="chip selected">Inglés</button>
+              <button class="chip">Italiano</button>
+            </div>
+          </div>
+
+          <div style="margin-top:24px;">
+            <label class="label" style="display:block;margin-bottom:12px;">Modalidades que ofrece</label>
+            <div class="chips">
+              <button class="chip selected">Presencial</button>
+              <button class="chip selected">A domicilio</button>
+              <button class="chip selected">Online</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn btn-secondary">Cancelar</button>
+          <button class="btn btn-primary" onclick="showToast()">Guardar perfil</button>
+        </div>
+      </div>
+
+      <!-- TAB: CLASSES -->
+      <div class="profile-tab-content" id="tab-classes">
+        <div class="form-section">
+          <div class="section-header">
+            <div class="section-title">Clases que enseña</div>
+            <div class="section-num">3 clases activas</div>
+          </div>
+
+          <div class="classes-list">
+            <!-- CLASE 1: PIANO -->
+            <div class="class-item">
+              <div class="class-header">
+                <div class="class-title-wrap">
+                  <div class="class-title">Piano</div>
+                  <div class="class-subtitle">Instrumento principal · Clase individual</div>
+                </div>
+                <div class="class-actions">
+                  <button title="Editar">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                  </button>
+                  <button title="Duplicar">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                  </button>
+                  <button title="Archivar">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                  </button>
+                </div>
+              </div>
+              <div class="class-desc">Clases individuales de piano desde principiantes hasta nivel pre-profesional. Repertorio clásico, técnica, teoría aplicada al instrumento y preparación de recitales. Enfoque personalizado según los objetivos del estudiante.</div>
+              <div class="class-levels">
+                <span class="level-tag">Principiante</span>
+                <span class="level-tag">Intermedio</span>
+                <span class="level-tag">Avanzado</span>
+                <span class="level-tag">Pre-profesional</span>
+              </div>
+
+              <div class="price-matrix">
+                <div class="price-matrix-header">
+                  <div class="matrix-cell label">Duración</div>
+                  <div class="matrix-cell">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                    Presencial
+                  </div>
+                  <div class="matrix-cell">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+                    A domicilio
+                  </div>
+                  <div class="matrix-cell">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                    Online
+                  </div>
+                </div>
+                <div class="price-matrix-row">
+                  <div class="matrix-cell label">30 min</div>
+                  <div class="matrix-cell"><span class="currency">$</span>35</div>
+                  <div class="matrix-cell"><span class="currency">$</span>50</div>
+                  <div class="matrix-cell"><span class="currency">$</span>35</div>
+                </div>
+                <div class="price-matrix-row">
+                  <div class="matrix-cell label">45 min</div>
+                  <div class="matrix-cell"><span class="currency">$</span>55</div>
+                  <div class="matrix-cell"><span class="currency">$</span>70</div>
+                  <div class="matrix-cell"><span class="currency">$</span>55</div>
+                </div>
+                <div class="price-matrix-row">
+                  <div class="matrix-cell label">60 min</div>
+                  <div class="matrix-cell"><span class="currency">$</span>70</div>
+                  <div class="matrix-cell"><span class="currency">$</span>90</div>
+                  <div class="matrix-cell"><span class="currency">$</span>70</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- CLASE 2: TEORÍA MUSICAL -->
+            <div class="class-item">
+              <div class="class-header">
+                <div class="class-title-wrap">
+                  <div class="class-title">Teoría Musical</div>
+                  <div class="class-subtitle">Materia complementaria · Individual o pequeños grupos</div>
+                </div>
+                <div class="class-actions">
+                  <button title="Editar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+                  <button title="Duplicar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+                  <button title="Archivar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
+                </div>
+              </div>
+              <div class="class-desc">Lectura musical, armonía, análisis y entrenamiento auditivo. Complemento esencial para estudiantes de cualquier instrumento. Preparación para exámenes teóricos ABRSM y RCM.</div>
+              <div class="class-levels">
+                <span class="level-tag">Principiante</span>
+                <span class="level-tag">Intermedio</span>
+                <span class="level-tag">Avanzado</span>
+              </div>
+
+              <div class="price-matrix">
+                <div class="price-matrix-header">
+                  <div class="matrix-cell label">Duración</div>
+                  <div class="matrix-cell"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Presencial</div>
+                  <div class="matrix-cell"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>A domicilio</div>
+                  <div class="matrix-cell"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/></svg>Online</div>
+                </div>
+                <div class="price-matrix-row">
+                  <div class="matrix-cell label">30 min</div>
+                  <div class="matrix-cell"><span class="currency">$</span>30</div>
+                  <div class="matrix-cell"><span class="currency">$</span>45</div>
+                  <div class="matrix-cell"><span class="currency">$</span>30</div>
+                </div>
+                <div class="price-matrix-row">
+                  <div class="matrix-cell label">45 min</div>
+                  <div class="matrix-cell"><span class="currency">$</span>45</div>
+                  <div class="matrix-cell"><span class="currency">$</span>60</div>
+                  <div class="matrix-cell"><span class="currency">$</span>45</div>
+                </div>
+                <div class="price-matrix-row">
+                  <div class="matrix-cell label">60 min</div>
+                  <div class="matrix-cell"><span class="currency">$</span>60</div>
+                  <div class="matrix-cell"><span class="currency">$</span>80</div>
+                  <div class="matrix-cell"><span class="currency">$</span>60</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- CLASE 3: PREPARACIÓN ABRSM/RCM -->
+            <div class="class-item">
+              <div class="class-header">
+                <div class="class-title-wrap">
+                  <div class="class-title">Preparación ABRSM / RCM</div>
+                  <div class="class-subtitle">Programa especializado · Certificaciones internacionales</div>
+                </div>
+                <div class="class-actions">
+                  <button title="Editar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+                  <button title="Duplicar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+                  <button title="Archivar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
+                </div>
+              </div>
+              <div class="class-desc">Preparación intensiva para exámenes oficiales de la Associated Board of the Royal Schools of Music (ABRSM) y Royal Conservatory of Music (RCM). Cobertura completa: repertorio, escalas, lectura a primera vista, entrenamiento auditivo y teoría requerida.</div>
+              <div class="class-levels">
+                <span class="level-tag">Grade 1–3</span>
+                <span class="level-tag">Grade 4–6</span>
+                <span class="level-tag">Grade 7–8</span>
+                <span class="level-tag">Diploma (ARSM)</span>
+              </div>
+
+              <div class="price-matrix">
+                <div class="price-matrix-header">
+                  <div class="matrix-cell label">Duración</div>
+                  <div class="matrix-cell"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Presencial</div>
+                  <div class="matrix-cell"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>A domicilio</div>
+                  <div class="matrix-cell"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/></svg>Online</div>
+                </div>
+                <div class="price-matrix-row">
+                  <div class="matrix-cell label">45 min</div>
+                  <div class="matrix-cell"><span class="currency">$</span>65</div>
+                  <div class="matrix-cell"><span class="currency">$</span>85</div>
+                  <div class="matrix-cell"><span class="currency">$</span>65</div>
+                </div>
+                <div class="price-matrix-row">
+                  <div class="matrix-cell label">60 min</div>
+                  <div class="matrix-cell"><span class="currency">$</span>85</div>
+                  <div class="matrix-cell"><span class="currency">$</span>105</div>
+                  <div class="matrix-cell"><span class="currency">$</span>85</div>
+                </div>
+                <div class="price-matrix-row">
+                  <div class="matrix-cell label">90 min</div>
+                  <div class="matrix-cell"><span class="currency">$</span>120</div>
+                  <div class="matrix-cell"><span class="currency">$</span>145</div>
+                  <div class="matrix-cell"><span class="currency">$</span>120</div>
+                </div>
+              </div>
+            </div>
+
+            <button class="add-class-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Agregar nueva clase
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: CREDENTIALS -->
+      <div class="profile-tab-content" id="tab-credentials">
+        <div class="form-section">
+          <div class="section-header">
+            <div class="section-title">Formación académica</div>
+            <div class="section-num">i.</div>
+          </div>
+          <div class="credentials-list">
+            <div class="credential-item">
+              <div class="credential-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+              </div>
+              <div>
+                <div class="credential-degree">Doctor of Musical Arts en Dirección Orquestal</div>
+                <div class="credential-institution">Boston University — En curso</div>
+              </div>
+            </div>
+            <div class="credential-item">
+              <div class="credential-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+              </div>
+              <div>
+                <div class="credential-degree">Master of Music</div>
+                <div class="credential-institution">Austin Peay State University</div>
+              </div>
+            </div>
+            <div class="credential-item">
+              <div class="credential-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+              </div>
+              <div>
+                <div class="credential-degree">Bachelor of Music</div>
+                <div class="credential-institution">University of the Arts in Havana</div>
+              </div>
+            </div>
+          </div>
+          <button class="add-class-btn" style="margin-top:20px;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Agregar credencial
+          </button>
+        </div>
+
+        <div class="form-section">
+          <div class="section-header">
+            <div class="section-title">Experiencia profesional</div>
+            <div class="section-num">ii.</div>
+          </div>
+          <div class="credentials-list">
+            <div class="credential-item">
+              <div class="credential-icon" style="background:rgba(31,45,74,0.08);color:var(--navy);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+              </div>
+              <div>
+                <div class="credential-degree">Directora Musical</div>
+                <div class="credential-institution">Orquesta Sinfónica de Matanzas, Cuba</div>
+              </div>
+            </div>
+            <div class="credential-item">
+              <div class="credential-icon" style="background:rgba(31,45,74,0.08);color:var(--navy);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+              </div>
+              <div>
+                <div class="credential-degree">Directora de Orquesta · Giras nacionales y festivales</div>
+                <div class="credential-institution">América Latina · Orquestas profesionales</div>
+              </div>
+            </div>
+            <div class="credential-item">
+              <div class="credential-icon" style="background:rgba(31,45,74,0.08);color:var(--navy);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+              </div>
+              <div>
+                <div class="credential-degree">Pianista profesional desde los 4 años</div>
+                <div class="credential-institution">Más de tres décadas de trayectoria</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn btn-secondary">Cancelar</button>
+          <button class="btn btn-primary" onclick="showToast()">Guardar cambios</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== VIEW: CONCERTS ==================== -->
+    <section class="view" id="view-concerts">
+      <div class="page-header">
+        <div class="page-eyebrow">Equipo · Sección 06</div>
+        <h1 class="page-title">Próximos <em>Conciertos</em></h1>
+        <p class="page-desc">Gestiona los recitales y conciertos de Aria Music School. Los conciertos publicados aparecen automáticamente en la sección "Próximos Conciertos" del sitio web público.</p>
+        <div class="page-divider"></div>
+      </div>
+
+      <div class="concerts-toolbar">
+        <div class="concerts-stats">
+          <div class="concert-stat">
+            <div class="concert-stat-num">2</div>
+            <div class="concert-stat-label">Próximos</div>
+          </div>
+          <div class="concert-stat">
+            <div class="concert-stat-num">1</div>
+            <div class="concert-stat-label">Borradores</div>
+          </div>
+          <div class="concert-stat">
+            <div class="concert-stat-num">3</div>
+            <div class="concert-stat-label">Participantes</div>
+          </div>
+        </div>
+        <button class="btn btn-primary" style="display:flex;align-items:center;gap:8px;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Agregar Concierto
+        </button>
+      </div>
+
+      <!-- CONCIERTO 1 -->
+      <div class="concert-card">
+        <div class="concert-header">
+          <div class="concert-date">
+            <div class="concert-date-month">Mayo</div>
+            <div class="concert-date-day">30</div>
+            <div class="concert-date-year">2026</div>
+          </div>
+          <div class="concert-info">
+            <div class="concert-name">Recital de Primavera</div>
+            <div class="concert-meta">
+              <div class="concert-meta-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                7:00 PM
+              </div>
+              <div class="concert-meta-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                First Parish of Westwood · 252 Nahatan St
+              </div>
+              <div class="concert-meta-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                3 participantes
+              </div>
+            </div>
+          </div>
+          <span class="concert-status published">● Publicado</span>
+        </div>
+        <div class="concert-body">
+          <div class="concert-section-title">Descripción</div>
+          <div class="concert-desc">"Una velada de música clásica que celebra la primavera con obras de Bach, Chopin y compositores latinoamericanos. Los estudiantes de Aria Music School presentarán piezas seleccionadas que reflejan su progreso del año."</div>
+
+          <div class="concert-section-title">Participantes y Repertorio</div>
+          <div class="participants-list">
+            <div class="participant">
+              <div class="participant-avatar">E</div>
+              <div class="participant-info">
+                <div class="participant-name">Emma Rodríguez</div>
+                <div class="participant-piece">Chopin · Nocturne Op. 9 No. 2</div>
+              </div>
+              <span class="participant-instrument">Piano</span>
+            </div>
+            <div class="participant">
+              <div class="participant-avatar">S</div>
+              <div class="participant-info">
+                <div class="participant-name">Sofía Martínez</div>
+                <div class="participant-piece">Mozart · Concierto para Flauta K.313</div>
+              </div>
+              <span class="participant-instrument">Flauta</span>
+            </div>
+            <div class="participant">
+              <div class="participant-avatar">L</div>
+              <div class="participant-info">
+                <div class="participant-name">Liam O'Brien</div>
+                <div class="participant-piece">Bach · Invención No. 4 en Re menor</div>
+              </div>
+              <span class="participant-instrument">Piano</span>
+            </div>
+          </div>
+
+          <div class="concert-actions">
+            <button class="concert-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+              Editar
+            </button>
+            <button class="concert-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+              Agregar participante
+            </button>
+            <button class="concert-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+              Compartir programa
+            </button>
+            <button class="concert-btn danger" style="margin-left:auto;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+              Eliminar
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- CONCIERTO 2 -->
+      <div class="concert-card">
+        <div class="concert-header">
+          <div class="concert-date">
+            <div class="concert-date-month">Jun</div>
+            <div class="concert-date-day">20</div>
+            <div class="concert-date-year">2026</div>
+          </div>
+          <div class="concert-info">
+            <div class="concert-name">Concierto de Fin de Año</div>
+            <div class="concert-meta">
+              <div class="concert-meta-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                6:30 PM
+              </div>
+              <div class="concert-meta-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                First Parish of Westwood · 252 Nahatan St
+              </div>
+              <div class="concert-meta-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                Por confirmar
+              </div>
+            </div>
+          </div>
+          <span class="concert-status published">● Publicado</span>
+        </div>
+        <div class="concert-body">
+          <div class="concert-section-title">Descripción</div>
+          <div class="concert-desc">"Celebración del cierre del año académico. Una gala donde todos los estudiantes presentan los logros más significativos de su preparación. Evento abierto a familias e invitados especiales."</div>
+
+          <div class="concert-section-title">Participantes y Repertorio</div>
+          <div class="participants-list">
+            <div class="participant" style="opacity:0.6;justify-content:center;border-style:dashed;">
+              <span style="font-size:12px;color:var(--ink-soft);font-style:italic;">Participantes por confirmar</span>
+            </div>
+          </div>
+
+          <div class="concert-actions">
+            <button class="concert-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+              Editar
+            </button>
+            <button class="concert-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+              Agregar participante
+            </button>
+            <button class="concert-btn danger" style="margin-left:auto;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+              Eliminar
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- CONCIERTO 3 (BORRADOR) -->
+      <div class="concert-card">
+        <div class="concert-header">
+          <div class="concert-date" style="background:rgba(31,45,74,0.5);">
+            <div class="concert-date-month">Oct</div>
+            <div class="concert-date-day">15</div>
+            <div class="concert-date-year">2026</div>
+          </div>
+          <div class="concert-info">
+            <div class="concert-name">Masterclass de Otoño</div>
+            <div class="concert-meta">
+              <div class="concert-meta-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                Hora por definir
+              </div>
+              <div class="concert-meta-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                Por confirmar
+              </div>
+            </div>
+          </div>
+          <span class="concert-status draft">○ Borrador</span>
+        </div>
+        <div class="concert-body">
+          <div class="concert-desc" style="margin:0;">Este concierto está en borrador y no aparece en el sitio web público. Complete los detalles y publíquelo cuando esté listo.</div>
+          <div class="concert-actions" style="border-top:none;padding-top:14px;">
+            <button class="concert-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+              Completar detalles
+            </button>
+            <button class="concert-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              Publicar
+            </button>
+            <button class="concert-btn danger" style="margin-left:auto;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+              Eliminar
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- AGREGAR -->
+      <div class="add-concert-card">
+        <div class="add-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </div>
+        <div class="add-concert-title">Crear nuevo concierto</div>
+        <div style="font-size:12.5px;color:var(--ink-soft);max-width:360px;margin:0 auto;line-height:1.5;">Programa un recital, masterclass o evento. Una vez publicado, aparecerá en la sección de próximos conciertos del sitio web.</div>
+      </div>
+    </section>
+
+    <!-- ==================== VIEW: GALLERY ==================== -->
+    <section class="view" id="view-gallery">
+      <div class="page-header">
+        <div class="page-eyebrow">Equipo · Sección 07</div>
+        <h1 class="page-title">Galería de <em>Recuerdos</em></h1>
+        <p class="page-desc">Sube fotos y videos de los conciertos, recitales y momentos especiales de Aria Music School. Los archivos publicados aparecerán en la galería pública del sitio web.</p>
+        <div class="page-divider"></div>
+      </div>
+
+      <div class="gallery-tabs">
+        <button class="gallery-tab active" onclick="switchGalleryTab(this, 'all')">
+          Todo
+          <span class="count">12</span>
+        </button>
+        <button class="gallery-tab" onclick="switchGalleryTab(this, 'videos')">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+          Videos
+          <span class="count">5</span>
+        </button>
+        <button class="gallery-tab" onclick="switchGalleryTab(this, 'photos')">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          Fotos
+          <span class="count">7</span>
+        </button>
+      </div>
+
+      <div class="gallery-grid">
+        <!-- VIDEO 1 -->
+        <div class="media-card">
+          <div class="media-thumbnail">
+            <span class="media-type-badge video">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+              Video
+            </span>
+            <div class="media-thumbnail-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+            </div>
+            <div class="play-overlay">
+              <div class="play-button">
+                <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              </div>
+            </div>
+          </div>
+          <div class="media-info">
+            <div class="media-title">Emma · Chopin Nocturne</div>
+            <div class="media-meta">
+              <span class="media-event">Recital de Invierno</span>
+              <span class="media-date">Dic 2025</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- FOTO 1 -->
+        <div class="media-card">
+          <div class="media-thumbnail" style="background:linear-gradient(135deg, #c9a961 0%, #a8884a 100%);">
+            <span class="media-type-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              Foto
+            </span>
+            <div class="media-thumbnail-icon" style="color:rgba(244,238,226,0.7);">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            </div>
+          </div>
+          <div class="media-info">
+            <div class="media-title">Sofía después del recital</div>
+            <div class="media-meta">
+              <span class="media-event">Recital de Invierno</span>
+              <span class="media-date">Dic 2025</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- VIDEO 2 -->
+        <div class="media-card">
+          <div class="media-thumbnail">
+            <span class="media-type-badge video">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+              Video
+            </span>
+            <div class="media-thumbnail-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+            </div>
+            <div class="play-overlay">
+              <div class="play-button">
+                <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              </div>
+            </div>
+          </div>
+          <div class="media-info">
+            <div class="media-title">Liam · Bach Invención</div>
+            <div class="media-meta">
+              <span class="media-event">Masterclass</span>
+              <span class="media-date">Nov 2025</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- FOTO 2 -->
+        <div class="media-card">
+          <div class="media-thumbnail" style="background:linear-gradient(135deg, #6b2737 0%, #8a3445 100%);">
+            <span class="media-type-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              Foto
+            </span>
+            <div class="media-thumbnail-icon" style="color:rgba(244,238,226,0.7);">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            </div>
+          </div>
+          <div class="media-info">
+            <div class="media-title">Grupo completo de estudiantes</div>
+            <div class="media-meta">
+              <span class="media-event">Recital Anual</span>
+              <span class="media-date">Jun 2025</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- FOTO 3 -->
+        <div class="media-card">
+          <div class="media-thumbnail" style="background:linear-gradient(135deg, #1f2d4a 0%, #2a3a5c 100%);">
+            <span class="media-type-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              Foto
+            </span>
+            <div class="media-thumbnail-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            </div>
+          </div>
+          <div class="media-info">
+            <div class="media-title">Sala del recital</div>
+            <div class="media-meta">
+              <span class="media-event">First Parish of Westwood</span>
+              <span class="media-date">Jun 2025</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- AGREGAR -->
+        <div class="media-card media-card-add">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          <div class="media-card-add-label">Subir media</div>
+          <div style="font-size:11px;font-style:italic;margin-top:6px;letter-spacing:normal;text-transform:none;">Fotos o videos</div>
+        </div>
+      </div>
+
+      <div style="margin-top:32px;background:var(--cream-light);border:1px solid var(--line);border-radius:12px;padding:24px;display:flex;gap:16px;align-items:flex-start;">
+        <div style="width:40px;height:40px;border-radius:8px;background:rgba(201,169,97,0.15);display:flex;align-items:center;justify-content:center;color:var(--gold-deep);flex-shrink:0;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+        </div>
+        <div style="flex:1;">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--navy);margin-bottom:6px;">Recomendaciones de formato</div>
+          <div style="font-size:13px;color:var(--ink-soft);line-height:1.6;">Para videos: máximo 100MB, formatos MP4 o MOV, resolución mínima 720p. Para fotos: JPG o PNG, mínimo 1200px de ancho. Todos los archivos requieren consentimiento de los padres si el participante es menor de edad.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== VIEW: BRAND ==================== -->
+    <section class="view" id="view-brand">
+      <div class="page-header">
+        <div class="page-eyebrow">Identidad · Sección 05</div>
+        <h1 class="page-title">Marca y <em>Visual</em></h1>
+        <p class="page-desc">Gestiona los elementos visuales que dan identidad a Aria Music School: logos, colores y tipografía.</p>
+        <div class="page-divider"></div>
+      </div>
+
+      <div class="form-section">
+        <div class="section-header">
+          <div class="section-title">Logos de la escuela</div>
+          <div class="section-num">i.</div>
+        </div>
+        <div class="logo-preview-grid">
+          <div class="logo-box primary">
+            <div class="logo-box-label">★ Logo principal</div>
+            <div class="logo-display">
+              <svg viewBox="0 0 320 100" xmlns="http://www.w3.org/2000/svg">
+                <path d="M 20 80 L 50 20 L 80 80" stroke="#1f2d4a" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M 50 38 Q 65 50 58 65 Q 50 75 40 73" stroke="#1f2d4a" stroke-width="5" fill="none" stroke-linecap="round"/>
+                <ellipse cx="38" cy="74" rx="7" ry="5" fill="#1f2d4a"/>
+                <text x="105" y="48" font-family="Inter, sans-serif" font-size="28" font-weight="700" fill="#1f2d4a" letter-spacing="2">ARIA</text>
+                <text x="105" y="72" font-family="Inter, sans-serif" font-size="14" font-weight="500" fill="#1f2d4a" letter-spacing="3">MUSIC SCHOOL</text>
+              </svg>
+            </div>
+            <div class="logo-box-desc">Identidad cotidiana. Para uso en sitio web, redes sociales, facturas, contratos, firmas de email y todo material operativo.</div>
+          </div>
+          <div class="logo-box">
+            <div class="logo-box-label">Sello conmemorativo</div>
+            <div class="logo-display">
+              <svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="80" cy="80" r="68" fill="none" stroke="#c9a961" stroke-width="1.5"/>
+                <circle cx="80" cy="80" r="60" fill="none" stroke="#c9a961" stroke-width="0.8" stroke-dasharray="2,3"/>
+                <text x="80" y="58" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="13" font-weight="600" fill="#1f2d4a" letter-spacing="2">ARIA</text>
+                <text x="80" y="74" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="9" fill="#1f2d4a" letter-spacing="2">MUSIC SCHOOL</text>
+                <line x1="50" y1="82" x2="110" y2="82" stroke="#c9a961" stroke-width="0.5"/>
+                <text x="80" y="94" text-anchor="middle" font-family="Cormorant Garamond, serif" font-style="italic" font-size="8" fill="#a8884a">— Est. 2024 —</text>
+                <text x="80" y="115" text-anchor="middle" font-size="20" fill="#c9a961">𝄞</text>
+              </svg>
+            </div>
+            <div class="logo-box-desc">Reservado para ocasiones especiales: diplomas, certificados de recital, invitaciones formales y reconocimientos.</div>
+          </div>
+        </div>
+        <div style="margin-top:24px;display:flex;gap:12px;">
+          <button class="btn btn-secondary">Subir nueva versión</button>
+          <button class="btn btn-secondary">Descargar paquete completo</button>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <div class="section-header">
+          <div class="section-title">Paleta de colores</div>
+          <div class="section-num">ii.</div>
+        </div>
+        <div class="palette">
+          <div class="swatch selected" style="background:#1f2d4a;" title="Azul marino · Principal"></div>
+          <div class="swatch selected" style="background:#f4eee2;" title="Crema"></div>
+          <div class="swatch selected" style="background:#c9a961;" title="Dorado suave"></div>
+          <div class="swatch selected" style="background:#6b2737;" title="Burgundy"></div>
+          <div class="swatch selected" style="background:#1a1a1a;" title="Negro"></div>
+          <div class="swatch" style="background:#ffffff;border:1px solid var(--line);" title="Blanco"></div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:24px;">
+          <div class="field">
+            <label class="label">Color principal</label>
+            <input class="input" value="#1f2d4a" />
+          </div>
+          <div class="field">
+            <label class="label">Color de acento</label>
+            <input class="input" value="#c9a961" />
+          </div>
+          <div class="field">
+            <label class="label">Color de fondo</label>
+            <input class="input" value="#f4eee2" />
+          </div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <div class="section-header">
+          <div class="section-title">Tipografía</div>
+          <div class="section-num">iii.</div>
+        </div>
+        <div class="form-grid">
+          <div class="field">
+            <label class="label">Fuente de títulos</label>
+            <select class="select">
+              <option selected>Cormorant Garamond (serif elegante)</option>
+              <option>Playfair Display</option>
+              <option>EB Garamond</option>
+              <option>Libre Caslon</option>
+            </select>
+          </div>
+          <div class="field">
+            <label class="label">Fuente de texto</label>
+            <select class="select">
+              <option selected>Inter (sans-serif)</option>
+              <option>Lato</option>
+              <option>Source Sans Pro</option>
+              <option>Work Sans</option>
+            </select>
+          </div>
+        </div>
+        <div style="background:white;border:1px solid var(--line);border-radius:8px;padding:24px;margin-top:20px;">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:32px;color:var(--navy);margin-bottom:8px;">Aria Music School</div>
+          <div style="font-family:'Inter',sans-serif;font-size:13px;color:var(--ink-soft);">Vista previa de la combinación tipográfica</div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <div class="section-header">
+          <div class="section-title">Adjetivos de la marca</div>
+          <div class="section-num">iv.</div>
+        </div>
+        <div class="chips">
+          <button class="chip gold selected">Elegante</button>
+          <button class="chip gold selected">Moderna</button>
+          <button class="chip gold selected">Artística</button>
+          <button class="chip gold selected">Profesional</button>
+          <button class="chip gold selected">Minimalista</button>
+          <button class="chip gold selected">Sofisticada</button>
+          <button class="chip gold selected">Acogedora</button>
+          <button class="chip">Tradicional</button>
+          <button class="chip">Atrevida</button>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-secondary">Cancelar</button>
+        <button class="btn btn-primary" onclick="showToast()">Guardar cambios</button>
+      </div>
+    </section>
+
+    <!-- ==================== VIEW: COMMUNICATION ==================== -->
+    <section class="view" id="view-communication">
+      <div class="page-header">
+        <div class="page-eyebrow">Identidad · Sección 06</div>
+        <h1 class="page-title">Canales de <em>Comunicación</em></h1>
+        <p class="page-desc">Gestiona las redes sociales, sitio web y plantillas de mensajes para familias.</p>
+        <div class="page-divider"></div>
+      </div>
+
+      <div class="form-section">
+        <div class="section-header">
+          <div class="section-title">Presencia digital</div>
+          <div class="section-num">i.</div>
+        </div>
+        <div class="form-grid">
+          <div class="field">
+            <label class="label">Sitio web</label>
+            <input class="input" placeholder="ariamusicschool.com" />
+          </div>
+          <div class="field">
+            <label class="label">Instagram</label>
+            <input class="input" placeholder="@ariamusicschool" />
+          </div>
+          <div class="field">
+            <label class="label">Facebook</label>
+            <input class="input" placeholder="facebook.com/ariamusicschool" />
+          </div>
+          <div class="field">
+            <label class="label">YouTube</label>
+            <input class="input" placeholder="youtube.com/@ariamusicschool" />
+          </div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <div class="section-header">
+          <div class="section-title">Frases clave de marketing</div>
+          <div class="section-num">ii.</div>
+        </div>
+        <div class="chips">
+          <button class="chip selected">Educación musical de excelencia</button>
+          <button class="chip selected">Clases personalizadas para todas las edades</button>
+          <button class="chip selected">Preparación internacional ABRSM y RCM</button>
+          <button class="chip selected">Aprender con inspiración y disciplina</button>
+          <button class="chip selected">Formación artística de alto nivel</button>
+          <button class="chip selected">Clases online en cualquier parte del mundo</button>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <div class="section-header">
+          <div class="section-title">Firma de email</div>
+          <div class="section-num">iii.</div>
+        </div>
+        <div style="background:white;border:1px solid var(--line);border-radius:8px;padding:24px;font-family:Inter,sans-serif;">
+          <div style="display:flex;gap:16px;align-items:center;">
+            <div style="width:48px;height:48px;background:var(--navy);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <svg width="32" height="32" viewBox="0 0 100 100"><path d="M 25 80 L 50 20 L 75 80" stroke="#f4eee2" stroke-width="6" fill="none" stroke-linecap="round"/><path d="M 50 38 Q 60 48 55 60 Q 50 70 42 70" stroke="#f4eee2" stroke-width="5" fill="none" stroke-linecap="round"/><ellipse cx="40" cy="72" rx="6" ry="4" fill="#f4eee2"/></svg>
+            </div>
+            <div>
+              <div style="font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--navy);font-weight:600;">Ariadna Benitez Talavera</div>
+              <div style="font-size:11px;color:var(--gold-deep);letter-spacing:0.15em;text-transform:uppercase;">Directora · Aria Music School</div>
+              <div style="font-size:12px;color:var(--ink-soft);margin-top:4px;">+1 (931) 338-5397 · ariamusicschool26@gmail.com</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-secondary">Cancelar</button>
+        <button class="btn btn-primary" onclick="showToast()">Guardar cambios</button>
+      </div>
+    </section>
+
+    <!-- ==================== VIEW: NOTIFICATIONS ==================== -->
+    <section class="view" id="view-notifications">
+      <div class="page-header">
+        <div class="page-eyebrow">Sistema · Sección 07</div>
+        <h1 class="page-title">Notificaciones <em>Automáticas</em></h1>
+        <p class="page-desc">Controla qué recordatorios y avisos se envían a estudiantes y familias.</p>
+        <div class="page-divider"></div>
+      </div>
+
+      <div class="form-section">
+        <div class="section-header">
+          <div class="section-title">Recordatorios para familias</div>
+          <div class="section-num">i.</div>
+        </div>
+        <div class="toggle-row">
+          <div class="toggle-info">
+            <div class="toggle-title">Recordatorio de clase</div>
+            <div class="toggle-desc">24 horas antes de cada lección</div>
+          </div>
+          <div class="switch on" onclick="toggleSwitch(this)"></div>
+        </div>
+        <div class="toggle-row">
+          <div class="toggle-info">
+            <div class="toggle-title">Aviso de pago mensual</div>
+            <div class="toggle-desc">Primer día del mes</div>
+          </div>
+          <div class="switch on" onclick="toggleSwitch(this)"></div>
+        </div>
+        <div class="toggle-row">
+          <div class="toggle-info">
+            <div class="toggle-title">Recordatorio de pago vencido</div>
+            <div class="toggle-desc">Después del día 14 del mes</div>
+          </div>
+          <div class="switch on" onclick="toggleSwitch(this)"></div>
+        </div>
+        <div class="toggle-row">
+          <div class="toggle-info">
+            <div class="toggle-title">Anuncio de recital</div>
+            <div class="toggle-desc">30, 14 y 3 días antes</div>
+          </div>
+          <div class="switch on" onclick="toggleSwitch(this)"></div>
+        </div>
+        <div class="toggle-row">
+          <div class="toggle-info">
+            <div class="toggle-title">Boletín mensual</div>
+            <div class="toggle-desc">Resumen de progreso y noticias</div>
+          </div>
+          <div class="switch" onclick="toggleSwitch(this)"></div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <div class="section-header">
+          <div class="section-title">Canales de envío</div>
+          <div class="section-num">ii.</div>
+        </div>
+        <div class="toggle-row">
+          <div class="toggle-info">
+            <div class="toggle-title">Email</div>
+            <div class="toggle-desc">Envío a la dirección registrada</div>
+          </div>
+          <div class="switch on" onclick="toggleSwitch(this)"></div>
+        </div>
+        <div class="toggle-row">
+          <div class="toggle-info">
+            <div class="toggle-title">SMS / Texto</div>
+            <div class="toggle-desc">Al número de teléfono registrado</div>
+          </div>
+          <div class="switch on" onclick="toggleSwitch(this)"></div>
+        </div>
+        <div class="toggle-row">
+          <div class="toggle-info">
+            <div class="toggle-title">WhatsApp</div>
+            <div class="toggle-desc">Para familias internacionales</div>
+          </div>
+          <div class="switch" onclick="toggleSwitch(this)"></div>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-secondary">Cancelar</button>
+        <button class="btn btn-primary" onclick="showToast()">Guardar cambios</button>
+      </div>
+    </section>
+
+    <!-- ==================== VIEW: ACCOUNT ==================== -->
+    <section class="view" id="view-account">
+      <div class="page-header">
+        <div class="page-eyebrow">Sistema · Sección 08</div>
+        <h1 class="page-title">Cuenta y <em>Acceso</em></h1>
+        <p class="page-desc">Información personal, seguridad y permisos del sistema.</p>
+        <div class="page-divider"></div>
+      </div>
+
+      <div class="form-section">
+        <div class="section-header">
+          <div class="section-title">Perfil de la directora</div>
+          <div class="section-num">i.</div>
+        </div>
+        <div class="form-grid">
+          <div class="field">
+            <label class="label">Nombre completo</label>
+            <input class="input" value="Ariadna Benitez Talavera" />
+          </div>
+          <div class="field">
+            <label class="label">Cargo</label>
+            <input class="input" value="Directora · Piano Teacher" />
+          </div>
+          <div class="field">
+            <label class="label">Email personal</label>
+            <input class="input" value="ariadnabt07@gmail.com" />
+          </div>
+          <div class="field">
+            <label class="label">Teléfono</label>
+            <input class="input" value="+1 (931) 338-5397" />
+          </div>
+          <div class="field full">
+            <label class="label">Formación académica</label>
+            <textarea class="textarea" rows="3">DMA en Dirección Orquestal — Boston University (en curso)
+Master of Music — Austin Peay State University
+Bachelor of Music — University of the Arts in Havana</textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <div class="section-header">
+          <div class="section-title">Seguridad</div>
+          <div class="section-num">ii.</div>
+        </div>
+        <div class="toggle-row">
+          <div class="toggle-info">
+            <div class="toggle-title">Autenticación en dos pasos</div>
+            <div class="toggle-desc">Mayor seguridad al iniciar sesión</div>
+          </div>
+          <div class="switch on" onclick="toggleSwitch(this)"></div>
+        </div>
+        <div class="toggle-row">
+          <div class="toggle-info">
+            <div class="toggle-title">Sesión persistente</div>
+            <div class="toggle-desc">Mantener sesión activa en este dispositivo</div>
+          </div>
+          <div class="switch on" onclick="toggleSwitch(this)"></div>
+        </div>
+        <div class="toggle-row">
+          <div class="toggle-info">
+            <div class="toggle-title">Notificación de acceso</div>
+            <div class="toggle-desc">Aviso cuando se inicia sesión desde un nuevo dispositivo</div>
+          </div>
+          <div class="switch on" onclick="toggleSwitch(this)"></div>
+        </div>
+        <div style="margin-top:24px;">
+          <button class="btn btn-secondary">Cambiar contraseña</button>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-secondary">Cancelar</button>
+        <button class="btn btn-primary" onclick="showToast()">Guardar cambios</button>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- Toast notification -->
+<div class="toast" id="toast">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+  <span>Cambios guardados correctamente</span>
+</div>
+
+<script>
+  // ─── Navigation ───
+  const navItems = document.querySelectorAll('.nav-item');
+  const views = document.querySelectorAll('.view');
+  const crumbCurrent = document.getElementById('crumb-current');
+
+  const viewLabels = {
+    dashboard: 'Resumen',
+    general: 'Información General',
+    programs: 'Programas y Clases',
+    tuition: 'Tarifas y Pagos',
+    policies: 'Políticas Académicas',
+    faculty: 'Maestros y Clases',
+    concerts: 'Conciertos',
+    gallery: 'Galería',
+    brand: 'Marca y Visual',
+    communication: 'Comunicación',
+    notifications: 'Notificaciones',
+    account: 'Cuenta y Acceso'
+  };
+
+  navItems.forEach(item => {
+    item.addEventListener('click', () => {
+      const target = item.dataset.view;
+      navItems.forEach(i => i.classList.remove('active'));
+      item.classList.add('active');
+      views.forEach(v => v.classList.remove('active'));
+      document.getElementById('view-' + target).classList.add('active');
+      crumbCurrent.textContent = viewLabels[target];
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+
+  // ─── Faculty: open teacher profile ───
+  function openTeacher(id) {
+    views.forEach(v => v.classList.remove('active'));
+    document.getElementById('view-teacher-profile').classList.add('active');
+    crumbCurrent.textContent = 'Maestros · Perfil';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function backToFaculty() {
+    views.forEach(v => v.classList.remove('active'));
+    document.getElementById('view-faculty').classList.add('active');
+    crumbCurrent.textContent = viewLabels.faculty;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // ─── Profile tabs ───
+  document.querySelectorAll('.profile-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      const target = tab.dataset.tab;
+      document.querySelectorAll('.profile-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      document.querySelectorAll('.profile-tab-content').forEach(c => c.classList.remove('active'));
+      document.getElementById('tab-' + target).classList.add('active');
+    });
+  });
+
+  // ─── Chips ───
+  document.querySelectorAll('.chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      chip.classList.toggle('selected');
+    });
+  });
+
+  // ─── Swatches ───
+  document.querySelectorAll('.swatch').forEach(s => {
+    s.addEventListener('click', () => s.classList.toggle('selected'));
+  });
+
+  // ─── Toggle switches ───
+  function toggleSwitch(el) {
+    el.classList.toggle('on');
+  }
+
+  // ─── Gallery tabs ───
+  function switchGalleryTab(btn, type) {
+    document.querySelectorAll('.gallery-tab').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+    // In a real app, filter media-cards by type
+  }
+
+  // ─── Toast ───
+  function showToast() {
+    const toast = document.getElementById('toast');
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2500);
+  }
+</script>
+
+<script src="/js/api.js"></script>
+
+</body>
+</html>

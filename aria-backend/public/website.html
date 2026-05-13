@@ -1,0 +1,2907 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Aria Music School — Excellence in Music Education</title>
+<meta name="description" content="Aria Music School offers excellence in music education in Westwood, Massachusetts. Piano, flute, and music theory lessons for all ages. ABRSM and RCM exam preparation." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1f2d4a;
+    --navy-deep: #16213a;
+    --navy-soft: #2a3a5c;
+    --cream: #f4eee2;
+    --cream-light: #faf6ec;
+    --cream-warm: #ede4d0;
+    --gold: #c9a961;
+    --gold-soft: #d9bf83;
+    --gold-deep: #a8884a;
+    --burgundy: #6b2737;
+    --ink: #1a1a1a;
+    --ink-soft: #4a4a4a;
+    --line: rgba(31, 45, 74, 0.15);
+    --line-soft: rgba(31, 45, 74, 0.08);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Lora', serif;
+    background: var(--cream);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Paper grain texture */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(201, 169, 97, 0.04), transparent 40%),
+      radial-gradient(circle at 80% 70%, rgba(31, 45, 74, 0.03), transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Subtle noise */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1;
+    mix-blend-mode: multiply;
+  }
+
+  main, header, footer, section { position: relative; z-index: 2; }
+
+  ::selection { background: var(--gold); color: var(--navy); }
+
+  /* ───── NAVIGATION ───── */
+  .nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    padding: 24px 64px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    transition: all 0.4s ease;
+    background: transparent;
+  }
+
+  .nav.scrolled {
+    background: rgba(244, 238, 226, 0.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    padding: 16px 64px;
+    box-shadow: 0 1px 0 var(--line-soft);
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    text-decoration: none;
+    color: var(--navy);
+  }
+
+  .nav-logo-mark {
+    width: 38px;
+    height: 38px;
+  }
+
+  .nav-logo-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    line-height: 1;
+  }
+
+  .nav-logo-sub {
+    font-family: 'Inter', sans-serif;
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    color: var(--gold-deep);
+    text-transform: uppercase;
+    margin-top: 3px;
+  }
+
+  .nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+  }
+
+  .nav-link {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--navy);
+    text-decoration: none;
+    position: relative;
+    padding: 6px 0;
+    transition: color 0.3s ease;
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 1px;
+    background: var(--gold);
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+  }
+
+  .nav-link:hover::after { width: 100%; }
+  .nav-link:hover { color: var(--gold-deep); }
+
+  .nav-cta {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--cream);
+    background: var(--navy);
+    padding: 12px 24px;
+    border-radius: 2px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: 1px solid var(--navy);
+  }
+
+  .nav-cta:hover {
+    background: var(--gold);
+    color: var(--navy);
+    border-color: var(--gold);
+  }
+
+  /* ───── LANGUAGE SWITCHER ───── */
+  .lang-switcher { position: relative; }
+
+  .lang-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    border: 1px solid var(--line);
+    padding: 9px 14px;
+    border-radius: 2px;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--navy);
+    transition: all 0.3s ease;
+  }
+
+  .lang-btn:hover { border-color: var(--gold); color: var(--gold-deep); }
+  .lang-btn .globe { width: 14px; height: 14px; stroke-width: 1.5; }
+  .lang-btn .chev { width: 10px; height: 10px; stroke-width: 2; transition: transform 0.3s ease; }
+  .lang-switcher.open .chev { transform: rotate(180deg); }
+
+  .lang-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    background: var(--cream-light);
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    min-width: 220px;
+    box-shadow: 0 12px 40px rgba(31, 45, 74, 0.15);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition: all 0.3s ease;
+    z-index: 200;
+  }
+
+  .lang-switcher.open .lang-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .lang-option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 12px 18px;
+    background: transparent;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    font-family: 'Lora', serif;
+    font-size: 14px;
+    color: var(--navy);
+    transition: all 0.2s ease;
+    border-bottom: 1px solid var(--line-soft);
+  }
+
+  .lang-option:last-child { border-bottom: none; }
+  .lang-option:hover { background: var(--cream-warm); color: var(--gold-deep); padding-left: 22px; }
+  .lang-option.active { background: var(--navy); color: var(--cream); }
+  .lang-option .flag { font-size: 16px; line-height: 1; }
+
+  /* ───── HERO ───── */
+  .hero {
+    min-height: 100vh;
+    padding: 160px 64px 100px;
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 80px;
+    align-items: center;
+    position: relative;
+  }
+
+  /* Decorative pentagram lines */
+  .pentagram {
+    position: absolute;
+    top: 35%;
+    right: -50px;
+    width: 50%;
+    height: 200px;
+    opacity: 0.12;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .pentagram svg { width: 100%; height: 100%; }
+
+  .hero-text {
+    position: relative;
+    z-index: 3;
+    animation: fadeUp 1s ease both;
+  }
+
+  .hero-eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold-deep);
+    margin-bottom: 32px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    width: 32px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(56px, 7.5vw, 104px);
+    font-weight: 400;
+    line-height: 0.98;
+    color: var(--navy);
+    letter-spacing: -0.02em;
+    margin-bottom: 32px;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    font-weight: 300;
+    color: var(--gold-deep);
+    display: block;
+  }
+
+  .hero-title .small {
+    font-size: 0.55em;
+    display: block;
+    font-weight: 400;
+    color: var(--navy);
+    font-style: normal;
+    letter-spacing: 0.02em;
+    margin-top: 8px;
+  }
+
+  .hero-desc {
+    font-family: 'Lora', serif;
+    font-size: 17px;
+    line-height: 1.75;
+    color: var(--ink-soft);
+    max-width: 480px;
+    margin-bottom: 40px;
+    font-weight: 400;
+  }
+
+  .hero-desc em {
+    color: var(--navy);
+    font-style: italic;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    padding: 18px 36px;
+    text-decoration: none;
+    transition: all 0.4s ease;
+    border: 1px solid;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    background: none;
+  }
+
+  .btn svg {
+    width: 14px;
+    height: 14px;
+    transition: transform 0.3s ease;
+  }
+
+  .btn:hover svg { transform: translateX(4px); }
+
+  .btn-primary {
+    background: var(--navy);
+    color: var(--cream);
+    border-color: var(--navy);
+  }
+
+  .btn-primary:hover {
+    background: var(--gold);
+    color: var(--navy);
+    border-color: var(--gold);
+  }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--navy);
+    border-color: var(--navy);
+  }
+
+  .btn-ghost:hover {
+    background: var(--navy);
+    color: var(--cream);
+  }
+
+  /* Hero visual side */
+  .hero-visual {
+    position: relative;
+    height: 640px;
+    z-index: 3;
+    animation: fadeIn 1.4s ease both;
+    animation-delay: 0.3s;
+  }
+
+  .hero-card {
+    position: absolute;
+    background: var(--cream-light);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 32px 36px;
+    box-shadow: 0 20px 60px rgba(31, 45, 74, 0.08);
+  }
+
+  .hero-card-1 {
+    top: 0;
+    left: 0;
+    width: 78%;
+    transform: rotate(-2deg);
+    background: var(--navy);
+    color: var(--cream);
+    z-index: 2;
+  }
+
+  .hero-card-2 {
+    bottom: 0;
+    right: 0;
+    width: 75%;
+    transform: rotate(1.5deg);
+    z-index: 3;
+    padding: 36px;
+  }
+
+  .hero-card-2 > *:not(.clef-decoration) {
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-card-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 400;
+    font-style: italic;
+    line-height: 1.25;
+    margin-bottom: 20px;
+    color: var(--cream);
+  }
+
+  .hero-card-attr {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold-soft);
+    padding-top: 16px;
+    border-top: 1px solid rgba(244, 238, 226, 0.2);
+  }
+
+  .hero-card-2 .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 64px;
+    font-weight: 500;
+    color: var(--navy);
+    line-height: 1;
+    margin-bottom: 10px;
+    letter-spacing: -0.04em;
+  }
+
+  .hero-card-2 .stat-num em {
+    color: var(--gold-deep);
+    font-style: italic;
+  }
+
+  .hero-card-2 .stat-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+
+  .hero-card-2 .stat-desc {
+    font-family: 'Lora', serif;
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    margin-top: 14px;
+    line-height: 1.55;
+    font-style: italic;
+  }
+
+  /* Floating treble clef decoration */
+  .clef-decoration {
+    position: absolute;
+    top: -30px;
+    right: -10px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 140px;
+    color: var(--gold);
+    opacity: 0.18;
+    line-height: 1;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Scroll indicator */
+  .scroll-cue {
+    position: absolute;
+    bottom: 32px;
+    left: 64px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    color: var(--ink-soft);
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    z-index: 4;
+  }
+
+  .scroll-cue::after {
+    content: '';
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+
+  /* ───── SECTION SHELL ───── */
+  section {
+    padding: 140px 64px;
+  }
+
+  .section-eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold-deep);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .section-eyebrow::before {
+    content: '';
+    width: 32px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(40px, 5vw, 64px);
+    font-weight: 400;
+    line-height: 1.05;
+    color: var(--navy);
+    letter-spacing: -0.015em;
+    margin-bottom: 24px;
+  }
+
+  .section-title em {
+    font-style: italic;
+    color: var(--gold-deep);
+    font-weight: 300;
+  }
+
+  .section-lede {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--ink-soft);
+    line-height: 1.5;
+    max-width: 640px;
+    margin-bottom: 64px;
+  }
+
+  /* ───── PHILOSOPHY ───── */
+  .philosophy {
+    background: var(--cream-light);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .philosophy::before {
+    content: '';
+    position: absolute;
+    top: -100px;
+    left: -100px;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(201, 169, 97, 0.08), transparent 70%);
+    pointer-events: none;
+  }
+
+  .philosophy-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .pillar-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .pillar {
+    padding: 32px 24px;
+    border-bottom: 1px solid var(--line);
+    border-right: 1px solid var(--line);
+    transition: all 0.3s ease;
+    cursor: default;
+  }
+
+  .pillar:nth-child(2n) { border-right: none; }
+  .pillar:nth-last-child(-n+2) { border-bottom: none; }
+
+  .pillar:hover {
+    background: rgba(201, 169, 97, 0.04);
+  }
+
+  .pillar-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--gold-deep);
+    letter-spacing: 0.05em;
+    margin-bottom: 8px;
+  }
+
+  .pillar-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--navy);
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+  }
+
+  .pillar-desc {
+    font-family: 'Lora', serif;
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+
+  /* ───── PROGRAMS / CLASES ───── */
+  .programs {
+    background: var(--navy);
+    color: var(--cream);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .programs::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 50%;
+    height: 100%;
+    background: radial-gradient(circle at 70% 30%, rgba(201, 169, 97, 0.08), transparent 60%);
+    pointer-events: none;
+  }
+
+  .programs .section-eyebrow { color: var(--gold-soft); }
+  .programs .section-eyebrow::before { background: var(--gold-soft); }
+  .programs .section-title { color: var(--cream); }
+  .programs .section-title em { color: var(--gold-soft); }
+  .programs .section-lede { color: rgba(244, 238, 226, 0.7); }
+
+  .programs-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    position: relative;
+  }
+
+  .program-card {
+    background: rgba(244, 238, 226, 0.03);
+    border: 1px solid rgba(244, 238, 226, 0.1);
+    padding: 40px 32px;
+    position: relative;
+    transition: all 0.4s ease;
+    overflow: hidden;
+  }
+
+  .program-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--gold);
+    transition: width 0.5s ease;
+  }
+
+  .program-card:hover {
+    background: rgba(244, 238, 226, 0.06);
+    border-color: rgba(201, 169, 97, 0.3);
+    transform: translateY(-4px);
+  }
+
+  .program-card:hover::before { width: 100%; }
+
+  .program-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--gold-soft);
+    letter-spacing: 0.1em;
+    margin-bottom: 24px;
+  }
+
+  .program-icon {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 24px;
+    color: var(--gold);
+  }
+
+  .program-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px;
+    font-weight: 500;
+    color: var(--cream);
+    margin-bottom: 16px;
+    line-height: 1.1;
+  }
+
+  .program-title em {
+    font-style: italic;
+    color: var(--gold-soft);
+    font-weight: 400;
+  }
+
+  .program-desc {
+    font-family: 'Lora', serif;
+    font-size: 14.5px;
+    color: rgba(244, 238, 226, 0.75);
+    line-height: 1.7;
+    margin-bottom: 24px;
+  }
+
+  .program-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(244, 238, 226, 0.1);
+  }
+
+  .program-tag {
+    font-family: 'Inter', sans-serif;
+    font-size: 9.5px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border: 1px solid rgba(201, 169, 97, 0.3);
+    color: var(--gold-soft);
+    border-radius: 999px;
+    font-weight: 500;
+  }
+
+  /* ───── DIRECTORA / ABOUT ───── */
+  .directora {
+    background: var(--cream);
+    overflow: hidden;
+  }
+
+  .directora-grid {
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .directora-portrait {
+    position: relative;
+    aspect-ratio: 3 / 4;
+    background: var(--navy);
+    overflow: hidden;
+  }
+
+  .directora-portrait::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-deep) 100%);
+    z-index: 1;
+  }
+
+  .directora-portrait::after {
+    content: '';
+    position: absolute;
+    inset: 20px;
+    border: 1px solid rgba(201, 169, 97, 0.3);
+    z-index: 3;
+    pointer-events: none;
+  }
+
+  .portrait-mono {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 280px;
+    font-weight: 300;
+    color: var(--gold);
+    line-height: 1;
+    letter-spacing: -0.05em;
+  }
+
+  .portrait-caption {
+    position: absolute;
+    bottom: 32px;
+    left: 32px;
+    right: 32px;
+    z-index: 4;
+    color: var(--cream);
+    text-align: center;
+  }
+
+  .portrait-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 500;
+    margin-bottom: 4px;
+    letter-spacing: 0.02em;
+  }
+
+  .portrait-role {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold-soft);
+  }
+
+  .directora-content .section-title { margin-bottom: 32px; }
+
+  .directora-bio {
+    font-family: 'Lora', serif;
+    font-size: 17px;
+    line-height: 1.85;
+    color: var(--ink-soft);
+    margin-bottom: 24px;
+  }
+
+  .directora-bio em {
+    color: var(--navy);
+    font-style: italic;
+    font-weight: 500;
+  }
+
+  .credentials {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 48px;
+    padding-top: 40px;
+    border-top: 1px solid var(--line);
+  }
+
+  .credential {
+    text-align: left;
+  }
+
+  .credential-degree {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    font-style: italic;
+    color: var(--gold-deep);
+    letter-spacing: 0.05em;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+  }
+
+  .credential-school {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 19px;
+    color: var(--navy);
+    font-weight: 500;
+    line-height: 1.25;
+    margin-bottom: 6px;
+  }
+
+  .credential-location {
+    font-family: 'Inter', sans-serif;
+    font-size: 10.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+
+  /* ───── CERTIFICATIONS ───── */
+  .certs {
+    background: var(--cream-light);
+    text-align: center;
+  }
+
+  .certs-content {
+    max-width: 880px;
+    margin: 0 auto;
+  }
+
+  .certs .section-eyebrow { justify-content: center; }
+  .certs .section-eyebrow::before,
+  .certs .section-eyebrow::after {
+    content: '';
+    width: 32px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  .certs .section-lede { margin: 0 auto 64px; text-align: center; }
+
+  .cert-badges {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+  }
+
+  .cert-badge {
+    background: var(--cream);
+    padding: 48px 40px;
+    border: 1px solid var(--line);
+    position: relative;
+    transition: all 0.3s ease;
+  }
+
+  .cert-badge:hover {
+    border-color: var(--gold);
+    transform: translateY(-2px);
+  }
+
+  .cert-symbol {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 56px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+
+  .cert-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 30px;
+    font-weight: 500;
+    color: var(--navy);
+    margin-bottom: 8px;
+    letter-spacing: 0.02em;
+  }
+
+  .cert-full {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 15px;
+    color: var(--ink-soft);
+    margin-bottom: 20px;
+    line-height: 1.4;
+  }
+
+  .cert-desc {
+    font-family: 'Lora', serif;
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.7;
+  }
+
+  /* ───── PUBLIC CONCERTS SECTION ───── */
+  .concerts-public {
+    background: var(--cream-light);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .concerts-public::before {
+    content: '';
+    position: absolute;
+    top: -120px;
+    right: -120px;
+    width: 360px;
+    height: 360px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(201, 169, 97, 0.08), transparent 70%);
+    pointer-events: none;
+  }
+
+  .concerts-public .section-eyebrow,
+  .concerts-public .section-title,
+  .concerts-public .section-lede { text-align: center; max-width: 720px; margin-left: auto; margin-right: auto; }
+  .concerts-public .section-eyebrow { justify-content: center; }
+  .concerts-public .section-eyebrow::before,
+  .concerts-public .section-eyebrow::after {
+    content: '';
+    width: 32px;
+    height: 1px;
+    background: var(--gold);
+  }
+  .concerts-public .section-lede { margin-bottom: 72px; }
+
+  .upcoming-concerts {
+    display: grid;
+    gap: 28px;
+    max-width: 940px;
+    margin: 0 auto;
+  }
+
+  .upcoming-concert {
+    background: var(--cream);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 40px;
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 40px;
+    align-items: center;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .upcoming-concert::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--gold);
+    transition: width 0.5s ease;
+  }
+
+  .upcoming-concert:hover {
+    border-color: var(--gold-soft);
+    box-shadow: 0 12px 40px rgba(31, 45, 74, 0.08);
+    transform: translateY(-3px);
+  }
+
+  .upcoming-concert:hover::before { width: 100%; }
+
+  .public-date {
+    text-align: center;
+    border-right: 1px solid var(--line);
+    padding-right: 40px;
+  }
+
+  .public-date-month {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold-deep);
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+
+  .public-date-day {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 64px;
+    font-weight: 400;
+    line-height: 1;
+    color: var(--navy);
+    letter-spacing: -0.02em;
+  }
+
+  .public-date-year {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ink-soft);
+    margin-top: 4px;
+  }
+
+  .public-concert-info { min-width: 0; }
+
+  .public-concert-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px;
+    font-weight: 500;
+    color: var(--navy);
+    margin-bottom: 12px;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+  }
+
+  .public-concert-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 18px;
+  }
+
+  .public-concert-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Lora', serif;
+    font-size: 14px;
+    color: var(--ink-soft);
+  }
+
+  .public-concert-meta-item svg {
+    width: 14px;
+    height: 14px;
+    stroke-width: 1.6;
+    color: var(--gold-deep);
+  }
+
+  .public-concert-desc {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 16px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+
+  .public-participants {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+  }
+
+  .public-participant-tag {
+    font-family: 'Inter', sans-serif;
+    font-size: 10.5px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 6px 12px;
+    background: rgba(201, 169, 97, 0.12);
+    color: var(--gold-deep);
+    border-radius: 999px;
+    border: 1px solid rgba(201, 169, 97, 0.25);
+    font-weight: 500;
+  }
+
+  .public-participant-tag strong {
+    color: var(--navy);
+    font-weight: 600;
+    margin-right: 4px;
+  }
+
+  /* ───── PUBLIC GALLERY SECTION ───── */
+  .gallery-public {
+    background: var(--cream);
+  }
+
+  .gallery-public .section-eyebrow,
+  .gallery-public .section-title,
+  .gallery-public .section-lede { text-align: center; max-width: 720px; margin-left: auto; margin-right: auto; }
+  .gallery-public .section-eyebrow { justify-content: center; }
+  .gallery-public .section-eyebrow::before,
+  .gallery-public .section-eyebrow::after {
+    content: '';
+    width: 32px;
+    height: 1px;
+    background: var(--gold);
+  }
+  .gallery-public .section-lede { margin-bottom: 56px; }
+
+  .gallery-filter {
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+    margin-bottom: 48px;
+    flex-wrap: wrap;
+  }
+
+  .gallery-filter-btn {
+    padding: 11px 22px;
+    background: transparent;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--navy);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .gallery-filter-btn:hover {
+    border-color: var(--gold);
+    color: var(--gold-deep);
+  }
+
+  .gallery-filter-btn.active {
+    background: var(--navy);
+    color: var(--cream);
+    border-color: var(--navy);
+  }
+
+  .gallery-filter-btn svg {
+    width: 12px;
+    height: 12px;
+    stroke-width: 2;
+  }
+
+  .public-gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .public-media-card {
+    background: var(--cream-light);
+    border-radius: 4px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    position: relative;
+    aspect-ratio: 4/3;
+  }
+
+  .public-media-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(31, 45, 74, 0.15);
+  }
+
+  .public-media-thumb {
+    width: 100%;
+    height: 100%;
+    background: var(--navy);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .public-media-thumb::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 30% 30%, rgba(201, 169, 97, 0.2), transparent 60%),
+      linear-gradient(135deg, var(--navy) 0%, var(--navy-deep) 100%);
+    transition: transform 0.8s ease;
+  }
+
+  .public-media-card:hover .public-media-thumb::before {
+    transform: scale(1.08);
+  }
+
+  .public-media-card.gold .public-media-thumb::before {
+    background:
+      radial-gradient(circle at 30% 30%, rgba(244, 238, 226, 0.3), transparent 60%),
+      linear-gradient(135deg, #c9a961 0%, #a8884a 100%);
+  }
+
+  .public-media-card.burgundy .public-media-thumb::before {
+    background:
+      radial-gradient(circle at 30% 30%, rgba(201, 169, 97, 0.15), transparent 60%),
+      linear-gradient(135deg, #6b2737 0%, #4d1a26 100%);
+  }
+
+  .public-media-icon {
+    position: relative;
+    z-index: 2;
+    color: var(--gold);
+    opacity: 0.35;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+
+  .public-media-card.gold .public-media-icon { color: var(--cream); opacity: 0.5; }
+
+  .public-media-card:hover .public-media-icon {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+
+  .public-media-icon svg { width: 48px; height: 48px; stroke-width: 1; }
+
+  .public-media-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    background: linear-gradient(to top, rgba(22, 33, 58, 0.95) 0%, rgba(22, 33, 58, 0.5) 40%, transparent 80%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+
+  .public-media-card:hover .public-media-overlay { opacity: 1; }
+
+  .public-media-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--cream);
+    line-height: 1.2;
+    margin-bottom: 4px;
+    transform: translateY(12px);
+    transition: transform 0.4s ease 0.05s;
+  }
+
+  .public-media-event {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--gold-soft);
+    transform: translateY(12px);
+    transition: transform 0.4s ease 0.1s;
+  }
+
+  .public-media-card:hover .public-media-title,
+  .public-media-card:hover .public-media-event {
+    transform: translateY(0);
+  }
+
+  .public-media-badge {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    z-index: 4;
+    font-family: 'Inter', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    padding: 5px 10px;
+    background: rgba(244, 238, 226, 0.95);
+    color: var(--navy);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .public-media-badge svg { width: 10px; height: 10px; stroke-width: 2; }
+
+  .public-media-badge.video {
+    background: rgba(107, 39, 55, 0.95);
+    color: var(--cream);
+  }
+
+  .public-play-circle {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .public-play-circle-inner {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: rgba(244, 238, 226, 0.95);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--navy);
+    transition: all 0.4s ease;
+    opacity: 0;
+  }
+
+  .public-media-card.is-video:hover .public-play-circle-inner {
+    opacity: 1;
+    background: var(--gold);
+    transform: scale(1.1);
+  }
+
+  .public-play-circle-inner svg {
+    width: 26px;
+    height: 26px;
+    margin-left: 3px;
+  }
+
+  /* ───── TESTIMONIAL ───── */
+  .testimonial {
+    background: var(--burgundy);
+    color: var(--cream);
+    padding: 120px 64px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .testimonial::before {
+    content: '"';
+    position: absolute;
+    top: 20px;
+    left: 60px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 500px;
+    color: rgba(244, 238, 226, 0.08);
+    line-height: 0.7;
+    font-weight: 700;
+    pointer-events: none;
+  }
+
+  .testimonial-content {
+    max-width: 880px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .testimonial-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(28px, 3.5vw, 42px);
+    font-weight: 400;
+    font-style: italic;
+    line-height: 1.4;
+    margin-bottom: 40px;
+    color: var(--cream);
+  }
+
+  .testimonial-text em {
+    color: var(--gold-soft);
+    font-style: normal;
+  }
+
+  .testimonial-divider {
+    width: 60px;
+    height: 1px;
+    background: var(--gold);
+    margin: 0 auto 24px;
+  }
+
+  .testimonial-attr {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold-soft);
+  }
+
+  /* ───── CTA / CONTACT ───── */
+  .cta {
+    background: var(--cream);
+    padding: 140px 64px;
+    text-align: center;
+  }
+
+  .cta-content {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  .cta .section-eyebrow { justify-content: center; }
+  .cta .section-eyebrow::before,
+  .cta .section-eyebrow::after {
+    content: '';
+    width: 32px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  .cta-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(48px, 6vw, 80px);
+    font-weight: 300;
+    line-height: 1;
+    color: var(--navy);
+    letter-spacing: -0.02em;
+    margin-bottom: 32px;
+  }
+
+  .cta-title em {
+    font-style: italic;
+    color: var(--gold-deep);
+    font-weight: 300;
+  }
+
+  .cta-desc {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-style: italic;
+    color: var(--ink-soft);
+    line-height: 1.5;
+    margin-bottom: 48px;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    margin-top: 64px;
+    padding-top: 48px;
+    border-top: 1px solid var(--line);
+  }
+
+  .contact-item {
+    text-align: center;
+  }
+
+  .contact-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold-deep);
+    margin-bottom: 12px;
+  }
+
+  .contact-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 19px;
+    color: var(--navy);
+    font-weight: 500;
+    line-height: 1.4;
+  }
+
+  /* ───── FOOTER ───── */
+  footer {
+    background: var(--navy-deep);
+    color: rgba(244, 238, 226, 0.6);
+    padding: 80px 64px 32px;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 64px;
+    margin-bottom: 64px;
+    padding-bottom: 48px;
+    border-bottom: 1px solid rgba(244, 238, 226, 0.1);
+  }
+
+  .footer-brand .nav-logo-text { color: var(--cream); }
+  .footer-brand .nav-logo-sub { color: var(--gold-soft); }
+
+  .footer-brand-desc {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 17px;
+    line-height: 1.6;
+    color: rgba(244, 238, 226, 0.6);
+    margin-top: 24px;
+    max-width: 320px;
+  }
+
+  .footer-col-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold-soft);
+    margin-bottom: 20px;
+  }
+
+  .footer-links { list-style: none; }
+  .footer-links li { margin-bottom: 10px; }
+  .footer-links a {
+    font-family: 'Lora', serif;
+    font-size: 14px;
+    color: rgba(244, 238, 226, 0.6);
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  .footer-links a:hover { color: var(--gold); }
+
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: rgba(244, 238, 226, 0.4);
+  }
+
+  .footer-bottom em {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--gold-soft);
+  }
+
+  /* ───── ANIMATIONS ───── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { transform: scaleY(1); transform-origin: top; }
+    50% { transform: scaleY(0.3); transform-origin: top; }
+  }
+
+  /* Scroll reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 1s ease, transform 1s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ───── RESPONSIVE ───── */
+  @media (max-width: 1024px) {
+    .nav, section, footer, .testimonial { padding-left: 40px; padding-right: 40px; }
+    .nav.scrolled { padding-left: 40px; padding-right: 40px; }
+    .hero { grid-template-columns: 1fr; gap: 60px; }
+    .hero-visual { height: 480px; }
+    .hero-card-quote { font-size: 26px; }
+    .scroll-cue { left: 40px; }
+    .philosophy-grid,
+    .directora-grid { grid-template-columns: 1fr; gap: 48px; }
+    .programs-grid { grid-template-columns: 1fr; }
+    .cert-badges { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+    .contact-grid { grid-template-columns: 1fr; gap: 24px; }
+  }
+
+  @media (max-width: 720px) {
+    .nav { padding: 20px 24px; }
+    .nav.scrolled { padding: 14px 24px; }
+    .nav-menu { display: none; }
+    .nav-menu .nav-cta { display: inline-flex; }
+    section, footer, .testimonial { padding-left: 24px; padding-right: 24px; padding-top: 80px; padding-bottom: 80px; }
+    .hero { padding: 120px 24px 60px; }
+    .hero-visual { height: 440px; }
+    .hero-card { padding: 24px; }
+    .hero-card-quote { font-size: 22px; }
+    .hero-card-1 { width: 90%; }
+    .hero-card-2 { width: 90%; padding: 24px; }
+    .hero-card-2 .stat-num { font-size: 52px; }
+    .hero-card-2 .stat-desc { font-size: 12.5px; }
+    .scroll-cue { display: none; }
+    .pillar-list { grid-template-columns: 1fr; }
+    .pillar { border-right: none; }
+    .pillar:last-child { border-bottom: none; }
+    .credentials { grid-template-columns: 1fr; gap: 24px; }
+    .footer-grid { grid-template-columns: 1fr; }
+    .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+    .clef-decoration { font-size: 100px; top: -20px; right: 0; }
+    .portrait-mono { font-size: 180px; }
+    .upcoming-concert { grid-template-columns: 1fr; gap: 24px; padding: 28px; }
+    .public-date { border-right: none; border-bottom: 1px solid var(--line); padding-right: 0; padding-bottom: 20px; }
+    .public-date-day { font-size: 48px; }
+    .public-concert-name { font-size: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ───── NAVIGATION ───── -->
+<nav class="nav" id="nav">
+  <a href="#" class="nav-logo">
+    <svg class="nav-logo-mark" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <path d="M 22 82 L 50 18 L 78 82" stroke="currentColor" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M 50 36 Q 64 48 57 64 Q 50 74 40 72" stroke="currentColor" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+      <ellipse cx="38" cy="73" rx="6.5" ry="4.5" fill="currentColor"/>
+    </svg>
+    <div>
+      <div class="nav-logo-text">ARIA</div>
+      <div class="nav-logo-sub">Music School</div>
+    </div>
+  </a>
+  <div class="nav-menu">
+    <a href="#philosophy" class="nav-link" data-i18n="nav.philosophy">Philosophy</a>
+    <a href="#programs" class="nav-link" data-i18n="nav.programs">Programs</a>
+    <a href="#concerts" class="nav-link" data-i18n="nav.concerts">Concerts</a>
+    <a href="#gallery" class="nav-link" data-i18n="nav.gallery">Gallery</a>
+    <a href="#directora" class="nav-link" data-i18n="nav.director">Director</a>
+    <a href="#contact" class="nav-cta" data-i18n="nav.cta">Book a Lesson</a>
+    <div class="lang-switcher" id="langSwitcher">
+      <button class="lang-btn" id="langBtn" aria-label="Language">
+        <svg class="globe" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        <span id="langLabel">EN</span>
+        <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="lang-dropdown" id="langDropdown">
+        <button class="lang-option active" data-lang="en"><span class="flag">🇬🇧</span> English</button>
+        <button class="lang-option" data-lang="es"><span class="flag">🇪🇸</span> Español</button>
+        <button class="lang-option" data-lang="pt"><span class="flag">🇧🇷</span> Português</button>
+        <button class="lang-option" data-lang="zh"><span class="flag">🇨🇳</span> 中文</button>
+        <button class="lang-option" data-lang="ht"><span class="flag">🇭🇹</span> Kreyòl</button>
+        <button class="lang-option" data-lang="hi"><span class="flag">🇮🇳</span> हिन्दी</button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ───── HERO ───── -->
+<section class="hero">
+  <!-- Decorative pentagram -->
+  <div class="pentagram">
+    <svg viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg">
+      <line x1="0" y1="40" x2="800" y2="40" stroke="#1f2d4a" stroke-width="1"/>
+      <line x1="0" y1="80" x2="800" y2="80" stroke="#1f2d4a" stroke-width="1"/>
+      <line x1="0" y1="120" x2="800" y2="120" stroke="#1f2d4a" stroke-width="1"/>
+      <line x1="0" y1="160" x2="800" y2="160" stroke="#1f2d4a" stroke-width="1"/>
+      <line x1="0" y1="200" x2="800" y2="200" stroke="#1f2d4a" stroke-width="1"/>
+    </svg>
+  </div>
+
+  <div class="hero-text">
+    <div class="hero-eyebrow" data-i18n="hero.eyebrow">Westwood · Massachusetts · Est. 2024</div>
+    <h1 class="hero-title">
+      <span data-i18n="hero.title.l1">Where music</span>
+      <em data-i18n="hero.title.l2">awakens the soul</em>
+      <span class="small" data-i18n="hero.title.l3">— and shapes artists for life.</span>
+    </h1>
+    <p class="hero-desc" data-i18n-html="hero.desc">
+      Excellence in music education for <em>all ages</em>. Piano, flute, and music theory in an inclusive, professional, and inspiring environment — in-person, in-home, or online.
+    </p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn btn-primary">
+        <span data-i18n="hero.cta1">Begin your journey</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+      <a href="#programs" class="btn btn-ghost" data-i18n="hero.cta2">Explore programs</a>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="hero-card hero-card-1">
+      <p class="hero-card-quote" data-i18n="hero.quote">"Music is the language of the spirit — and teaching it, an act of love."</p>
+      <div class="hero-card-attr">— Ariadna Benitez Talavera</div>
+    </div>
+    <div class="hero-card hero-card-2">
+      <div class="clef-decoration">𝄞</div>
+      <div class="stat-num" data-i18n="hero.stat.num">16<em>+</em></div>
+      <div class="stat-label" data-i18n="hero.stat.label">Years of experience</div>
+      <div class="stat-desc" data-i18n="hero.stat.desc">Conducting professional orchestras and training musicians at international conservatories.</div>
+    </div>
+  </div>
+
+  <div class="scroll-cue" data-i18n="hero.scroll">Discover</div>
+</section>
+
+<!-- ───── PHILOSOPHY ───── -->
+<section class="philosophy" id="philosophy">
+  <div class="philosophy-grid">
+    <div class="reveal">
+      <div class="section-eyebrow" data-i18n="phil.eyebrow">i. Philosophy</div>
+      <h2 class="section-title">
+        <span data-i18n="phil.title.l1">Every student</span>
+        <em data-i18n="phil.title.l2">learns</em>
+        <span data-i18n="phil.title.l3">in their own way.</span>
+      </h2>
+      <p class="section-lede" data-i18n="phil.lede">
+        At Aria Music School we believe that music is not only an art — it is a discipline that shapes people. Our approach is grounded in individuality, respect, and positive motivation.
+      </p>
+    </div>
+
+    <div class="reveal">
+      <div class="pillar-list">
+        <div class="pillar">
+          <div class="pillar-num">i.</div>
+          <div class="pillar-title" data-i18n="phil.p1.t">Discipline</div>
+          <div class="pillar-desc" data-i18n="phil.p1.d">The habit that builds mastery over time.</div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">ii.</div>
+          <div class="pillar-title" data-i18n="phil.p2.t">Creativity</div>
+          <div class="pillar-desc" data-i18n="phil.p2.d">Room for imagination within structure.</div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">iii.</div>
+          <div class="pillar-title" data-i18n="phil.p3.t">Focus</div>
+          <div class="pillar-desc" data-i18n="phil.p3.d">Cultivated attention that deepens learning.</div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">iv.</div>
+          <div class="pillar-title" data-i18n="phil.p4.t">Confidence</div>
+          <div class="pillar-desc" data-i18n="phil.p4.d">Self-assurance that blooms with mastery of the instrument.</div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">v.</div>
+          <div class="pillar-title" data-i18n="phil.p5.t">Perseverance</div>
+          <div class="pillar-desc" data-i18n="phil.p5.d">The commitment that turns effort into art.</div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">vi.</div>
+          <div class="pillar-title" data-i18n="phil.p6.t">Expression</div>
+          <div class="pillar-desc" data-i18n="phil.p6.d">The inner voice made manifest through sound.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───── PROGRAMS ───── -->
+<section class="programs" id="programs">
+  <div class="reveal">
+    <div class="section-eyebrow" data-i18n="prog.eyebrow">ii. Programs</div>
+    <h2 class="section-title">
+      <span data-i18n="prog.title.l1">Personalized</span>
+      <em data-i18n="prog.title.l2">lessons</em><br/>
+      <span data-i18n="prog.title.l3">for every age.</span>
+    </h2>
+    <p class="section-lede" data-i18n="prog.lede">
+      From first contact with the instrument to pre-professional preparation. Every program adapts to the student — not the other way around.
+    </p>
+  </div>
+
+  <div class="programs-grid">
+    <div class="program-card reveal">
+      <div class="program-num" data-i18n="prog.p1.num">— Program 01</div>
+      <svg class="program-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5">
+        <rect x="8" y="20" width="48" height="32" rx="2"/>
+        <line x1="14" y1="20" x2="14" y2="42"/>
+        <line x1="20" y1="20" x2="20" y2="42"/>
+        <line x1="26" y1="20" x2="26" y2="42"/>
+        <line x1="32" y1="20" x2="32" y2="42"/>
+        <line x1="38" y1="20" x2="38" y2="42"/>
+        <line x1="44" y1="20" x2="44" y2="42"/>
+        <line x1="50" y1="20" x2="50" y2="42"/>
+        <rect x="16" y="20" width="3" height="14" fill="currentColor"/>
+        <rect x="28" y="20" width="3" height="14" fill="currentColor"/>
+        <rect x="40" y="20" width="3" height="14" fill="currentColor"/>
+        <rect x="46" y="20" width="3" height="14" fill="currentColor"/>
+      </svg>
+      <h3 class="program-title">
+        <span data-i18n="prog.p1.t1">Classical</span>
+        <em data-i18n="prog.p1.t2">Piano</em>
+      </h3>
+      <p class="program-desc" data-i18n="prog.p1.d">
+        From the first note to advanced repertoire. Individual lessons with emphasis on technique, musicality, and recital preparation.
+      </p>
+      <div class="program-tags">
+        <span class="program-tag" data-i18n="tag.children">Children</span>
+        <span class="program-tag" data-i18n="tag.teens">Teens</span>
+        <span class="program-tag" data-i18n="tag.adults">Adults</span>
+        <span class="program-tag" data-i18n="tag.seniors">Seniors</span>
+      </div>
+    </div>
+
+    <div class="program-card reveal">
+      <div class="program-num" data-i18n="prog.p2.num">— Program 02</div>
+      <svg class="program-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5">
+        <line x1="8" y1="48" x2="56" y2="16" stroke-linecap="round"/>
+        <circle cx="14" cy="44" r="2" fill="currentColor"/>
+        <circle cx="22" cy="38" r="2" fill="currentColor"/>
+        <circle cx="30" cy="32" r="2" fill="currentColor"/>
+        <circle cx="38" cy="26" r="2" fill="currentColor"/>
+        <circle cx="46" cy="20" r="2" fill="currentColor"/>
+        <path d="M 52 14 Q 56 14 56 18" stroke-linecap="round"/>
+      </svg>
+      <h3 class="program-title">
+        <span data-i18n="prog.p2.t1">Concert</span>
+        <em data-i18n="prog.p2.t2">Flute</em>
+      </h3>
+      <p class="program-desc" data-i18n="prog.p2.d">
+        Tone development, breathing technique, and repertoire spanning from Baroque to contemporary. For beginners and advanced students.
+      </p>
+      <div class="program-tags">
+        <span class="program-tag" data-i18n="tag.beginner">Beginner</span>
+        <span class="program-tag" data-i18n="tag.intermediate">Intermediate</span>
+        <span class="program-tag" data-i18n="tag.advanced">Advanced</span>
+      </div>
+    </div>
+
+    <div class="program-card reveal">
+      <div class="program-num" data-i18n="prog.p3.num">— Program 03</div>
+      <svg class="program-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5">
+        <line x1="8" y1="20" x2="56" y2="20"/>
+        <line x1="8" y1="28" x2="56" y2="28"/>
+        <line x1="8" y1="36" x2="56" y2="36"/>
+        <line x1="8" y1="44" x2="56" y2="44"/>
+        <line x1="8" y1="52" x2="56" y2="52"/>
+        <ellipse cx="22" cy="36" rx="4" ry="3" fill="currentColor" transform="rotate(-20 22 36)"/>
+        <ellipse cx="38" cy="44" rx="4" ry="3" fill="currentColor" transform="rotate(-20 38 44)"/>
+        <line x1="26" y1="36" x2="26" y2="20" stroke-linecap="round"/>
+        <line x1="42" y1="44" x2="42" y2="28" stroke-linecap="round"/>
+      </svg>
+      <h3 class="program-title">
+        <span data-i18n="prog.p3.t1">Theory &</span>
+        <em data-i18n="prog.p3.t2">Ear Training</em>
+      </h3>
+      <p class="program-desc" data-i18n="prog.p3.d">
+        Music reading, harmony, analysis, and ear training. Essential complement for musicians of any instrument.
+      </p>
+      <div class="program-tags">
+        <span class="program-tag" data-i18n="tag.reading">Reading</span>
+        <span class="program-tag" data-i18n="tag.harmony">Harmony</span>
+        <span class="program-tag" data-i18n="tag.analysis">Analysis</span>
+        <span class="program-tag" data-i18n="tag.ear">Ear Training</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───── DIRECTORA ───── -->
+<section class="directora" id="directora">
+  <div class="directora-grid">
+    <div class="directora-portrait reveal">
+      <div class="portrait-mono">A</div>
+      <div class="portrait-caption">
+        <div class="portrait-name">Ariadna Benitez Talavera</div>
+        <div class="portrait-role" data-i18n="dir.role">Founder · Director</div>
+      </div>
+    </div>
+
+    <div class="directora-content reveal">
+      <div class="section-eyebrow" data-i18n="dir.eyebrow">iii. The Director</div>
+      <h2 class="section-title">
+        <span data-i18n="dir.title.l1">A</span>
+        <em data-i18n="dir.title.l2">life</em>
+        <span data-i18n="dir.title.l3">devoted</span><br/>
+        <span data-i18n="dir.title.l4">to music.</span>
+      </h2>
+      <p class="directora-bio" data-i18n-html="dir.bio1">
+        Ariadna Benitez Talavera is a Cuban pianist and conductor with a <em>distinguished international career</em>. She began her piano studies at the age of four, and today combines decades of artistic experience with a profound pedagogical vocation.
+      </p>
+      <p class="directora-bio" data-i18n-html="dir.bio2">
+        She has served as Music Director of the <em>Matanzas Symphony Orchestra</em> in Cuba, leading national tours, premieres, and major festivals. She is currently pursuing her Doctor of Musical Arts in Orchestral Conducting at Boston University, and has guided young musicians toward conservatories and high-level programs across the Americas.
+      </p>
+
+      <div class="credentials">
+        <div class="credential">
+          <div class="credential-degree" data-i18n="dir.c1.deg">DMA</div>
+          <div class="credential-school">Boston University</div>
+          <div class="credential-location" data-i18n="dir.c1.loc">MA, USA</div>
+        </div>
+        <div class="credential">
+          <div class="credential-degree" data-i18n="dir.c2.deg">M.M.</div>
+          <div class="credential-school">Austin Peay State University</div>
+          <div class="credential-location" data-i18n="dir.c2.loc">TN, USA</div>
+        </div>
+        <div class="credential">
+          <div class="credential-degree" data-i18n="dir.c3.deg">B.M.</div>
+          <div class="credential-school">University of the Arts</div>
+          <div class="credential-location" data-i18n="dir.c3.loc">Havana, Cuba</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───── CERTIFICATIONS ───── -->
+<section class="certs" id="certs">
+  <div class="certs-content">
+    <div class="reveal">
+      <div class="section-eyebrow" data-i18n="certs.eyebrow">iv. International Preparation</div>
+      <h2 class="section-title">
+        <span data-i18n="certs.title.l1">Globally</span>
+        <em data-i18n="certs.title.l2">recognized</em><br/>
+        <span data-i18n="certs.title.l3">certifications.</span>
+      </h2>
+      <p class="section-lede" data-i18n="certs.lede">
+        Aria Music School prepares students for the most prestigious examinations and auditions in the world of classical music.
+      </p>
+    </div>
+
+    <div class="cert-badges">
+      <div class="cert-badge reveal">
+        <div class="cert-symbol">𝄞</div>
+        <div class="cert-name">ABRSM</div>
+        <div class="cert-full" data-i18n-html="certs.abrsm.full">Associated Board of the<br/>Royal Schools of Music</div>
+        <p class="cert-desc" data-i18n="certs.abrsm.desc">
+          The most internationally recognized music assessment system, from Grade 1 up to professional diplomas (ARSM, DipABRSM).
+        </p>
+      </div>
+      <div class="cert-badge reveal">
+        <div class="cert-symbol">𝄢</div>
+        <div class="cert-name">RCM</div>
+        <div class="cert-full" data-i18n-html="certs.rcm.full">Royal Conservatory<br/>of Music</div>
+        <p class="cert-desc" data-i18n="certs.rcm.desc">
+          Prestigious North American assessment program offering official certification recognized by universities and conservatories.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───── TESTIMONIAL ───── -->
+<section class="testimonial">
+  <div class="testimonial-content">
+    <p class="testimonial-text" data-i18n-html="test.text">
+      Music doesn't just develop artistic skills — it develops <em>people</em>. Discipline, focus, sensitivity. Every lesson is an investment in who you will become.
+    </p>
+    <div class="testimonial-divider"></div>
+    <div class="testimonial-attr" data-i18n="test.attr">— Aria Music School Philosophy</div>
+  </div>
+</section>
+
+<!-- ───── UPCOMING CONCERTS (PUBLIC) ───── -->
+<section class="concerts-public" id="concerts">
+  <div class="reveal">
+    <div class="section-eyebrow" data-i18n="concerts.eyebrow">v. Upcoming Concerts</div>
+    <h2 class="section-title">
+      <span data-i18n="concerts.title.l1">Where our students</span>
+      <em data-i18n="concerts.title.l2">share</em>
+      <span data-i18n="concerts.title.l3">their music.</span>
+    </h2>
+    <p class="section-lede" data-i18n="concerts.lede">
+      Each season, our students take the stage to share their progress. Families and friends are warmly invited to celebrate every musical achievement.
+    </p>
+  </div>
+
+  <div class="upcoming-concerts">
+    <article class="upcoming-concert reveal">
+      <div class="public-date">
+        <div class="public-date-month" data-i18n="month.may">May</div>
+        <div class="public-date-day">30</div>
+        <div class="public-date-year">2026</div>
+      </div>
+      <div class="public-concert-info">
+        <h3 class="public-concert-name" data-i18n="c1.name">Spring Recital</h3>
+        <div class="public-concert-meta">
+          <div class="public-concert-meta-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span>7:00 PM</span>
+          </div>
+          <div class="public-concert-meta-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span>First Parish of Westwood · 252 Nahatan St</span>
+          </div>
+        </div>
+        <p class="public-concert-desc" data-i18n="c1.desc">
+          "An evening of classical music celebrating the arrival of spring with works by Bach, Chopin, and Latin American composers."
+        </p>
+        <div class="public-participants">
+          <span class="public-participant-tag"><strong>Emma R.</strong> Chopin · Nocturne Op. 9 No. 2</span>
+          <span class="public-participant-tag"><strong>Sofía M.</strong> Mozart · Flute Concerto K.313</span>
+          <span class="public-participant-tag"><strong>Liam O.</strong> Bach · Invention No. 4</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="upcoming-concert reveal">
+      <div class="public-date">
+        <div class="public-date-month" data-i18n="month.jun">Jun</div>
+        <div class="public-date-day">20</div>
+        <div class="public-date-year">2026</div>
+      </div>
+      <div class="public-concert-info">
+        <h3 class="public-concert-name" data-i18n="c2.name">Year-End Concert</h3>
+        <div class="public-concert-meta">
+          <div class="public-concert-meta-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span>6:30 PM</span>
+          </div>
+          <div class="public-concert-meta-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span>First Parish of Westwood · 252 Nahatan St</span>
+          </div>
+        </div>
+        <p class="public-concert-desc" data-i18n="c2.desc">
+          "A celebration closing the academic year — a gala where every student presents the most meaningful accomplishments of their preparation."
+        </p>
+        <div class="public-participants">
+          <span class="public-participant-tag" style="font-style:italic;background:transparent;" data-i18n="c2.tba">Participants to be announced soon</span>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ───── GALLERY (PUBLIC) ───── -->
+<section class="gallery-public" id="gallery">
+  <div class="reveal">
+    <div class="section-eyebrow" data-i18n="gallery.eyebrow">vi. Gallery</div>
+    <h2 class="section-title">
+      <span data-i18n="gallery.title.l1">Moments</span>
+      <em data-i18n="gallery.title.l2">that</em>
+      <span data-i18n="gallery.title.l3">echo.</span>
+    </h2>
+    <p class="section-lede" data-i18n="gallery.lede">
+      Photographs and recordings from past recitals, masterclasses, and special moments at Aria Music School.
+    </p>
+  </div>
+
+  <div class="gallery-filter">
+    <button class="gallery-filter-btn active" data-filter="all" data-i18n="gallery.all">All</button>
+    <button class="gallery-filter-btn" data-filter="video">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+      <span data-i18n="gallery.videos">Videos</span>
+    </button>
+    <button class="gallery-filter-btn" data-filter="photo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      <span data-i18n="gallery.photos">Photos</span>
+    </button>
+  </div>
+
+  <div class="public-gallery-grid">
+    <!-- VIDEO 1 -->
+    <div class="public-media-card is-video reveal" data-type="video">
+      <div class="public-media-thumb">
+        <span class="public-media-badge video">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+          <span data-i18n="gallery.video">Video</span>
+        </span>
+        <div class="public-media-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+        </div>
+        <div class="public-play-circle">
+          <div class="public-play-circle-inner">
+            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </div>
+        </div>
+        <div class="public-media-overlay">
+          <div class="public-media-title">Emma · Chopin Nocturne</div>
+          <div class="public-media-event" data-i18n="g.winter">Winter Recital · Dec 2025</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOTO 1 -->
+    <div class="public-media-card is-photo gold reveal" data-type="photo">
+      <div class="public-media-thumb">
+        <span class="public-media-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          <span data-i18n="gallery.photo">Photo</span>
+        </span>
+        <div class="public-media-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        </div>
+        <div class="public-media-overlay">
+          <div class="public-media-title">Sofía's performance</div>
+          <div class="public-media-event" data-i18n="g.winter">Winter Recital · Dec 2025</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIDEO 2 -->
+    <div class="public-media-card is-video reveal" data-type="video">
+      <div class="public-media-thumb">
+        <span class="public-media-badge video">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+          <span data-i18n="gallery.video">Video</span>
+        </span>
+        <div class="public-media-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+        </div>
+        <div class="public-play-circle">
+          <div class="public-play-circle-inner">
+            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </div>
+        </div>
+        <div class="public-media-overlay">
+          <div class="public-media-title">Liam · Bach Invention</div>
+          <div class="public-media-event" data-i18n="g.masterclass">Masterclass · Nov 2025</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOTO 2 -->
+    <div class="public-media-card is-photo burgundy reveal" data-type="photo">
+      <div class="public-media-thumb">
+        <span class="public-media-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          <span data-i18n="gallery.photo">Photo</span>
+        </span>
+        <div class="public-media-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        </div>
+        <div class="public-media-overlay">
+          <div class="public-media-title">Student ensemble</div>
+          <div class="public-media-event" data-i18n="g.annual">Annual Recital · Jun 2025</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOTO 3 -->
+    <div class="public-media-card is-photo reveal" data-type="photo">
+      <div class="public-media-thumb">
+        <span class="public-media-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          <span data-i18n="gallery.photo">Photo</span>
+        </span>
+        <div class="public-media-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        </div>
+        <div class="public-media-overlay">
+          <div class="public-media-title">First Parish of Westwood</div>
+          <div class="public-media-event" data-i18n="g.venue">Recital venue</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIDEO 3 -->
+    <div class="public-media-card is-video gold reveal" data-type="video">
+      <div class="public-media-thumb">
+        <span class="public-media-badge video">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+          <span data-i18n="gallery.video">Video</span>
+        </span>
+        <div class="public-media-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+        </div>
+        <div class="public-play-circle">
+          <div class="public-play-circle-inner">
+            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </div>
+        </div>
+        <div class="public-media-overlay">
+          <div class="public-media-title">Ensemble performance</div>
+          <div class="public-media-event" data-i18n="g.annual">Annual Recital · Jun 2025</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───── CTA ───── -->
+<section class="cta" id="contact">
+  <div class="cta-content">
+    <div class="section-eyebrow" data-i18n="cta.eyebrow">v. Start Today</div>
+    <h2 class="cta-title">
+      <span data-i18n="cta.title.l1">Your</span>
+      <em data-i18n="cta.title.l2">first</em>
+      <span data-i18n="cta.title.l3">note</span><br/>
+      <span data-i18n="cta.title.l4">is waiting for you.</span>
+    </h2>
+    <p class="cta-desc" data-i18n="cta.desc">
+      Book a trial lesson and discover how music can transform your life — regardless of your age or prior experience.
+    </p>
+    <a href="mailto:ariamusicschool26@gmail.com" class="btn btn-primary">
+      <span data-i18n="cta.button">Book a trial lesson</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </a>
+
+    <div class="contact-grid">
+      <div class="contact-item">
+        <div class="contact-label" data-i18n="cta.phone">Phone</div>
+        <div class="contact-value">+1 (931) 338-5397</div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-label" data-i18n="cta.email">Email</div>
+        <div class="contact-value">ariamusicschool26@gmail.com</div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-label" data-i18n="cta.location">Location</div>
+        <div class="contact-value">252 Nahatan St<br/>Westwood, MA 02090</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───── FOOTER ───── -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="nav-logo">
+        <svg class="nav-logo-mark" viewBox="0 0 100 100" style="color:var(--gold-soft);">
+          <path d="M 22 82 L 50 18 L 78 82" stroke="currentColor" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M 50 36 Q 64 48 57 64 Q 50 74 40 72" stroke="currentColor" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+          <ellipse cx="38" cy="73" rx="6.5" ry="4.5" fill="currentColor"/>
+        </svg>
+        <div>
+          <div class="nav-logo-text">ARIA</div>
+          <div class="nav-logo-sub">Music School</div>
+        </div>
+      </div>
+      <p class="footer-brand-desc" data-i18n="footer.brand">
+        Excellence in music education in an inclusive, professional, and inspiring environment.
+      </p>
+    </div>
+
+    <div>
+      <div class="footer-col-title" data-i18n="footer.col1">Programs</div>
+      <ul class="footer-links">
+        <li><a href="#programs" data-i18n="footer.piano">Piano</a></li>
+        <li><a href="#programs" data-i18n="footer.flute">Flute</a></li>
+        <li><a href="#programs" data-i18n="footer.theory">Music Theory</a></li>
+        <li><a href="#certs">ABRSM / RCM</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <div class="footer-col-title" data-i18n="footer.col2">School</div>
+      <ul class="footer-links">
+        <li><a href="#philosophy" data-i18n="nav.philosophy">Philosophy</a></li>
+        <li><a href="#directora" data-i18n="nav.director">Director</a></li>
+        <li><a href="#certs" data-i18n="nav.certs">Certifications</a></li>
+        <li><a href="#contact" data-i18n="footer.contact">Contact</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <div class="footer-col-title" data-i18n="footer.col3">Contact</div>
+      <ul class="footer-links">
+        <li>+1 (931) 338-5397</li>
+        <li>ariamusicschool26@gmail.com</li>
+        <li>Westwood, Massachusetts</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div data-i18n="footer.copy">© 2026 Aria Music School. All rights reserved.</div>
+    <div><em data-i18n="footer.tagline">"Music with inspiration and discipline"</em></div>
+  </div>
+</footer>
+
+<script>
+  // ═══════════════════════════════════════════════════════════
+  // TRANSLATIONS — 6 languages
+  // ═══════════════════════════════════════════════════════════
+  const T = {
+    en: {
+      "nav.philosophy":"Philosophy","nav.programs":"Programs","nav.director":"Director","nav.certs":"Certifications","nav.cta":"Book a Lesson",
+      "hero.eyebrow":"Westwood · Massachusetts · Est. 2024",
+      "hero.title.l1":"Where music","hero.title.l2":"awakens the soul","hero.title.l3":"— and shapes artists for life.",
+      "hero.desc":"Excellence in music education for <em>all ages</em>. Piano, flute, and music theory in an inclusive, professional, and inspiring environment — in-person, in-home, or online.",
+      "hero.cta1":"Begin your journey","hero.cta2":"Explore programs",
+      "hero.quote":"\"Music is the language of the spirit — and teaching it, an act of love.\"",
+      "hero.stat.num":"16<em>+</em>","hero.stat.label":"Years of experience",
+      "hero.stat.desc":"Conducting professional orchestras and training musicians at international conservatories.",
+      "hero.scroll":"Discover",
+      "phil.eyebrow":"i. Philosophy",
+      "phil.title.l1":"Every student","phil.title.l2":"learns","phil.title.l3":"in their own way.",
+      "phil.lede":"At Aria Music School we believe that music is not only an art — it is a discipline that shapes people. Our approach is grounded in individuality, respect, and positive motivation.",
+      "phil.p1.t":"Discipline","phil.p1.d":"The habit that builds mastery over time.",
+      "phil.p2.t":"Creativity","phil.p2.d":"Room for imagination within structure.",
+      "phil.p3.t":"Focus","phil.p3.d":"Cultivated attention that deepens learning.",
+      "phil.p4.t":"Confidence","phil.p4.d":"Self-assurance that blooms with mastery of the instrument.",
+      "phil.p5.t":"Perseverance","phil.p5.d":"The commitment that turns effort into art.",
+      "phil.p6.t":"Expression","phil.p6.d":"The inner voice made manifest through sound.",
+      "prog.eyebrow":"ii. Programs",
+      "prog.title.l1":"Personalized","prog.title.l2":"lessons","prog.title.l3":"for every age.",
+      "prog.lede":"From first contact with the instrument to pre-professional preparation. Every program adapts to the student — not the other way around.",
+      "prog.p1.num":"— Program 01","prog.p1.t1":"Classical","prog.p1.t2":"Piano",
+      "prog.p1.d":"From the first note to advanced repertoire. Individual lessons with emphasis on technique, musicality, and recital preparation.",
+      "prog.p2.num":"— Program 02","prog.p2.t1":"Concert","prog.p2.t2":"Flute",
+      "prog.p2.d":"Tone development, breathing technique, and repertoire spanning from Baroque to contemporary. For beginners and advanced students.",
+      "prog.p3.num":"— Program 03","prog.p3.t1":"Theory &","prog.p3.t2":"Ear Training",
+      "prog.p3.d":"Music reading, harmony, analysis, and ear training. Essential complement for musicians of any instrument.",
+      "tag.children":"Children","tag.teens":"Teens","tag.adults":"Adults","tag.seniors":"Seniors",
+      "tag.beginner":"Beginner","tag.intermediate":"Intermediate","tag.advanced":"Advanced",
+      "tag.reading":"Reading","tag.harmony":"Harmony","tag.analysis":"Analysis","tag.ear":"Ear Training",
+      "dir.eyebrow":"iii. The Director","dir.role":"Founder · Director",
+      "dir.title.l1":"A","dir.title.l2":"life","dir.title.l3":"devoted","dir.title.l4":"to music.",
+      "dir.bio1":"Ariadna Benitez Talavera is a Cuban pianist and conductor with a <em>distinguished international career</em>. She began her piano studies at the age of four, and today combines decades of artistic experience with a profound pedagogical vocation.",
+      "dir.bio2":"She has served as Music Director of the <em>Matanzas Symphony Orchestra</em> in Cuba, leading national tours, premieres, and major festivals. She is currently pursuing her Doctor of Musical Arts in Orchestral Conducting at Boston University, and has guided young musicians toward conservatories and high-level programs across the Americas.",
+      "dir.c1.deg":"DMA","dir.c1.loc":"MA, USA",
+      "dir.c2.deg":"M.M.","dir.c2.loc":"TN, USA",
+      "dir.c3.deg":"B.M.","dir.c3.loc":"Havana, Cuba",
+      "certs.eyebrow":"iv. International Preparation",
+      "certs.title.l1":"Globally","certs.title.l2":"recognized","certs.title.l3":"certifications.",
+      "certs.lede":"Aria Music School prepares students for the most prestigious examinations and auditions in the world of classical music.",
+      "certs.abrsm.full":"Associated Board of the<br/>Royal Schools of Music",
+      "certs.abrsm.desc":"The most internationally recognized music assessment system, from Grade 1 up to professional diplomas (ARSM, DipABRSM).",
+      "certs.rcm.full":"Royal Conservatory<br/>of Music",
+      "certs.rcm.desc":"Prestigious North American assessment program offering official certification recognized by universities and conservatories.",
+      "test.text":"Music doesn't just develop artistic skills — it develops <em>people</em>. Discipline, focus, sensitivity. Every lesson is an investment in who you will become.",
+      "test.attr":"— Aria Music School Philosophy",
+      "cta.eyebrow":"v. Start Today",
+      "cta.title.l1":"Your","cta.title.l2":"first","cta.title.l3":"note","cta.title.l4":"is waiting for you.",
+      "cta.desc":"Book a trial lesson and discover how music can transform your life — regardless of your age or prior experience.",
+      "cta.button":"Book a trial lesson",
+      "cta.phone":"Phone","cta.email":"Email","cta.location":"Location",
+      "footer.brand":"Excellence in music education in an inclusive, professional, and inspiring environment.",
+      "footer.col1":"Programs","footer.col2":"School","footer.col3":"Contact",
+      "footer.piano":"Piano","footer.flute":"Flute","footer.theory":"Music Theory","footer.contact":"Contact",
+      "footer.copy":"© 2026 Aria Music School. All rights reserved.",
+      "footer.tagline":"\"Music with inspiration and discipline\"",
+      "nav.concerts":"Concerts","nav.gallery":"Gallery",
+      "concerts.eyebrow":"v. Upcoming Concerts",
+      "concerts.title.l1":"Where our students","concerts.title.l2":"share","concerts.title.l3":"their music.",
+      "concerts.lede":"Each season, our students take the stage to share their progress. Families and friends are warmly invited to celebrate every musical achievement.",
+      "c1.name":"Spring Recital",
+      "c1.desc":"\"An evening of classical music celebrating the arrival of spring with works by Bach, Chopin, and Latin American composers.\"",
+      "c2.name":"Year-End Concert",
+      "c2.desc":"\"A celebration closing the academic year — a gala where every student presents the most meaningful accomplishments of their preparation.\"",
+      "c2.tba":"Participants to be announced soon",
+      "month.may":"May","month.jun":"Jun",
+      "gallery.eyebrow":"vi. Gallery",
+      "gallery.title.l1":"Moments","gallery.title.l2":"that","gallery.title.l3":"echo.",
+      "gallery.lede":"Photographs and recordings from past recitals, masterclasses, and special moments at Aria Music School.",
+      "gallery.all":"All","gallery.videos":"Videos","gallery.photos":"Photos",
+      "gallery.video":"Video","gallery.photo":"Photo",
+      "g.winter":"Winter Recital · Dec 2025",
+      "g.masterclass":"Masterclass · Nov 2025",
+      "g.annual":"Annual Recital · Jun 2025",
+      "g.venue":"Recital venue"
+    },
+
+    es: {
+      "nav.philosophy":"Filosofía","nav.programs":"Programas","nav.director":"Directora","nav.certs":"Certificaciones","nav.cta":"Reservar Clase",
+      "hero.eyebrow":"Westwood · Massachusetts · Est. 2024",
+      "hero.title.l1":"Donde la música","hero.title.l2":"despierta el alma","hero.title.l3":"— y forma artistas para la vida.",
+      "hero.desc":"Educación musical de excelencia para <em>todas las edades</em>. Piano, flauta y teoría musical en un ambiente inclusivo, profesional y motivador — presencial, a domicilio u online.",
+      "hero.cta1":"Comenzar tu camino","hero.cta2":"Explorar programas",
+      "hero.quote":"\"La música es el lenguaje del espíritu — y enseñarla, un acto de amor.\"",
+      "hero.stat.num":"16<em>+</em>","hero.stat.label":"Años de trayectoria",
+      "hero.stat.desc":"Conduciendo orquestas profesionales y formando músicos en conservatorios internacionales.",
+      "hero.scroll":"Descubrir",
+      "phil.eyebrow":"i. Filosofía",
+      "phil.title.l1":"Cada estudiante","phil.title.l2":"aprende","phil.title.l3":"de manera única.",
+      "phil.lede":"En Aria Music School creemos que la música no es solo un arte — es una disciplina que forma personas. Nuestro enfoque se basa en la individualidad, el respeto y la motivación positiva.",
+      "phil.p1.t":"Disciplina","phil.p1.d":"El hábito que construye maestría a través del tiempo.",
+      "phil.p2.t":"Creatividad","phil.p2.d":"Espacio para la imaginación dentro de la estructura.",
+      "phil.p3.t":"Concentración","phil.p3.d":"La atención cultivada que profundiza el aprendizaje.",
+      "phil.p4.t":"Confianza","phil.p4.d":"Seguridad personal que florece al dominar el instrumento.",
+      "phil.p5.t":"Perseverancia","phil.p5.d":"El compromiso que transforma esfuerzo en arte.",
+      "phil.p6.t":"Expresión","phil.p6.d":"La voz interior que se manifiesta a través del sonido.",
+      "prog.eyebrow":"ii. Programas",
+      "prog.title.l1":"Lecciones","prog.title.l2":"personalizadas","prog.title.l3":"para todas las edades.",
+      "prog.lede":"Desde el primer contacto con el instrumento hasta la preparación pre-profesional. Cada programa se adapta al estudiante — no al revés.",
+      "prog.p1.num":"— Programa 01","prog.p1.t1":"Piano","prog.p1.t2":"Clásico",
+      "prog.p1.d":"Desde la primera nota hasta el repertorio avanzado. Clases individuales con énfasis en técnica, musicalidad y preparación de recitales.",
+      "prog.p2.num":"— Programa 02","prog.p2.t1":"Flauta","prog.p2.t2":"Traversa",
+      "prog.p2.d":"Desarrollo del sonido, técnica respiratoria y repertorio que abarca desde el barroco hasta lo contemporáneo. Para iniciantes y avanzados.",
+      "prog.p3.num":"— Programa 03","prog.p3.t1":"Teoría y","prog.p3.t2":"Entrenamiento Auditivo",
+      "prog.p3.d":"Lectura musical, armonía, análisis y entrenamiento auditivo. Complemento esencial para músicos de cualquier instrumento.",
+      "tag.children":"Niños","tag.teens":"Adolescentes","tag.adults":"Adultos","tag.seniors":"Adultos Mayores",
+      "tag.beginner":"Principiante","tag.intermediate":"Intermedio","tag.advanced":"Avanzado",
+      "tag.reading":"Lectura","tag.harmony":"Armonía","tag.analysis":"Análisis","tag.ear":"Entrenamiento Auditivo",
+      "dir.eyebrow":"iii. La Directora","dir.role":"Fundadora · Directora",
+      "dir.title.l1":"Una","dir.title.l2":"vida","dir.title.l3":"dedicada","dir.title.l4":"a la música.",
+      "dir.bio1":"Ariadna Benitez Talavera es una pianista y directora de orquesta cubana con una <em>distinguida trayectoria internacional</em>. Comenzó sus estudios de piano a los cuatro años, y hoy combina décadas de experiencia artística con una vocación pedagógica profunda.",
+      "dir.bio2":"Ha sido Directora Musical de la <em>Orquesta Sinfónica de Matanzas</em> en Cuba, liderando giras nacionales, estrenos y festivales de relevancia. Actualmente cursa su Doctorado en Dirección Orquestal en Boston University, y ha guiado a jóvenes músicos hacia conservatorios y programas de alto nivel en toda América.",
+      "dir.c1.deg":"DMA","dir.c1.loc":"MA, Estados Unidos",
+      "dir.c2.deg":"M.M.","dir.c2.loc":"TN, Estados Unidos",
+      "dir.c3.deg":"B.M.","dir.c3.loc":"La Habana, Cuba",
+      "certs.eyebrow":"iv. Preparación Internacional",
+      "certs.title.l1":"Certificaciones","certs.title.l2":"reconocidas","certs.title.l3":"mundialmente.",
+      "certs.lede":"Aria Music School prepara estudiantes para los exámenes y audiciones más prestigiosos del mundo de la música clásica.",
+      "certs.abrsm.full":"Associated Board of the<br/>Royal Schools of Music",
+      "certs.abrsm.desc":"El sistema de evaluación musical más reconocido internacionalmente, desde Grade 1 hasta los diplomas profesionales (ARSM, DipABRSM).",
+      "certs.rcm.full":"Royal Conservatory<br/>of Music",
+      "certs.rcm.desc":"Programa de evaluación con prestigio en Norteamérica, que ofrece certificación oficial reconocida por universidades y conservatorios.",
+      "test.text":"La música no solo desarrolla habilidades artísticas — desarrolla <em>personas</em>. Disciplina, concentración, sensibilidad. Cada lección es una inversión en quien serás mañana.",
+      "test.attr":"— Filosofía Aria Music School",
+      "cta.eyebrow":"v. Comienza Hoy",
+      "cta.title.l1":"Tu","cta.title.l2":"primera","cta.title.l3":"nota","cta.title.l4":"te está esperando.",
+      "cta.desc":"Reserva una clase de prueba y descubre cómo la música puede transformar tu vida — sin importar tu edad o nivel previo.",
+      "cta.button":"Reservar clase de prueba",
+      "cta.phone":"Teléfono","cta.email":"Email","cta.location":"Ubicación",
+      "footer.brand":"Educación musical de excelencia en un ambiente inclusivo, profesional y motivador.",
+      "footer.col1":"Programas","footer.col2":"Escuela","footer.col3":"Contacto",
+      "footer.piano":"Piano","footer.flute":"Flauta","footer.theory":"Teoría Musical","footer.contact":"Contacto",
+      "footer.copy":"© 2026 Aria Music School. Todos los derechos reservados.",
+      "footer.tagline":"\"Música con inspiración y disciplina\"",
+      "nav.concerts":"Conciertos","nav.gallery":"Galería",
+      "concerts.eyebrow":"v. Próximos Conciertos",
+      "concerts.title.l1":"Donde nuestros estudiantes","concerts.title.l2":"comparten","concerts.title.l3":"su música.",
+      "concerts.lede":"Cada temporada, nuestros estudiantes suben al escenario para compartir su progreso. Familias y amigos están cálidamente invitados a celebrar cada logro musical.",
+      "c1.name":"Recital de Primavera",
+      "c1.desc":"\"Una velada de música clásica que celebra la llegada de la primavera con obras de Bach, Chopin y compositores latinoamericanos.\"",
+      "c2.name":"Concierto de Fin de Año",
+      "c2.desc":"\"Una celebración que cierra el año académico — una gala donde cada estudiante presenta los logros más significativos de su preparación.\"",
+      "c2.tba":"Participantes por anunciar próximamente",
+      "month.may":"May","month.jun":"Jun",
+      "gallery.eyebrow":"vi. Galería",
+      "gallery.title.l1":"Momentos","gallery.title.l2":"que","gallery.title.l3":"resuenan.",
+      "gallery.lede":"Fotografías y grabaciones de recitales pasados, clases magistrales y momentos especiales en Aria Music School.",
+      "gallery.all":"Todo","gallery.videos":"Videos","gallery.photos":"Fotos",
+      "gallery.video":"Video","gallery.photo":"Foto",
+      "g.winter":"Recital de Invierno · Dic 2025",
+      "g.masterclass":"Clase Magistral · Nov 2025",
+      "g.annual":"Recital Anual · Jun 2025",
+      "g.venue":"Sede del recital"
+    },
+
+    pt: {
+      "nav.philosophy":"Filosofia","nav.programs":"Programas","nav.director":"Diretora","nav.certs":"Certificações","nav.cta":"Agendar Aula",
+      "hero.eyebrow":"Westwood · Massachusetts · Est. 2024",
+      "hero.title.l1":"Onde a música","hero.title.l2":"desperta a alma","hero.title.l3":"— e forma artistas para a vida.",
+      "hero.desc":"Educação musical de excelência para <em>todas as idades</em>. Piano, flauta e teoria musical em um ambiente inclusivo, profissional e inspirador — presencial, em domicílio ou online.",
+      "hero.cta1":"Comece sua jornada","hero.cta2":"Explorar programas",
+      "hero.quote":"\"A música é a linguagem do espírito — e ensiná-la, um ato de amor.\"",
+      "hero.stat.num":"16<em>+</em>","hero.stat.label":"Anos de trajetória",
+      "hero.stat.desc":"Regendo orquestras profissionais e formando músicos em conservatórios internacionais.",
+      "hero.scroll":"Descobrir",
+      "phil.eyebrow":"i. Filosofia",
+      "phil.title.l1":"Cada aluno","phil.title.l2":"aprende","phil.title.l3":"de forma única.",
+      "phil.lede":"Na Aria Music School acreditamos que a música não é apenas uma arte — é uma disciplina que forma pessoas. Nossa abordagem é baseada na individualidade, no respeito e na motivação positiva.",
+      "phil.p1.t":"Disciplina","phil.p1.d":"O hábito que constrói maestria ao longo do tempo.",
+      "phil.p2.t":"Criatividade","phil.p2.d":"Espaço para a imaginação dentro da estrutura.",
+      "phil.p3.t":"Concentração","phil.p3.d":"A atenção cultivada que aprofunda o aprendizado.",
+      "phil.p4.t":"Confiança","phil.p4.d":"Segurança pessoal que floresce ao dominar o instrumento.",
+      "phil.p5.t":"Perseverança","phil.p5.d":"O compromisso que transforma o esforço em arte.",
+      "phil.p6.t":"Expressão","phil.p6.d":"A voz interior que se manifesta através do som.",
+      "prog.eyebrow":"ii. Programas",
+      "prog.title.l1":"Aulas","prog.title.l2":"personalizadas","prog.title.l3":"para todas as idades.",
+      "prog.lede":"Do primeiro contato com o instrumento à preparação pré-profissional. Cada programa se adapta ao aluno — não o contrário.",
+      "prog.p1.num":"— Programa 01","prog.p1.t1":"Piano","prog.p1.t2":"Clássico",
+      "prog.p1.d":"Da primeira nota ao repertório avançado. Aulas individuais com ênfase em técnica, musicalidade e preparação de recitais.",
+      "prog.p2.num":"— Programa 02","prog.p2.t1":"Flauta","prog.p2.t2":"Transversal",
+      "prog.p2.d":"Desenvolvimento sonoro, técnica respiratória e repertório que vai do barroco ao contemporâneo. Para iniciantes e avançados.",
+      "prog.p3.num":"— Programa 03","prog.p3.t1":"Teoria e","prog.p3.t2":"Treinamento Auditivo",
+      "prog.p3.d":"Leitura musical, harmonia, análise e treinamento auditivo. Complemento essencial para músicos de qualquer instrumento.",
+      "tag.children":"Crianças","tag.teens":"Adolescentes","tag.adults":"Adultos","tag.seniors":"Idosos",
+      "tag.beginner":"Iniciante","tag.intermediate":"Intermediário","tag.advanced":"Avançado",
+      "tag.reading":"Leitura","tag.harmony":"Harmonia","tag.analysis":"Análise","tag.ear":"Percepção Auditiva",
+      "dir.eyebrow":"iii. A Diretora","dir.role":"Fundadora · Diretora",
+      "dir.title.l1":"Uma","dir.title.l2":"vida","dir.title.l3":"dedicada","dir.title.l4":"à música.",
+      "dir.bio1":"Ariadna Benitez Talavera é uma pianista e regente cubana com uma <em>distinta trajetória internacional</em>. Começou os estudos de piano aos quatro anos e hoje combina décadas de experiência artística com uma vocação pedagógica profunda.",
+      "dir.bio2":"Foi Diretora Musical da <em>Orquestra Sinfônica de Matanzas</em> em Cuba, liderando turnês nacionais, estreias e festivais de grande relevância. Atualmente cursa seu Doutorado em Regência Orquestral na Boston University e orientou jovens músicos rumo a conservatórios e programas de alto nível em toda a América.",
+      "dir.c1.deg":"DMA","dir.c1.loc":"MA, Estados Unidos",
+      "dir.c2.deg":"M.M.","dir.c2.loc":"TN, Estados Unidos",
+      "dir.c3.deg":"B.M.","dir.c3.loc":"Havana, Cuba",
+      "certs.eyebrow":"iv. Preparação Internacional",
+      "certs.title.l1":"Certificações","certs.title.l2":"reconhecidas","certs.title.l3":"mundialmente.",
+      "certs.lede":"A Aria Music School prepara alunos para os exames e audições mais prestigiados do mundo da música clássica.",
+      "certs.abrsm.full":"Associated Board of the<br/>Royal Schools of Music",
+      "certs.abrsm.desc":"O sistema de avaliação musical mais reconhecido internacionalmente, do Grade 1 aos diplomas profissionais (ARSM, DipABRSM).",
+      "certs.rcm.full":"Royal Conservatory<br/>of Music",
+      "certs.rcm.desc":"Programa de avaliação prestigiado na América do Norte, oferecendo certificação oficial reconhecida por universidades e conservatórios.",
+      "test.text":"A música não desenvolve apenas habilidades artísticas — desenvolve <em>pessoas</em>. Disciplina, concentração, sensibilidade. Cada aula é um investimento em quem você será amanhã.",
+      "test.attr":"— Filosofia Aria Music School",
+      "cta.eyebrow":"v. Comece Hoje",
+      "cta.title.l1":"Sua","cta.title.l2":"primeira","cta.title.l3":"nota","cta.title.l4":"está esperando por você.",
+      "cta.desc":"Agende uma aula experimental e descubra como a música pode transformar sua vida — independentemente da idade ou nível prévio.",
+      "cta.button":"Agendar aula experimental",
+      "cta.phone":"Telefone","cta.email":"Email","cta.location":"Localização",
+      "footer.brand":"Educação musical de excelência em um ambiente inclusivo, profissional e inspirador.",
+      "footer.col1":"Programas","footer.col2":"Escola","footer.col3":"Contato",
+      "footer.piano":"Piano","footer.flute":"Flauta","footer.theory":"Teoria Musical","footer.contact":"Contato",
+      "footer.copy":"© 2026 Aria Music School. Todos os direitos reservados.",
+      "footer.tagline":"\"Música com inspiração e disciplina\"",
+      "nav.concerts":"Concertos","nav.gallery":"Galeria",
+      "concerts.eyebrow":"v. Próximos Concertos",
+      "concerts.title.l1":"Onde nossos alunos","concerts.title.l2":"compartilham","concerts.title.l3":"sua música.",
+      "concerts.lede":"A cada temporada, nossos alunos sobem ao palco para compartilhar seu progresso. Famílias e amigos são calorosamente convidados a celebrar cada conquista musical.",
+      "c1.name":"Recital de Primavera",
+      "c1.desc":"\"Uma noite de música clássica celebrando a chegada da primavera com obras de Bach, Chopin e compositores latino-americanos.\"",
+      "c2.name":"Concerto de Fim de Ano",
+      "c2.desc":"\"Uma celebração encerrando o ano acadêmico — uma gala onde cada aluno apresenta as conquistas mais significativas de sua preparação.\"",
+      "c2.tba":"Participantes a serem anunciados em breve",
+      "month.may":"Mai","month.jun":"Jun",
+      "gallery.eyebrow":"vi. Galeria",
+      "gallery.title.l1":"Momentos","gallery.title.l2":"que","gallery.title.l3":"ecoam.",
+      "gallery.lede":"Fotografias e gravações de recitais passados, masterclasses e momentos especiais na Aria Music School.",
+      "gallery.all":"Tudo","gallery.videos":"Vídeos","gallery.photos":"Fotos",
+      "gallery.video":"Vídeo","gallery.photo":"Foto",
+      "g.winter":"Recital de Inverno · Dez 2025",
+      "g.masterclass":"Masterclass · Nov 2025",
+      "g.annual":"Recital Anual · Jun 2025",
+      "g.venue":"Local do recital"
+    },
+
+    zh: {
+      "nav.philosophy":"理念","nav.programs":"课程","nav.director":"校长","nav.certs":"认证","nav.cta":"预约课程",
+      "hero.eyebrow":"Westwood · Massachusetts · 创立于 2024",
+      "hero.title.l1":"音乐","hero.title.l2":"唤醒心灵","hero.title.l3":"— 塑造终身艺术家。",
+      "hero.desc":"面向<em>所有年龄</em>的卓越音乐教育。在包容、专业且鼓舞人心的环境中学习钢琴、长笛与音乐理论 — 面授、上门或在线。",
+      "hero.cta1":"开启旅程","hero.cta2":"探索课程",
+      "hero.quote":"\"音乐是心灵的语言 — 而教授音乐,是一种爱的行为。\"",
+      "hero.stat.num":"16<em>+</em>","hero.stat.label":"年的经验",
+      "hero.stat.desc":"执棒专业管弦乐团,并在国际音乐学院培养音乐家。",
+      "hero.scroll":"探索",
+      "phil.eyebrow":"i. 理念",
+      "phil.title.l1":"每位学生","phil.title.l2":"学习","phil.title.l3":"方式独特。",
+      "phil.lede":"在 Aria Music School,我们相信音乐不仅是一门艺术 — 更是塑造人格的学科。我们的方法以个性化、尊重和正面激励为基础。",
+      "phil.p1.t":"纪律","phil.p1.d":"随时间累积技艺的习惯。",
+      "phil.p2.t":"创造力","phil.p2.d":"在结构内为想象力留出空间。",
+      "phil.p3.t":"专注","phil.p3.d":"培养专注力以深化学习。",
+      "phil.p4.t":"自信","phil.p4.d":"随着乐器掌握而绽放的自信。",
+      "phil.p5.t":"毅力","phil.p5.d":"将努力转化为艺术的承诺。",
+      "phil.p6.t":"表达","phil.p6.d":"通过声音显现的内心之声。",
+      "prog.eyebrow":"ii. 课程",
+      "prog.title.l1":"个性化","prog.title.l2":"课程","prog.title.l3":"适合所有年龄。",
+      "prog.lede":"从初次接触乐器到准专业水平。每个课程都为学生量身定制 — 而非相反。",
+      "prog.p1.num":"— 课程 01","prog.p1.t1":"古典","prog.p1.t2":"钢琴",
+      "prog.p1.d":"从第一个音符到高级曲目。一对一课程,着重技巧、音乐性与音乐会准备。",
+      "prog.p2.num":"— 课程 02","prog.p2.t1":"长笛","prog.p2.t2":"演奏",
+      "prog.p2.d":"音色发展、呼吸技巧,曲目涵盖巴洛克至当代。适合初学者与进阶学生。",
+      "prog.p3.num":"— 课程 03","prog.p3.t1":"乐理与","prog.p3.t2":"听力训练",
+      "prog.p3.d":"读谱、和声、分析与听力训练。任何乐器演奏者的必备补充。",
+      "tag.children":"儿童","tag.teens":"青少年","tag.adults":"成人","tag.seniors":"长者",
+      "tag.beginner":"初学","tag.intermediate":"中级","tag.advanced":"高级",
+      "tag.reading":"读谱","tag.harmony":"和声","tag.analysis":"分析","tag.ear":"听力训练",
+      "dir.eyebrow":"iii. 校长","dir.role":"创始人 · 校长",
+      "dir.title.l1":"毕生","dir.title.l2":"奉献","dir.title.l3":"于","dir.title.l4":"音乐。",
+      "dir.bio1":"Ariadna Benitez Talavera 是一位古巴钢琴家与指挥家,拥有<em>卓越的国际职业生涯</em>。她四岁开始学习钢琴,如今将数十年的艺术经验与深厚的教育使命结合。",
+      "dir.bio2":"她曾担任古巴<em>马坦萨斯交响乐团</em>的音乐总监,带领国内巡演、首演和重要音乐节。目前在波士顿大学攻读管弦乐指挥艺术博士学位,并指导过许多年轻音乐家进入美洲各地的音乐学院与高级项目。",
+      "dir.c1.deg":"DMA","dir.c1.loc":"马萨诸塞州,美国",
+      "dir.c2.deg":"M.M.","dir.c2.loc":"田纳西州,美国",
+      "dir.c3.deg":"B.M.","dir.c3.loc":"哈瓦那,古巴",
+      "certs.eyebrow":"iv. 国际备考",
+      "certs.title.l1":"全球","certs.title.l2":"认可的","certs.title.l3":"认证。",
+      "certs.lede":"Aria Music School 为学生提供古典音乐界最负盛名的考试与试音准备。",
+      "certs.abrsm.full":"Associated Board of the<br/>Royal Schools of Music",
+      "certs.abrsm.desc":"国际公认度最高的音乐评估系统,从一级到专业文凭 (ARSM, DipABRSM)。",
+      "certs.rcm.full":"Royal Conservatory<br/>of Music",
+      "certs.rcm.desc":"北美知名评估项目,提供大学和音乐学院认可的官方认证。",
+      "test.text":"音乐不仅培养艺术技能 — 它塑造<em>人</em>。纪律、专注、敏感度。每一堂课都是对你将成为之人的投资。",
+      "test.attr":"— Aria Music School 理念",
+      "cta.eyebrow":"v. 今天开始",
+      "cta.title.l1":"你的","cta.title.l2":"第一个","cta.title.l3":"音符","cta.title.l4":"正在等你。",
+      "cta.desc":"预约试听课,发现音乐如何改变你的人生 — 无论年龄或经验。",
+      "cta.button":"预约试听课",
+      "cta.phone":"电话","cta.email":"邮箱","cta.location":"地址",
+      "footer.brand":"在包容、专业和鼓舞人心的环境中提供卓越的音乐教育。",
+      "footer.col1":"课程","footer.col2":"学校","footer.col3":"联系",
+      "footer.piano":"钢琴","footer.flute":"长笛","footer.theory":"音乐理论","footer.contact":"联系",
+      "footer.copy":"© 2026 Aria Music School。版权所有。",
+      "footer.tagline":"\"以灵感与纪律演奏音乐\"",
+      "nav.concerts":"音乐会","nav.gallery":"画廊",
+      "concerts.eyebrow":"v. 即将举办的音乐会",
+      "concerts.title.l1":"我们的学生在此","concerts.title.l2":"分享","concerts.title.l3":"他们的音乐。",
+      "concerts.lede":"每个学期,我们的学生都会登上舞台分享他们的进步。我们热忱欢迎家庭和朋友共同庆祝每一个音乐成就。",
+      "c1.name":"春季音乐会",
+      "c1.desc":"\"一场庆祝春天到来的古典音乐之夜,演奏巴赫、肖邦和拉丁美洲作曲家的作品。\"",
+      "c2.name":"年终音乐会",
+      "c2.desc":"\"庆祝学年结束——每位学生展示其学习中最有意义的成就的盛大演出。\"",
+      "c2.tba":"参与者即将公布",
+      "month.may":"5月","month.jun":"6月",
+      "gallery.eyebrow":"vi. 画廊",
+      "gallery.title.l1":"那些","gallery.title.l2":"回响的","gallery.title.l3":"时刻。",
+      "gallery.lede":"Aria Music School 过往音乐会、大师班和特殊时刻的照片与录像。",
+      "gallery.all":"全部","gallery.videos":"视频","gallery.photos":"照片",
+      "gallery.video":"视频","gallery.photo":"照片",
+      "g.winter":"冬季音乐会 · 2025年12月",
+      "g.masterclass":"大师班 · 2025年11月",
+      "g.annual":"年度音乐会 · 2025年6月",
+      "g.venue":"音乐会场地"
+    },
+
+    ht: {
+      "nav.philosophy":"Filozofi","nav.programs":"Pwogram","nav.director":"Direktris","nav.certs":"Sètifikasyon","nav.cta":"Rezève Leson",
+      "hero.eyebrow":"Westwood · Massachusetts · Etabli 2024",
+      "hero.title.l1":"Kote mizik","hero.title.l2":"reveye nanm nan","hero.title.l3":"— epi fòme atis pou tout vi a.",
+      "hero.desc":"Edikasyon mizikal ekselans pou <em>tout laj</em>. Pyano, flit ak teyori mizik nan yon anviwònman ki gen ladann tout moun, pwofesyonèl, ak motivan — an pèsòn, lakay, oswa sou entènèt.",
+      "hero.cta1":"Kòmanse vwayaj ou","hero.cta2":"Eksplore pwogram",
+      "hero.quote":"\"Mizik se lang lespri a — epi anseye li, se yon zak lanmou.\"",
+      "hero.stat.num":"16<em>+</em>","hero.stat.label":"Ane eksperyans",
+      "hero.stat.desc":"Dirije òkès pwofesyonèl epi fòme mizisyen nan konsèvatwa entènasyonal.",
+      "hero.scroll":"Dekouvri",
+      "phil.eyebrow":"i. Filozofi",
+      "phil.title.l1":"Chak elèv","phil.title.l2":"aprann","phil.title.l3":"nan pwòp fason l.",
+      "phil.lede":"Nan Aria Music School nou kwè mizik se pa sèlman yon atizay — se yon disiplin ki fòme moun. Apwòch nou baze sou endividyalite, respè, ak motivasyon pozitif.",
+      "phil.p1.t":"Disiplin","phil.p1.d":"Abitid ki bati metriz nan tan.",
+      "phil.p2.t":"Kreyativite","phil.p2.d":"Plas pou imajinasyon andan estrikti.",
+      "phil.p3.t":"Konsantrasyon","phil.p3.d":"Atansyon ki devlope pwofondè aprantisaj.",
+      "phil.p4.t":"Konfyans","phil.p4.d":"Sekirite pèsonèl ki fleri lè ou metrize enstriman.",
+      "phil.p5.t":"Pèseverans","phil.p5.d":"Angajman ki transfòme efò nan atizay.",
+      "phil.p6.t":"Ekspresyon","phil.p6.d":"Vwa enteryè ki manifeste nan son.",
+      "prog.eyebrow":"ii. Pwogram",
+      "prog.title.l1":"Leson","prog.title.l2":"pèsonalize","prog.title.l3":"pou tout laj.",
+      "prog.lede":"Soti nan premye kontak ak enstriman an rive nan preparasyon pre-pwofesyonèl. Chak pwogram adapte ak elèv la — pa nan lòt sans.",
+      "prog.p1.num":"— Pwogram 01","prog.p1.t1":"Pyano","prog.p1.t2":"Klasik",
+      "prog.p1.d":"Soti nan premye nòt la rive nan repètwa avanse. Leson endividyèl ak anfaz sou teknik, mizikalite, ak preparasyon resital.",
+      "prog.p2.num":"— Pwogram 02","prog.p2.t1":"Flit","prog.p2.t2":"Travèsyè",
+      "prog.p2.d":"Devlopman son, teknik respirasyon, ak repètwa soti nan barok rive nan kontanporen. Pou kòmansè ak avanse.",
+      "prog.p3.num":"— Pwogram 03","prog.p3.t1":"Teyori ak","prog.p3.t2":"Antrenman Zòrèy",
+      "prog.p3.d":"Lekti mizikal, amoni, analiz ak antrenman zòrèy. Konpleman esansyèl pou mizisyen nenpòt enstriman.",
+      "tag.children":"Timoun","tag.teens":"Adolesan","tag.adults":"Granmoun","tag.seniors":"Granmoun aje",
+      "tag.beginner":"Kòmansè","tag.intermediate":"Entèmedyè","tag.advanced":"Avanse",
+      "tag.reading":"Lekti","tag.harmony":"Amoni","tag.analysis":"Analiz","tag.ear":"Antrenman Zòrèy",
+      "dir.eyebrow":"iii. Direktris la","dir.role":"Fondatris · Direktris",
+      "dir.title.l1":"Yon","dir.title.l2":"vi","dir.title.l3":"dedye","dir.title.l4":"a mizik.",
+      "dir.bio1":"Ariadna Benitez Talavera se yon pyanis ak chèf òkès Kiben ki gen yon <em>karyè entènasyonal distenge</em>. Li te kòmanse etid pyano nan laj kat ane, epi jodi a li konbine deseni eksperyans atistik ak yon vokasyon pedagojik pwofon.",
+      "dir.bio2":"Li te sèvi kòm Direktris Mizikal nan <em>Òkès Senfonik Matanzas</em> nan Kiba, k ap dirije tounen nasyonal, premye, ak gwo festival. Aktyèlman l ap fè doktora li nan Direksyon Òkès nan Boston University, epi li gide jèn mizisyen vè konsèvatwa ak pwogram nivo wo atravè tout Amerik la.",
+      "dir.c1.deg":"DMA","dir.c1.loc":"MA, Etazini",
+      "dir.c2.deg":"M.M.","dir.c2.loc":"TN, Etazini",
+      "dir.c3.deg":"B.M.","dir.c3.loc":"Lavàn, Kiba",
+      "certs.eyebrow":"iv. Preparasyon Entènasyonal",
+      "certs.title.l1":"Sètifikasyon","certs.title.l2":"rekonèt","certs.title.l3":"atravè mond lan.",
+      "certs.lede":"Aria Music School prepare elèv yo pou egzamen ak odisyon ki pi prestijye nan mond mizik klasik la.",
+      "certs.abrsm.full":"Associated Board of the<br/>Royal Schools of Music",
+      "certs.abrsm.desc":"Sistèm evalyasyon mizikal ki pi rekonèt entènasyonalman, soti nan Grade 1 jiska diplòm pwofesyonèl (ARSM, DipABRSM).",
+      "certs.rcm.full":"Royal Conservatory<br/>of Music",
+      "certs.rcm.desc":"Pwogram evalyasyon ki gen prestij nan Amerik di Nò, ki bay sètifikasyon ofisyèl ki rekonèt pa inivèsite ak konsèvatwa.",
+      "test.text":"Mizik pa sèlman devlope kapasite atistik — li devlope <em>moun</em>. Disiplin, konsantrasyon, sansibilite. Chak leson se yon envestisman nan moun ou pral ye.",
+      "test.attr":"— Filozofi Aria Music School",
+      "cta.eyebrow":"v. Kòmanse Jodi a",
+      "cta.title.l1":"Premye","cta.title.l2":"nòt","cta.title.l3":"ou","cta.title.l4":"ap tann ou.",
+      "cta.desc":"Rezève yon leson eseye epi dekouvri kijan mizik ka transfòme lavi w — kèlkeswa laj ou oswa eksperyans anvan.",
+      "cta.button":"Rezève leson eseye",
+      "cta.phone":"Telefòn","cta.email":"Imèl","cta.location":"Lokal",
+      "footer.brand":"Edikasyon mizikal ekselans nan yon anviwònman ki gen ladann tout moun, pwofesyonèl, ak motivan.",
+      "footer.col1":"Pwogram","footer.col2":"Lekòl","footer.col3":"Kontak",
+      "footer.piano":"Pyano","footer.flute":"Flit","footer.theory":"Teyori Mizik","footer.contact":"Kontak",
+      "footer.copy":"© 2026 Aria Music School. Tout dwa rezève.",
+      "footer.tagline":"\"Mizik ak enspirasyon ak disiplin\"",
+      "nav.concerts":"Konsè","nav.gallery":"Galri",
+      "concerts.eyebrow":"v. Pwochen Konsè",
+      "concerts.title.l1":"Kote elèv nou yo","concerts.title.l2":"pataje","concerts.title.l3":"mizik yo.",
+      "concerts.lede":"Chak sezon, elèv nou yo monte sou sèn pou pataje pwogrè yo. Fanmi ak zanmi yo gen yon envitasyon cho pou selebre chak siksè mizikal.",
+      "c1.name":"Resital Prentan",
+      "c1.desc":"\"Yon swa mizik klasik k ap selebre rive prentan an ak èv Bach, Chopin, ak konpozitè Amerik Latin yo.\"",
+      "c2.name":"Konsè Fen Ane",
+      "c2.desc":"\"Yon selebrasyon ki fèmen ane akademik la — yon gala kote chak elèv prezante reyalizasyon ki pi enpòtan nan preparasyon yo.\"",
+      "c2.tba":"Patisipan yo ap anonse byento",
+      "month.may":"Me","month.jun":"Jen",
+      "gallery.eyebrow":"vi. Galri",
+      "gallery.title.l1":"Moman","gallery.title.l2":"ki","gallery.title.l3":"sonnen.",
+      "gallery.lede":"Foto ak anrejistreman resital, masterclass, ak moman espesyal nan Aria Music School.",
+      "gallery.all":"Tout","gallery.videos":"Videyo","gallery.photos":"Foto",
+      "gallery.video":"Videyo","gallery.photo":"Foto",
+      "g.winter":"Resital Ivè · Des 2025",
+      "g.masterclass":"Masterclass · Nov 2025",
+      "g.annual":"Resital Anyèl · Jen 2025",
+      "g.venue":"Kote resital la"
+    },
+
+    hi: {
+      "nav.philosophy":"दर्शन","nav.programs":"कार्यक्रम","nav.director":"निदेशक","nav.certs":"प्रमाणन","nav.cta":"कक्षा बुक करें",
+      "hero.eyebrow":"Westwood · Massachusetts · स्थापित 2024",
+      "hero.title.l1":"जहाँ संगीत","hero.title.l2":"आत्मा को जगाता है","hero.title.l3":"— और जीवन भर के कलाकार बनाता है।",
+      "hero.desc":"<em>हर उम्र</em> के लिए उत्कृष्ट संगीत शिक्षा। पियानो, बांसुरी और संगीत सिद्धांत एक समावेशी, पेशेवर और प्रेरणादायक माहौल में — व्यक्तिगत, घर पर या ऑनलाइन।",
+      "hero.cta1":"अपनी यात्रा शुरू करें","hero.cta2":"कार्यक्रम देखें",
+      "hero.quote":"\"संगीत आत्मा की भाषा है — और इसे सिखाना, प्रेम का कार्य है।\"",
+      "hero.stat.num":"16<em>+</em>","hero.stat.label":"वर्षों का अनुभव",
+      "hero.stat.desc":"पेशेवर ऑर्केस्ट्रा का संचालन और अंतर्राष्ट्रीय संगीत संस्थानों में संगीतकारों का प्रशिक्षण।",
+      "hero.scroll":"खोजें",
+      "phil.eyebrow":"i. दर्शन",
+      "phil.title.l1":"हर छात्र","phil.title.l2":"अनूठे ढंग","phil.title.l3":"से सीखता है।",
+      "phil.lede":"Aria Music School में हम मानते हैं कि संगीत केवल एक कला नहीं है — यह एक अनुशासन है जो व्यक्तित्व का निर्माण करता है। हमारा दृष्टिकोण व्यक्तिगतता, सम्मान और सकारात्मक प्रेरणा पर आधारित है।",
+      "phil.p1.t":"अनुशासन","phil.p1.d":"समय के साथ निपुणता बनाने वाली आदत।",
+      "phil.p2.t":"रचनात्मकता","phil.p2.d":"संरचना के भीतर कल्पना के लिए स्थान।",
+      "phil.p3.t":"एकाग्रता","phil.p3.d":"विकसित ध्यान जो सीखने को गहरा करता है।",
+      "phil.p4.t":"आत्मविश्वास","phil.p4.d":"वाद्य पर महारत के साथ खिलने वाला आत्मविश्वास।",
+      "phil.p5.t":"दृढ़ता","phil.p5.d":"प्रतिबद्धता जो प्रयास को कला में बदलती है।",
+      "phil.p6.t":"अभिव्यक्ति","phil.p6.d":"आंतरिक स्वर जो ध्वनि के माध्यम से प्रकट होता है।",
+      "prog.eyebrow":"ii. कार्यक्रम",
+      "prog.title.l1":"व्यक्तिगत","prog.title.l2":"पाठ","prog.title.l3":"हर उम्र के लिए।",
+      "prog.lede":"वाद्य से पहले संपर्क से लेकर पूर्व-पेशेवर तैयारी तक। हर कार्यक्रम छात्र के अनुसार ढलता है — विपरीत नहीं।",
+      "prog.p1.num":"— कार्यक्रम 01","prog.p1.t1":"शास्त्रीय","prog.p1.t2":"पियानो",
+      "prog.p1.d":"पहले स्वर से लेकर उन्नत रिपर्टोयर तक। तकनीक, संगीतमयता और कॉन्सर्ट तैयारी पर ज़ोर देने वाले व्यक्तिगत पाठ।",
+      "prog.p2.num":"— कार्यक्रम 02","prog.p2.t1":"कॉन्सर्ट","prog.p2.t2":"बांसुरी",
+      "prog.p2.d":"स्वर विकास, श्वास तकनीक और बारोक से समकालीन तक रिपर्टोयर। शुरुआती और उन्नत दोनों के लिए।",
+      "prog.p3.num":"— कार्यक्रम 03","prog.p3.t1":"सिद्धांत और","prog.p3.t2":"श्रवण प्रशिक्षण",
+      "prog.p3.d":"संगीत पठन, सामंजस्य, विश्लेषण और श्रवण प्रशिक्षण। किसी भी वाद्य के संगीतकारों के लिए आवश्यक पूरक।",
+      "tag.children":"बच्चे","tag.teens":"किशोर","tag.adults":"वयस्क","tag.seniors":"वरिष्ठ",
+      "tag.beginner":"शुरुआती","tag.intermediate":"मध्यवर्ती","tag.advanced":"उन्नत",
+      "tag.reading":"पठन","tag.harmony":"सामंजस्य","tag.analysis":"विश्लेषण","tag.ear":"श्रवण",
+      "dir.eyebrow":"iii. निदेशक","dir.role":"संस्थापक · निदेशक",
+      "dir.title.l1":"संगीत को","dir.title.l2":"समर्पित","dir.title.l3":"एक","dir.title.l4":"जीवन।",
+      "dir.bio1":"Ariadna Benitez Talavera एक क्यूबाई पियानोवादक और कंडक्टर हैं जिनका <em>विशिष्ट अंतर्राष्ट्रीय करियर</em> है। उन्होंने चार वर्ष की उम्र में पियानो की शिक्षा शुरू की और आज दशकों के कलात्मक अनुभव को गहरे शैक्षणिक समर्पण के साथ जोड़ती हैं।",
+      "dir.bio2":"वे क्यूबा के <em>मतान्ज़ास सिम्फनी ऑर्केस्ट्रा</em> की संगीत निदेशक रहीं, जिसमें राष्ट्रीय दौरे, प्रीमियर और प्रमुख त्योहार शामिल थे। वर्तमान में वे बोस्टन यूनिवर्सिटी से ऑर्केस्ट्रल कंडक्टिंग में डॉक्टर ऑफ म्यूज़िकल आर्ट्स कर रही हैं और पूरे अमेरिका में युवा संगीतकारों को उच्च स्तरीय संगीत विद्यालयों और कार्यक्रमों के लिए मार्गदर्शन दिया है।",
+      "dir.c1.deg":"DMA","dir.c1.loc":"MA, यूएसए",
+      "dir.c2.deg":"M.M.","dir.c2.loc":"TN, यूएसए",
+      "dir.c3.deg":"B.M.","dir.c3.loc":"हवाना, क्यूबा",
+      "certs.eyebrow":"iv. अंतर्राष्ट्रीय तैयारी",
+      "certs.title.l1":"विश्व स्तर पर","certs.title.l2":"मान्य","certs.title.l3":"प्रमाणन।",
+      "certs.lede":"Aria Music School छात्रों को शास्त्रीय संगीत की दुनिया की सबसे प्रतिष्ठित परीक्षाओं और ऑडिशन के लिए तैयार करता है।",
+      "certs.abrsm.full":"Associated Board of the<br/>Royal Schools of Music",
+      "certs.abrsm.desc":"Grade 1 से लेकर पेशेवर डिप्लोमा (ARSM, DipABRSM) तक अंतर्राष्ट्रीय स्तर पर सबसे मान्य संगीत मूल्यांकन प्रणाली।",
+      "certs.rcm.full":"Royal Conservatory<br/>of Music",
+      "certs.rcm.desc":"उत्तरी अमेरिका में प्रतिष्ठित मूल्यांकन कार्यक्रम जो विश्वविद्यालयों और संगीत संस्थानों द्वारा मान्य आधिकारिक प्रमाणन प्रदान करता है।",
+      "test.text":"संगीत केवल कलात्मक कौशल विकसित नहीं करता — यह <em>लोगों</em> का विकास करता है। अनुशासन, एकाग्रता, संवेदनशीलता। प्रत्येक पाठ आप कौन बनेंगे, इसमें एक निवेश है।",
+      "test.attr":"— Aria Music School दर्शन",
+      "cta.eyebrow":"v. आज ही शुरू करें",
+      "cta.title.l1":"आपका","cta.title.l2":"पहला","cta.title.l3":"स्वर","cta.title.l4":"आपका इंतज़ार कर रहा है।",
+      "cta.desc":"एक ट्रायल कक्षा बुक करें और जानें कि संगीत आपके जीवन को कैसे बदल सकता है — आपकी उम्र या पिछले अनुभव की परवाह किए बिना।",
+      "cta.button":"ट्रायल कक्षा बुक करें",
+      "cta.phone":"फ़ोन","cta.email":"ईमेल","cta.location":"स्थान",
+      "footer.brand":"एक समावेशी, पेशेवर और प्रेरणादायक माहौल में उत्कृष्ट संगीत शिक्षा।",
+      "footer.col1":"कार्यक्रम","footer.col2":"स्कूल","footer.col3":"संपर्क",
+      "footer.piano":"पियानो","footer.flute":"बांसुरी","footer.theory":"संगीत सिद्धांत","footer.contact":"संपर्क",
+      "footer.copy":"© 2026 Aria Music School. सर्वाधिकार सुरक्षित।",
+      "footer.tagline":"\"प्रेरणा और अनुशासन के साथ संगीत\"",
+      "nav.concerts":"संगीत समारोह","nav.gallery":"गैलरी",
+      "concerts.eyebrow":"v. आगामी संगीत समारोह",
+      "concerts.title.l1":"जहाँ हमारे छात्र","concerts.title.l2":"साझा","concerts.title.l3":"करते हैं अपना संगीत।",
+      "concerts.lede":"हर मौसम में, हमारे छात्र अपनी प्रगति साझा करने के लिए मंच पर आते हैं। परिवारों और मित्रों का हर संगीतमय उपलब्धि का जश्न मनाने के लिए हार्दिक स्वागत है।",
+      "c1.name":"वसंत रिसाइटल",
+      "c1.desc":"\"बाख, चोपिन और लैटिन अमेरिकी संगीतकारों की रचनाओं के साथ वसंत के आगमन का जश्न मनाती शास्त्रीय संगीत की एक शाम।\"",
+      "c2.name":"वर्षांत संगीत समारोह",
+      "c2.desc":"\"शैक्षणिक वर्ष का समापन — एक गाला जहाँ प्रत्येक छात्र अपनी तैयारी की सबसे महत्वपूर्ण उपलब्धियाँ प्रस्तुत करता है।\"",
+      "c2.tba":"प्रतिभागियों की घोषणा शीघ्र की जाएगी",
+      "month.may":"मई","month.jun":"जून",
+      "gallery.eyebrow":"vi. गैलरी",
+      "gallery.title.l1":"वे क्षण","gallery.title.l2":"जो","gallery.title.l3":"गूँजते हैं।",
+      "gallery.lede":"Aria Music School के पिछले रिसाइटल्स, मास्टरक्लास और विशेष क्षणों की तस्वीरें और रिकॉर्डिंग।",
+      "gallery.all":"सभी","gallery.videos":"वीडियो","gallery.photos":"तस्वीरें",
+      "gallery.video":"वीडियो","gallery.photo":"तस्वीर",
+      "g.winter":"शीतकालीन रिसाइटल · दिसंबर 2025",
+      "g.masterclass":"मास्टरक्लास · नवंबर 2025",
+      "g.annual":"वार्षिक रिसाइटल · जून 2025",
+      "g.venue":"रिसाइटल स्थल"
+    }
+  };
+
+  const LANG_LABELS = { en:"EN", es:"ES", pt:"PT", zh:"中", ht:"KR", hi:"हि" };
+
+  // ─── Apply language ───
+  function setLanguage(lang) {
+    const dict = T[lang] || T.en;
+    document.documentElement.lang = lang;
+
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (dict[key] !== undefined) el.textContent = dict[key];
+    });
+
+    document.querySelectorAll('[data-i18n-html]').forEach(el => {
+      const key = el.getAttribute('data-i18n-html');
+      if (dict[key] !== undefined) el.innerHTML = dict[key];
+    });
+
+    // Special: hero stat number contains HTML
+    const statNum = document.querySelector('[data-i18n="hero.stat.num"]');
+    if (statNum && dict["hero.stat.num"]) statNum.innerHTML = dict["hero.stat.num"];
+
+    // Update dropdown active state
+    document.querySelectorAll('.lang-option').forEach(opt => {
+      opt.classList.toggle('active', opt.getAttribute('data-lang') === lang);
+    });
+
+    // Update button label
+    const label = document.getElementById('langLabel');
+    if (label) label.textContent = LANG_LABELS[lang] || 'EN';
+
+    try { localStorage.setItem('aria_lang', lang); } catch(e) {}
+  }
+
+  // ─── Language switcher behavior ───
+  const switcher = document.getElementById('langSwitcher');
+  const langBtn = document.getElementById('langBtn');
+
+  langBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    switcher.classList.toggle('open');
+  });
+
+  document.querySelectorAll('.lang-option').forEach(opt => {
+    opt.addEventListener('click', () => {
+      const lang = opt.getAttribute('data-lang');
+      setLanguage(lang);
+      switcher.classList.remove('open');
+    });
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!switcher.contains(e.target)) switcher.classList.remove('open');
+  });
+
+  // ─── Init: detect saved or browser language ───
+  (function() {
+    let initial = 'en';
+    try {
+      const saved = localStorage.getItem('aria_lang');
+      if (saved && T[saved]) initial = saved;
+    } catch(e) {}
+    if (initial === 'en' && !localStorage.getItem('aria_lang')) {
+      const nav = (navigator.language || 'en').slice(0,2).toLowerCase();
+      if (T[nav]) initial = nav;
+    }
+    setLanguage(initial);
+  })();
+
+  // ─── Gallery filter ───
+  document.querySelectorAll('.gallery-filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const filter = btn.getAttribute('data-filter');
+      document.querySelectorAll('.gallery-filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.public-media-card').forEach(card => {
+        if (filter === 'all' || card.getAttribute('data-type') === filter) {
+          card.style.display = '';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+
+  // ─── Nav scroll effect ───
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 60) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+  });
+
+  // ─── Reveal on scroll ───
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // ─── Smooth scroll ───
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', (e) => {
+      const target = document.querySelector(link.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+</script>
+
+<script src="/js/api.js"></script>
+
+</body>
+</html>
