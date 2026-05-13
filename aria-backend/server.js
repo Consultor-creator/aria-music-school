@@ -40,6 +40,7 @@ app.use('/api/auth', authLimiter, require('./routes/auth'));
 app.use('/api/teachers', require('./routes/teachers'));
 app.use('/api/students', require('./routes/students'));
 app.use('/api/classes', require('./routes/classes'));
+app.use('/api/enrollments', require('./routes/enrollments'));
 app.use('/api/concerts', require('./routes/concerts'));
 app.use('/api/media', require('./routes/media'));
 
